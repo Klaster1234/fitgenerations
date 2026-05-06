@@ -41,13 +41,15 @@ export function SubmitForm() {
         <Input id="caption" name="caption" type="text" maxLength={280} />
       </div>
 
-      <label className="inline-flex items-center gap-2 text-sm">
+      {/* Senior-friendly checkbox: label is fully clickable (browser default),
+          padding bumped for 44px+ touch target, text bumped to base. */}
+      <label className="inline-flex items-center gap-3 text-base py-3 cursor-pointer">
         <input
           type="checkbox"
           name="isPublic"
           value="true"
           defaultChecked
-          className="h-5 w-5 accent-brand"
+          className="h-6 w-6 accent-brand cursor-pointer"
         />
         <span>{t('publicLabel')}</span>
       </label>

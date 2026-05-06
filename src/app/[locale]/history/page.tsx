@@ -81,13 +81,13 @@ export default async function HistoryPage({
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-3xl font-bold text-brand">{streak}</p>
-            <p className="text-xs text-muted mt-1">{t('streak')}</p>
+            <p className="text-sm text-muted mt-1">{t('streak')}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-3xl font-bold text-brand">{total}</p>
-            <p className="text-xs text-muted mt-1">{t('totalWorkouts')}</p>
+            <p className="text-sm text-muted mt-1">{t('totalWorkouts')}</p>
           </CardContent>
         </Card>
         <Card>
@@ -95,26 +95,39 @@ export default async function HistoryPage({
             <p className="text-3xl font-bold text-brand">
               {days.filter((d) => d.entries.length > 0).length}
             </p>
-            <p className="text-xs text-muted mt-1">{t('activeDays')}</p>
+            <p className="text-sm text-muted mt-1">{t('activeDays')}</p>
           </CardContent>
         </Card>
       </div>
 
       <h2 className="mt-8 text-xl font-semibold">{t('last30days')}</h2>
+      {/* Audit fix: empty squares now use foreground/15 (visible in dark
+          mode) instead of bg-border (~1.3:1). Filled steps go from soft
+          green to bright green. Hover label exposes the date for screen
+          readers and tooltips. */}
       <div className="mt-3 grid grid-cols-10 gap-1.5">
         {days.map((d) => {
           const intensity = Math.min(d.entries.length, 4);
-          const opacities = ['bg-border', 'bg-brand/30', 'bg-brand/60', 'bg-brand/80', 'bg-brand'];
+          const tints = [
+            'bg-foreground/15 dark:bg-foreground/20',
+            'bg-emerald-300 dark:bg-emerald-700',
+            'bg-emerald-400 dark:bg-emerald-600',
+            'bg-emerald-500 dark:bg-emerald-500',
+            'bg-emerald-600 dark:bg-emerald-400',
+          ];
           return (
             <div
               key={d.date}
-              className={`aspect-square rounded ${opacities[intensity]}`}
+              className={`aspect-square rounded-md ${tints[intensity]} ring-1 ring-foreground/10 dark:ring-foreground/15`}
               title={`${d.date}: ${d.entries.length}`}
               aria-label={`${d.date}: ${d.entries.length} ${t('workouts')}`}
             />
           );
         })}
       </div>
+      <p className="mt-2 text-sm text-muted">
+        {days[days.length - 1].date} → {days[0].date}
+      </p>
 
       <h2 className="mt-8 text-xl font-semibold">{t('recent')}</h2>
       <ul className="mt-3 space-y-2">

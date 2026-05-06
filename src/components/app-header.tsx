@@ -26,25 +26,25 @@ export async function AppHeader() {
         <nav className="flex items-center gap-0.5 text-sm flex-wrap">
           <Link
             href="/plan"
-            className="px-3 py-1.5 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
           >
             {t('plan')}
           </Link>
           <Link
             href="/history"
-            className="px-3 py-1.5 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
           >
             {t('history')}
           </Link>
           <Link
             href="/badges"
-            className="px-3 py-1.5 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
           >
             {t('badges')}
           </Link>
           <Link
             href="/challenge"
-            className="px-3 py-1.5 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
           >
             {t('challenge')}
           </Link>

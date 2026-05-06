@@ -61,7 +61,7 @@ export async function EuFooter() {
               href="https://erasmus-plus.ec.europa.eu/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brand underline underline-offset-4 py-2 inline-block"
+              className="hover:text-brand underline underline-offset-4 inline-flex items-center min-h-11 px-2"
             >
               Erasmus+ Sport
             </a>
@@ -69,7 +69,7 @@ export async function EuFooter() {
               href="https://github.com/Klaster1234/fitgenerations"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brand underline underline-offset-4 py-2 inline-block"
+              className="hover:text-brand underline underline-offset-4 inline-flex items-center min-h-11 px-2"
             >
               Open source
             </a>

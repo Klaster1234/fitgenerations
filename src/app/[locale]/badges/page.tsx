@@ -61,14 +61,14 @@ export default async function BadgesPage({
           <ul className="mt-3 grid sm:grid-cols-2 gap-3">
             {earnedBadges.map((b) => (
               <li key={b.id}>
-                <Card>
-                  <CardContent className="p-4 flex items-start gap-3">
-                    <span className="text-3xl" aria-hidden>
+                <Card className="border-emerald-500/40">
+                  <CardContent className="p-5 flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-500/15 ring-1 ring-emerald-500/30 flex items-center justify-center text-3xl shrink-0" aria-hidden>
                       {b.icon}
-                    </span>
+                    </div>
                     <div>
-                      <p className="font-semibold text-base">{b.name[locale] ?? b.name.en}</p>
-                      <p className="text-sm text-muted mt-1">
+                      <p className="font-bold text-base">{b.name[locale] ?? b.name.en}</p>
+                      <p className="text-base text-muted mt-1 leading-relaxed">
                         {b.description[locale] ?? b.description.en}
                       </p>
                     </div>
@@ -88,14 +88,20 @@ export default async function BadgesPage({
           <ul className="mt-3 grid sm:grid-cols-2 gap-3">
             {lockedBadges.map((b) => (
               <li key={b.id}>
-                <Card className="opacity-60">
-                  <CardContent className="p-4 flex items-start gap-3">
-                    <span className="text-3xl grayscale" aria-hidden>
+                {/*
+                  Locked but still LEGIBLE: full-strength text + dashed
+                  outline + grayscale-only-on-icon at 70% opacity.
+                  Avoids the previous opacity-60 + grayscale icon stack
+                  which made the whole card invisible in dark mode.
+                */}
+                <Card className="border-dashed border-foreground/25 dark:border-foreground/35">
+                  <CardContent className="p-5 flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-foreground/5 dark:bg-foreground/10 ring-1 ring-foreground/15 dark:ring-foreground/25 flex items-center justify-center text-3xl shrink-0 opacity-70 grayscale" aria-hidden>
                       {b.icon}
-                    </span>
+                    </div>
                     <div>
-                      <p className="font-semibold text-base">{b.name[locale] ?? b.name.en}</p>
-                      <p className="text-sm text-muted mt-1">
+                      <p className="font-bold text-base">{b.name[locale] ?? b.name.en}</p>
+                      <p className="text-base text-muted mt-1 leading-relaxed">
                         {b.description[locale] ?? b.description.en}
                       </p>
                     </div>
