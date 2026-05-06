@@ -1,4 +1,4 @@
-import { Calendar, MapPin, Users, Trophy, Zap } from 'lucide-react';
+import { Calendar, MapPin, Users, Zap } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Logo } from '@/components/logo';
 import { LocaleSwitcher } from '@/components/locale-switcher';
@@ -92,33 +92,27 @@ export default async function EventsPage({
           {EVENTS.map((ev) => (
             <article
               key={ev.id}
-              className="group rounded-card border-2 border-foreground/10 dark:border-foreground/20 bg-surface p-7 shadow-soft hover:shadow-card hover:-translate-y-0.5 hover:border-emerald-500/40 transition-all"
+              className="group rounded-card border-2 border-foreground/10 dark:border-foreground/30 bg-surface p-7 shadow-soft hover:shadow-card hover:-translate-y-0.5 hover:border-emerald-500/40 transition-all"
             >
-              <div className="flex items-start justify-between gap-4 mb-5">
-                <div
-                  className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${
+              {/* Editorial header: eyebrow tag + bold country flag */}
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <p
+                  className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] mt-1 ${
                     ev.kind === 'mid'
-                      ? 'bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-500/30'
-                      : 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 ring-1 ring-amber-500/30'
+                      ? 'text-emerald-700 dark:text-emerald-400'
+                      : 'text-amber-700 dark:text-amber-400'
                   }`}
                 >
-                  {ev.kind === 'mid' ? (
-                    <Users className="w-7 h-7" strokeWidth={2.25} aria-hidden />
-                  ) : (
-                    <Trophy className="w-7 h-7" strokeWidth={2.25} aria-hidden />
-                  )}
-                </div>
-                <span className="text-3xl shrink-0" aria-hidden>
+                  {t(ev.kind === 'mid' ? 'midSubtitle' : 'olympicsSubtitle')}
+                </p>
+                <span className="text-5xl shrink-0 leading-none -mt-1" aria-hidden>
                   {ev.countryFlag}
                 </span>
               </div>
 
-              <h2 className="text-2xl font-bold tracking-tight mb-2">
+              <h2 className="text-2xl font-bold tracking-tight mb-5">
                 {t(ev.kind === 'mid' ? 'midTitle' : 'olympicsTitle')}
               </h2>
-              <p className="text-sm font-semibold text-foreground/70 mb-5">
-                {t(ev.kind === 'mid' ? 'midSubtitle' : 'olympicsSubtitle')}
-              </p>
 
               <dl className="space-y-2.5 text-base">
                 <div className="flex items-start gap-3">
@@ -152,7 +146,7 @@ export default async function EventsPage({
                 </div>
               </dl>
 
-              <p className="mt-6 text-base text-foreground/85 leading-relaxed text-pretty">
+              <p className="mt-6 text-base text-foreground/90 leading-relaxed text-pretty">
                 {t(ev.kind === 'mid' ? 'midDescription' : 'olympicsDescription')}
               </p>
 
