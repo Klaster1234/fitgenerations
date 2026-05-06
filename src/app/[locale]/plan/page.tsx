@@ -5,16 +5,9 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { redirect } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { getStreak } from '@/lib/db/streak';
+import { ensureTodayPlan, type DailyPlan } from '@/lib/ai/plan-service';
 import { RegenerateButton } from './regenerate-button';
 import { DoneButton } from './done-button';
-
-type PlanItem = { exercise_slug: string; duration_minutes: number; ai_note: string; order: number };
-type Weather = {
-  city: string;
-  temperatureC: number;
-  description: string;
-  isOutdoorFriendly: boolean;
-};
 
 export default async function PlanPage({
   params,
@@ -45,14 +38,12 @@ export default async function PlanPage({
 
   const today = new Date().toISOString().slice(0, 10);
 
-  // Fetch plan + streak + today's done logs in parallel.
-  const [planRes, streak, doneTodayRes] = await Promise.all([
-    supabase
-      .from('daily_plans')
-      .select('*')
-      .eq('user_id', userId)
-      .eq('plan_date', today)
-      .maybeSingle(),
+  // Make sure today's plan exists (generates + persists if missing).
+  // Calls the service directly — no same-origin fetch, no cookie forwarding.
+  const ensured = await ensureTodayPlan(supabase, userId);
+
+  // Fetch streak + today's done logs in parallel with the plan already loaded.
+  const [streak, doneTodayRes] = await Promise.all([
     getStreak(userId),
     supabase
       .from('activity_logs')
@@ -61,30 +52,7 @@ export default async function PlanPage({
       .eq('log_date', today),
   ]);
 
-  let plan = planRes.data;
-
-  // Auto-generate plan if missing.
-  if (!plan) {
-    const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-    const cookieHeader = (await supabase.auth.getSession()).data.session?.access_token;
-    await fetch(`${origin}/api/plan`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: cookieHeader ? `sb-access-token=${cookieHeader}` : '',
-      },
-      body: JSON.stringify({}),
-      cache: 'no-store',
-    }).catch(() => null);
-
-    const reload = await supabase
-      .from('daily_plans')
-      .select('*')
-      .eq('user_id', userId)
-      .eq('plan_date', today)
-      .maybeSingle();
-    plan = reload.data;
-  }
+  const plan: DailyPlan | null = ensured.ok ? ensured.plan : null;
 
   const t = await getTranslations('Plan');
 
@@ -100,7 +68,7 @@ export default async function PlanPage({
     }
   }
 
-  const items = (plan?.items ?? []) as PlanItem[];
+  const items = plan?.items ?? [];
   const slugs = items.map((it) => it.exercise_slug);
   const { data: exercises } = await supabase
     .from('exercises')
@@ -108,7 +76,7 @@ export default async function PlanPage({
     .in('slug', slugs.length ? slugs : ['']);
 
   const byslug = new Map((exercises ?? []).map((e) => [e.slug, e]));
-  const weather = plan?.weather as Weather | null;
+  const weather = plan?.weather ?? null;
 
   return (
     <>
@@ -171,7 +139,7 @@ export default async function PlanPage({
                       <p className="text-base leading-relaxed">{it.ai_note}</p>
                       <div className="mt-4 flex items-center gap-3 flex-wrap">
                         <DoneButton
-                          planId={plan.id as string}
+                          planId={plan.id}
                           exerciseSlug={it.exercise_slug}
                           durationMinutes={it.duration_minutes}
                           alreadyDone={done}

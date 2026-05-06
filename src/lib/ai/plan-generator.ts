@@ -6,7 +6,7 @@ import type { WeatherSnapshot } from '@/lib/weather';
 // --- Types ----------------------------------------------------------------
 
 export type Profile = {
-  locale: 'en' | 'pl' | 'it';
+  locale: 'en' | 'pl' | 'it' | 'uk';
   age: number;
   fitness_level: 'low' | 'mid' | 'high';
   equipment: string[];
@@ -61,7 +61,7 @@ Hard rules:
 5. Respect equipment: never select exercises requiring equipment the user does not have. If equipment list is empty, body-weight only.
 6. Respect weather: if outdoor-friendly is false, prefer indoor exercises (avoid 'park' equipment).
 7. Tone: warm, encouraging, plain language. Avoid jargon, avoid emojis. The user may be a senior or a teenager — calibrate accordingly.
-8. Localization: write greeting, motivation and ai_note IN THE USER'S LOCALE (en/pl/it). Use natural phrasing for that language.
+8. Localization: write greeting, motivation and ai_note IN THE USER'S LOCALE (en/pl/it/uk). Use natural phrasing for that language.
 
 Output: return only JSON conforming to the schema. No prose outside the JSON.`;
 
