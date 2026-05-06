@@ -55,13 +55,16 @@ export function OnboardingWizard() {
 
       <div>
         <p
-          className="text-sm font-semibold text-brand"
+          className="text-base font-bold text-brand-darker dark:text-brand"
           aria-live="polite"
           id={liveRegionId}
         >
           {t('stepOf', { step, total: TOTAL_STEPS })}
         </p>
-        <div className="mt-2 h-2 rounded-full bg-border" aria-hidden>
+        <div
+          className="mt-2 h-2 rounded-full bg-foreground/15 dark:bg-foreground/20 overflow-hidden"
+          aria-hidden
+        >
           <div
             className="h-full rounded-full bg-brand transition-[width]"
             style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
@@ -69,23 +72,28 @@ export function OnboardingWizard() {
         </div>
       </div>
 
-      {step === 1 && (
-        <div>
-          <Label htmlFor="age">{t('ageQuestion')}</Label>
-          <Input
-            id="age"
-            name="age"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            value={age}
-            onChange={(e) => setAge(e.target.value.replace(/\D/g, ''))}
-            placeholder="35"
-            autoFocus
-          />
-        </div>
-      )}
+      {/*
+        Each step stays mounted (just visually hidden when not active) so its
+        inputs remain in the form. Conditionally rendering with `step === N &&`
+        would drop earlier-step inputs from the DOM, and formData would be
+        missing fields by the time we hit step 5 → zod fails → "Coś poszło
+        nie tak". This is the root-cause fix for that bug.
+      */}
+      <div className={step === 1 ? '' : 'hidden'}>
+        <Label htmlFor="age">{t('ageQuestion')}</Label>
+        <Input
+          id="age"
+          name="age"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={age}
+          onChange={(e) => setAge(e.target.value.replace(/\D/g, ''))}
+          placeholder="35"
+          autoFocus
+        />
+      </div>
 
-      {step === 2 && (
+      <div className={step === 2 ? '' : 'hidden'}>
         <fieldset>
           <legend className="block text-sm font-semibold mb-3">{t('fitnessQuestion')}</legend>
           <div className="grid gap-3">
@@ -111,9 +119,9 @@ export function OnboardingWizard() {
             ))}
           </div>
         </fieldset>
-      )}
+      </div>
 
-      {step === 3 && (
+      <div className={step === 3 ? '' : 'hidden'}>
         <fieldset>
           <legend className="block text-sm font-semibold mb-3">{t('equipmentQuestion')}</legend>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -146,9 +154,9 @@ export function OnboardingWizard() {
             })}
           </div>
         </fieldset>
-      )}
+      </div>
 
-      {step === 4 && (
+      <div className={step === 4 ? '' : 'hidden'}>
         <fieldset>
           <legend className="block text-sm font-semibold mb-3">{t('goalQuestion')}</legend>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -179,21 +187,19 @@ export function OnboardingWizard() {
             })}
           </div>
         </fieldset>
-      )}
+      </div>
 
-      {step === 5 && (
-        <div>
-          <Label htmlFor="city">{t('locationQuestion')}</Label>
-          <Input
-            id="city"
-            name="city"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder={t('locationPlaceholder')}
-            autoComplete="address-level2"
-          />
-        </div>
-      )}
+      <div className={step === 5 ? '' : 'hidden'}>
+        <Label htmlFor="city">{t('locationQuestion')}</Label>
+        <Input
+          id="city"
+          name="city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder={t('locationPlaceholder')}
+          autoComplete="address-level2"
+        />
+      </div>
 
       {state.error && (
         <p role="alert" className="text-sm text-danger" aria-live="polite">
@@ -207,6 +213,7 @@ export function OnboardingWizard() {
           variant="ghost"
           onClick={prev}
           disabled={step === 1 || pending}
+          className="border-2 border-foreground/15 dark:border-foreground/20 hover:border-foreground/30 dark:hover:border-foreground/40"
         >
           {tc('back')}
         </Button>

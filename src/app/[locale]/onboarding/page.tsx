@@ -1,4 +1,3 @@
-import { Sparkles } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Card, CardContent } from '@/components/ui/card';
 import { AuthHeader } from '@/components/auth-header';
@@ -31,9 +30,6 @@ export default async function OnboardingPage({
       <main className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-xl">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-light text-brand mb-5 shadow-soft">
-              <Sparkles className="w-7 h-7" strokeWidth={2.25} aria-hidden />
-            </div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
               {t('title')}
             </h1>

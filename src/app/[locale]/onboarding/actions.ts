@@ -37,6 +37,7 @@ export async function saveOnboarding(
     city: formData.get('city'),
   });
   if (!parsed.success) {
+    console.error('[onboarding] zod validation failed', parsed.error.flatten());
     return { ok: false, error: 'invalid' };
   }
 
@@ -46,16 +47,22 @@ export async function saveOnboarding(
     return { ok: false, error: 'unauthorized' };
   }
 
+  // Upsert (not update) — resilient if the trigger-created row got removed
+  // or if the user's profile was wiped during testing.
   const { error } = await supabase
     .from('profiles')
-    .update({
-      ...parsed.data,
-      locale,
-      onboarded_at: new Date().toISOString(),
-    })
-    .eq('id', userData.user.id);
+    .upsert(
+      {
+        id: userData.user.id,
+        ...parsed.data,
+        locale,
+        onboarded_at: new Date().toISOString(),
+      },
+      { onConflict: 'id' },
+    );
 
   if (error) {
+    console.error('[onboarding] supabase upsert failed', error);
     return { ok: false, error: 'db' };
   }
 
