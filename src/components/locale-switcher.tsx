@@ -30,7 +30,7 @@ export function LocaleSwitcher() {
             router.replace(pathname, { locale: next });
           });
         }}
-        className="rounded-full border border-border bg-background px-3 py-1.5 text-sm font-medium focus-visible:outline-none focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/30"
+        className="rounded-full border border-foreground/15 dark:border-foreground/20 bg-surface-2 px-3 py-2 text-sm font-medium text-foreground hover:border-foreground/30 hover:bg-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 cursor-pointer"
       >
         {routing.locales.map((l) => (
           <option key={l} value={l}>

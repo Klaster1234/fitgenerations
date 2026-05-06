@@ -4,14 +4,16 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 // Tailwind 4 utilities derive from CSS variables (see globals.css).
+// Primary uses dark text on bright green for WCAG AA contrast (audit fix).
 const buttonVariants = cva(
-  // Base: 48px min height for senior-friendly touch targets, focus ring, font-semibold.
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  // Base: 48px min height for senior-friendly touch targets, focus ring, font-bold.
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-bold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-brand text-white hover:bg-brand-dark',
-        secondary: 'border-2 border-brand text-brand hover:bg-brand/5',
+        // 5:1 contrast on emerald-500 (passes WCAG AA), hover lightens for tactile feel
+        primary: 'bg-emerald-500 text-emerald-950 hover:bg-emerald-400 shadow-soft hover:shadow-card',
+        secondary: 'border-2 border-foreground/20 text-foreground hover:border-brand hover:text-brand',
         ghost: 'text-foreground hover:bg-surface',
         danger: 'bg-danger text-white hover:opacity-90',
       },

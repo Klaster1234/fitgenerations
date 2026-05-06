@@ -1,34 +1,73 @@
 @import "tailwindcss";
 
-/* FGST design tokens — green / health / movement.
-   Senior-friendly defaults: larger base font, strong focus, generous spacing. */
+/* FGST design tokens — green/health/movement.
+   Senior-friendly defaults: larger base font, strong focus, generous spacing.
+   Production-ready visual polish: gradients, shadows, refined palette. */
 :root {
-  --background: #ffffff;
+  /* Surface palette — warm cream, not stark white */
+  --background: #fafaf7;
   --foreground: #0f172a;
-  --surface: #f8fafc;
-  --border: #e2e8f0;
-  --muted: #475569;
+  --surface: #ffffff;
+  --surface-2: #f5f5f0;
+  --border: #e7e5dc;
+  --muted: #525766;
 
+  /* Brand — green spectrum */
   --brand: #16a34a;
   --brand-dark: #15803d;
+  --brand-darker: #14532d;
   --brand-light: #dcfce7;
+  --brand-cream: #f0fdf4;
 
+  /* Accents — warm orange + sun yellow */
   --accent: #f97316;
+  --accent-warm: #fb923c;
+  --sun: #facc15;
 
+  /* Semantic */
   --danger: #dc2626;
   --success: #16a34a;
+  --info: #0891b2;
+
+  /* EU Erasmus+ */
+  --eu-blue: #003399;
+  --eu-yellow: #ffcc00;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.04);
+  --shadow-lg: 0 10px 25px -5px rgb(15 23 42 / 0.12), 0 8px 10px -6px rgb(15 23 42 / 0.08);
+  --shadow-glow: 0 0 60px -15px rgb(22 163 74 / 0.35);
+
+  /* Layout */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0b1220;
+    --background: #0a0e1a;
     --foreground: #f1f5f9;
-    --surface: #111a2c;
+    --surface: #111827;
+    --surface-2: #0f1421;
     --border: #1e293b;
-    --muted: #94a3b8;
+    /* slate-300 instead of slate-400 — passes WCAG AAA on dark bg.
+       Critical for senior 60+ readability per UX audit. */
+    --muted: #cbd5e1;
+
     --brand: #22c55e;
     --brand-dark: #16a34a;
+    --brand-darker: #15803d;
     --brand-light: #052e1a;
+    --brand-cream: #052e1a;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+    --shadow-glow: 0 0 60px -15px rgb(34 197 94 / 0.45);
   }
 }
 
@@ -36,19 +75,35 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);
+  --color-brand-darker: var(--brand-darker);
   --color-brand-light: var(--brand-light);
+  --color-brand-cream: var(--brand-cream);
   --color-accent: var(--accent);
+  --color-accent-warm: var(--accent-warm);
+  --color-sun: var(--sun);
   --color-danger: var(--danger);
   --color-success: var(--success);
+  --color-info: var(--info);
+  --color-eu-blue: var(--eu-blue);
+  --color-eu-yellow: var(--eu-yellow);
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-serif);
+
+  --shadow-soft: var(--shadow-sm);
+  --shadow-card: var(--shadow-md);
+  --shadow-elevated: var(--shadow-lg);
+  --shadow-brand: var(--shadow-glow);
+
+  --radius-card: var(--radius-lg);
+  --radius-pill: 9999px;
 }
 
 html {
-  /* 17px base — easier to read for seniors without making the layout feel large. */
   font-size: 17px;
 }
 
@@ -57,14 +112,32 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Stronger, always-visible keyboard focus.
-   Important for screen reader / keyboard users (a11y). */
+/* Subtle dotted noise texture for visual depth without graphics */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgb(15 23 42 / 0.025) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before {
+    background-image: radial-gradient(circle at 1px 1px, rgb(241 245 249 / 0.04) 1px, transparent 0);
+  }
+}
+
+/* Strong, always-visible keyboard focus. */
 :focus-visible {
   outline: 2px solid var(--brand);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 /* Honor user's reduced-motion preference. */
@@ -81,5 +154,119 @@ body {
 /* Selection uses brand color for product feel. */
 ::selection {
   background: var(--brand-light);
-  color: var(--brand-dark);
+  color: var(--brand-darker);
+}
+
+/* Scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom utilities */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Hero gradient utility */
+@utility bg-hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(220 252 231 / 0.6), transparent),
+    radial-gradient(ellipse 60% 60% at 80% 0%, rgb(254 215 170 / 0.3), transparent),
+    var(--background);
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-hero-gradient {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(5 46 26 / 0.6), transparent),
+      radial-gradient(ellipse 60% 60% at 80% 0%, rgb(120 53 15 / 0.25), transparent),
+      var(--background);
+  }
+}
+
+/* Scroll-triggered reveals — pure CSS, no JS.
+   Falls back to no animation in older browsers. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility reveal-on-scroll {
+  animation: reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 0.6s ease-out;
+}
+
+/* Subtle floating animation for hero badge */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@utility animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Sophisticated breathing animation for the hero mockup glow */
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+@utility animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* Optical sizing for Fraunces — display feel on big text */
+@utility font-display {
+  font-family: var(--font-serif), Georgia, serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 50;
+}
+
+/* Tighter optical sizing for body serif */
+@utility font-serif-text {
+  font-family: var(--font-serif), Georgia, serif;
+  font-variation-settings: 'opsz' 14, 'SOFT' 30;
+}
+
+/* Reading-friendly text-shadow glow for the dark manifest */
+@utility text-glow-brand {
+  text-shadow: 0 0 80px rgb(34 197 94 / 0.15);
+}
+
+/* Scroll progress bar at the top */
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@utility scroll-progress-bar {
+  animation: scroll-progress linear;
+  animation-timeline: scroll(root);
+  transform-origin: left;
 }
