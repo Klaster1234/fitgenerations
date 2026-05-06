@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { signupAction } from '../login/actions';
 
-type AuthState = { ok: boolean; error?: string; notice?: string };
+type AuthState = { ok: boolean; error?: string };
 const initialState: AuthState = { ok: false };
 
 export function SignupForm() {
@@ -15,14 +15,6 @@ export function SignupForm() {
   const tc = useTranslations('Common');
   const locale = useLocale();
   const [state, formAction, pending] = useActionState(signupAction, initialState);
-
-  if (state.notice === 'checkEmail') {
-    return (
-      <p className="text-base p-4 rounded-xl bg-brand-light text-brand-dark" role="status">
-        {t('checkEmail')}
-      </p>
-    );
-  }
 
   return (
     <form action={formAction} className="space-y-5">

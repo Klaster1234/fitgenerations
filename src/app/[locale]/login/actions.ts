@@ -14,7 +14,6 @@ const credentialsSchema = z.object({
 type AuthState = {
   ok: boolean;
   error?: string;
-  notice?: string;
 };
 
 function pickLocale(value: FormDataEntryValue | null): Locale {
@@ -57,16 +56,17 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
   }
 
   const supabase = await createSupabaseServerClient();
-  const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fgst.vercel.app';
-  const { error } = await supabase.auth.signUp({
-    ...parsed.data,
-    options: { emailRedirectTo: `${origin}/${locale}/onboarding` },
-  });
+  // Email confirmation is disabled in Supabase (mailer_autoconfirm=true),
+  // so signUp returns a session immediately — no email link, no friction.
+  const { error } = await supabase.auth.signUp(parsed.data);
   if (error) {
     return { ok: false, error: 'invalidCredentials' };
   }
 
-  return { ok: true, notice: 'checkEmail' };
+  revalidatePath('/', 'layout');
+  redirect({ href: '/onboarding', locale });
+  // Unreachable — `redirect` throws.
+  return { ok: true };
 }
 
 export async function logoutAction(): Promise<void> {
