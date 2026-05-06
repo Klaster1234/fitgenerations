@@ -1,0 +1,120 @@
+{
+  "Common": {
+    "appName": "FitGenerations Smart TrAIner",
+    "appTagline": "Move every generation",
+    "continue": "Continue",
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "retry": "Try again"
+  },
+  "Landing": {
+    "hero": "Sport for every generation",
+    "lede": "A free AI training companion designed for everyone — kids, parents, seniors. Adapts to your fitness, equipment, weather and goals.",
+    "ctaPrimary": "Get started",
+    "ctaSecondary": "I have an account",
+    "feature1Title": "Personal AI plans",
+    "feature1Body": "Daily training tailored to your age, fitness, equipment and the weather outside.",
+    "feature2Title": "Across generations",
+    "feature2Body": "Built for kids, adults and seniors, with accessible UI and clear instructions.",
+    "feature3Title": "Move together",
+    "feature3Body": "Join challenges, log activities, share short videos with #SmartMoveChallenge."
+  },
+  "Auth": {
+    "loginTitle": "Sign in",
+    "signupTitle": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters",
+    "loginCta": "Sign in",
+    "signupCta": "Create account",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Sign in",
+    "checkEmail": "Check your email — we sent you a confirmation link.",
+    "invalidCredentials": "Email or password is incorrect."
+  },
+  "Onboarding": {
+    "title": "Tell us about you",
+    "subtitle": "We'll use this to build a plan that fits your day.",
+    "stepOf": "Step {step} of {total}",
+    "ageQuestion": "How old are you?",
+    "fitnessQuestion": "How would you describe your fitness?",
+    "fitnessLow": "Just starting",
+    "fitnessMid": "Fairly active",
+    "fitnessHigh": "Very active",
+    "equipmentQuestion": "What do you have at hand?",
+    "equipNone": "Just my body",
+    "equipMat": "Yoga mat",
+    "equipBands": "Resistance bands",
+    "equipDumbbells": "Dumbbells",
+    "equipBike": "Bike",
+    "equipPark": "Park / outdoor space",
+    "goalQuestion": "What matters most to you right now?",
+    "goalEnergy": "More energy",
+    "goalStrength": "Get stronger",
+    "goalMobility": "Move better",
+    "goalSocial": "Train with others",
+    "locationQuestion": "Where do you live? (for weather)",
+    "locationPlaceholder": "City",
+    "finish": "See my first plan"
+  },
+  "Plan": {
+    "todayTitle": "Today's plan",
+    "weatherFor": "Weather in {city}",
+    "minutes": "{count, plural, one {# minute} other {# minutes}}",
+    "doneCta": "Mark as done",
+    "doneToast": "Nice — logged.",
+    "regenerateCta": "Generate a new plan",
+    "noPlanYet": "Generating your first plan…",
+    "streakLabel": "Day streak"
+  },
+  "Nav": {
+    "history": "History",
+    "badges": "Badges",
+    "plan": "Plan",
+    "challenge": "Challenge",
+    "logout": "Log out"
+  },
+  "Challenge": {
+    "intro": "Inspire others. Record a 15-30 second video of you moving — yoga, walk, dance, anything — and share the link with your community. Together we make movement go viral.",
+    "submitTitle": "Submit your video",
+    "urlLabel": "Video link",
+    "urlHint": "YouTube, TikTok, Instagram or Vimeo",
+    "captionLabel": "Caption (optional)",
+    "publicLabel": "Show in public feed",
+    "submitCta": "Share",
+    "submitted": "Thanks for sharing! Your video will inspire others.",
+    "feedTitle": "Recent videos",
+    "feedEmpty": "Be the first to share. Make it count.",
+    "watchCta": "Watch"
+  },
+  "History": {
+    "title": "Your activity",
+    "backToPlan": "Back to today's plan",
+    "streak": "Day streak",
+    "totalWorkouts": "Workouts total",
+    "activeDays": "Active days (30d)",
+    "last30days": "Last 30 days",
+    "recent": "Recent sessions",
+    "workouts": "workouts",
+    "empty": "No activity yet — start with today's plan."
+  },
+  "Badges": {
+    "title": "Your badges",
+    "backToPlan": "Back to today's plan",
+    "summary": "{earned} of {total} earned",
+    "earned": "Earned",
+    "locked": "Still to earn",
+    "emptyEarned": "No badges yet — log your first workout to earn one.",
+    "allEarned": "All badges earned. Amazing!"
+  },
+  "Errors": {
+    "default": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "notFoundBack": "Back home"
+  }
+}

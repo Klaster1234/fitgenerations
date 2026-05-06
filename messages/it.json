@@ -1,0 +1,120 @@
+{
+  "Common": {
+    "appName": "FitGenerations Smart TrAIner",
+    "appTagline": "Muovi ogni generazione",
+    "continue": "Continua",
+    "back": "Indietro",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "loading": "Caricamento…",
+    "error": "Qualcosa è andato storto",
+    "retry": "Riprova"
+  },
+  "Landing": {
+    "hero": "Sport per ogni generazione",
+    "lede": "Un assistente di allenamento AI gratuito per tutti — bambini, genitori, anziani. Si adatta alla tua forma, attrezzatura, meteo e obiettivi.",
+    "ctaPrimary": "Inizia",
+    "ctaSecondary": "Ho già un account",
+    "feature1Title": "Piani AI personali",
+    "feature1Body": "Allenamento quotidiano su misura per età, forma, attrezzatura e meteo.",
+    "feature2Title": "Tra le generazioni",
+    "feature2Body": "Pensato per bambini, adulti e anziani, con interfaccia accessibile e istruzioni chiare.",
+    "feature3Title": "Muoviamoci insieme",
+    "feature3Body": "Partecipa a sfide, registra le attività, condividi brevi video con #SmartMoveChallenge."
+  },
+  "Auth": {
+    "loginTitle": "Accedi",
+    "signupTitle": "Crea il tuo account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "Almeno 8 caratteri",
+    "loginCta": "Accedi",
+    "signupCta": "Crea account",
+    "noAccount": "Non hai ancora un account?",
+    "haveAccount": "Hai già un account?",
+    "signupLink": "Registrati",
+    "loginLink": "Accedi",
+    "checkEmail": "Controlla la tua email — ti abbiamo inviato un link di conferma.",
+    "invalidCredentials": "Email o password non corretti."
+  },
+  "Onboarding": {
+    "title": "Parlaci di te",
+    "subtitle": "Useremo queste informazioni per creare un piano adatto alla tua giornata.",
+    "stepOf": "Passo {step} di {total}",
+    "ageQuestion": "Quanti anni hai?",
+    "fitnessQuestion": "Come descriveresti la tua forma fisica?",
+    "fitnessLow": "Sto iniziando",
+    "fitnessMid": "Abbastanza attivo/a",
+    "fitnessHigh": "Molto attivo/a",
+    "equipmentQuestion": "Cosa hai a portata di mano?",
+    "equipNone": "Solo il mio corpo",
+    "equipMat": "Tappetino yoga",
+    "equipBands": "Elastici",
+    "equipDumbbells": "Manubri",
+    "equipBike": "Bicicletta",
+    "equipPark": "Parco / spazio all'aperto",
+    "goalQuestion": "Cosa conta di più per te in questo momento?",
+    "goalEnergy": "Più energia",
+    "goalStrength": "Diventare più forte",
+    "goalMobility": "Muoversi meglio",
+    "goalSocial": "Allenarmi con altri",
+    "locationQuestion": "Dove vivi? (per il meteo)",
+    "locationPlaceholder": "Città",
+    "finish": "Vedi il mio primo piano"
+  },
+  "Plan": {
+    "todayTitle": "Piano di oggi",
+    "weatherFor": "Meteo a {city}",
+    "minutes": "{count, plural, one {# minuto} other {# minuti}}",
+    "doneCta": "Segna come fatto",
+    "doneToast": "Bene — registrato.",
+    "regenerateCta": "Genera un nuovo piano",
+    "noPlanYet": "Sto generando il tuo primo piano…",
+    "streakLabel": "Giorni consecutivi"
+  },
+  "Nav": {
+    "history": "Cronologia",
+    "badges": "Distintivi",
+    "plan": "Piano",
+    "challenge": "Sfida",
+    "logout": "Esci"
+  },
+  "Challenge": {
+    "intro": "Ispira gli altri. Registra un video di 15-30 secondi mentre ti muovi — yoga, camminata, danza, qualunque cosa — e condividi il link con la tua comunità. Insieme rendiamo virale il movimento.",
+    "submitTitle": "Invia il tuo video",
+    "urlLabel": "Link del video",
+    "urlHint": "YouTube, TikTok, Instagram o Vimeo",
+    "captionLabel": "Didascalia (opzionale)",
+    "publicLabel": "Mostra nel feed pubblico",
+    "submitCta": "Condividi",
+    "submitted": "Grazie per la condivisione! Il tuo video ispirerà altri.",
+    "feedTitle": "Video recenti",
+    "feedEmpty": "Sii il primo a condividere. Falla contare.",
+    "watchCta": "Guarda"
+  },
+  "History": {
+    "title": "La tua attività",
+    "backToPlan": "Torna al piano di oggi",
+    "streak": "Giorni consecutivi",
+    "totalWorkouts": "Allenamenti totali",
+    "activeDays": "Giorni attivi (30g)",
+    "last30days": "Ultimi 30 giorni",
+    "recent": "Sessioni recenti",
+    "workouts": "allenamenti",
+    "empty": "Nessuna attività — inizia con il piano di oggi."
+  },
+  "Badges": {
+    "title": "I tuoi distintivi",
+    "backToPlan": "Torna al piano di oggi",
+    "summary": "Ottenuti {earned} su {total}",
+    "earned": "Ottenuti",
+    "locked": "Ancora da ottenere",
+    "emptyEarned": "Nessun distintivo ancora — completa il primo allenamento per ottenerne uno.",
+    "allEarned": "Tutti i distintivi ottenuti. Fantastico!"
+  },
+  "Errors": {
+    "default": "Qualcosa è andato storto. Riprova.",
+    "notFound": "Pagina non trovata",
+    "notFoundBack": "Torna alla home"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "Common": {
+    "appName": "FitGenerations Smart TrAIner",
+    "appTagline": "Każde pokolenie w ruchu",
+    "continue": "Dalej",
+    "back": "Wstecz",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "loading": "Ładowanie…",
+    "error": "Coś poszło nie tak",
+    "retry": "Spróbuj ponownie"
+  },
+  "Landing": {
+    "hero": "Sport dla każdego pokolenia",
+    "lede": "Bezpłatny AI-trener dla wszystkich — dzieci, rodziców, seniorów. Dopasowuje treningi do Twojej kondycji, sprzętu, pogody i celów.",
+    "ctaPrimary": "Zaczynam",
+    "ctaSecondary": "Mam już konto",
+    "feature1Title": "Plan szyty na miarę",
+    "feature1Body": "Codzienny trening dopasowany do wieku, kondycji, sprzętu i pogody za oknem.",
+    "feature2Title": "Międzypokoleniowy",
+    "feature2Body": "Zaprojektowany z myślą o dzieciach, dorosłych i seniorach — z dostępnym interfejsem i jasnymi instrukcjami.",
+    "feature3Title": "Ruszamy się razem",
+    "feature3Body": "Dołącz do wyzwań, zapisuj swoje aktywności, dziel się krótkimi wideo z #SmartMoveChallenge."
+  },
+  "Auth": {
+    "loginTitle": "Zaloguj się",
+    "signupTitle": "Załóż konto",
+    "email": "E-mail",
+    "password": "Hasło",
+    "passwordHint": "Co najmniej 8 znaków",
+    "loginCta": "Zaloguj",
+    "signupCta": "Załóż konto",
+    "noAccount": "Nie masz jeszcze konta?",
+    "haveAccount": "Masz już konto?",
+    "signupLink": "Zarejestruj się",
+    "loginLink": "Zaloguj się",
+    "checkEmail": "Sprawdź pocztę — wysłaliśmy link potwierdzający.",
+    "invalidCredentials": "E-mail lub hasło są nieprawidłowe."
+  },
+  "Onboarding": {
+    "title": "Powiedz nam coś o sobie",
+    "subtitle": "Na tej podstawie ułożymy plan, który pasuje do Twojego dnia.",
+    "stepOf": "Krok {step} z {total}",
+    "ageQuestion": "Ile masz lat?",
+    "fitnessQuestion": "Jak oceniasz swoją kondycję?",
+    "fitnessLow": "Dopiero zaczynam",
+    "fitnessMid": "Jestem dość aktywny/-a",
+    "fitnessHigh": "Bardzo aktywny/-a",
+    "equipmentQuestion": "Co masz pod ręką?",
+    "equipNone": "Tylko własne ciało",
+    "equipMat": "Mata do jogi",
+    "equipBands": "Gumy oporowe",
+    "equipDumbbells": "Hantelki",
+    "equipBike": "Rower",
+    "equipPark": "Park / przestrzeń na zewnątrz",
+    "goalQuestion": "Co jest dla Ciebie teraz najważniejsze?",
+    "goalEnergy": "Więcej energii",
+    "goalStrength": "Większa siła",
+    "goalMobility": "Lepsza ruchomość",
+    "goalSocial": "Trenowanie z innymi",
+    "locationQuestion": "Gdzie mieszkasz? (dla pogody)",
+    "locationPlaceholder": "Miasto",
+    "finish": "Pokaż mój pierwszy plan"
+  },
+  "Plan": {
+    "todayTitle": "Plan na dziś",
+    "weatherFor": "Pogoda w {city}",
+    "minutes": "{count, plural, one {# minuta} few {# minuty} many {# minut} other {# minut}}",
+    "doneCta": "Oznacz jako wykonane",
+    "doneToast": "Super — zapisane.",
+    "regenerateCta": "Wygeneruj nowy plan",
+    "noPlanYet": "Generuję Twój pierwszy plan…",
+    "streakLabel": "Dni z rzędu"
+  },
+  "Nav": {
+    "history": "Historia",
+    "badges": "Odznaki",
+    "plan": "Plan",
+    "challenge": "Wyzwanie",
+    "logout": "Wyloguj"
+  },
+  "Challenge": {
+    "intro": "Zainspiruj innych. Nagraj 15-30 sekundowe wideo, jak się ruszasz — joga, spacer, taniec, cokolwiek — i podziel się linkiem ze społecznością. Razem rozkręcamy ruch.",
+    "submitTitle": "Dodaj swoje wideo",
+    "urlLabel": "Link do wideo",
+    "urlHint": "YouTube, TikTok, Instagram lub Vimeo",
+    "captionLabel": "Opis (opcjonalnie)",
+    "publicLabel": "Pokaż w publicznym feedzie",
+    "submitCta": "Udostępnij",
+    "submitted": "Dzięki za udostępnienie! Twoje wideo zainspiruje innych.",
+    "feedTitle": "Ostatnie wideo",
+    "feedEmpty": "Bądź pierwszy. Pokaż jak to się robi.",
+    "watchCta": "Obejrzyj"
+  },
+  "History": {
+    "title": "Twoja aktywność",
+    "backToPlan": "Wróć do planu",
+    "streak": "Dni z rzędu",
+    "totalWorkouts": "Treningi łącznie",
+    "activeDays": "Aktywne dni (30d)",
+    "last30days": "Ostatnie 30 dni",
+    "recent": "Ostatnie sesje",
+    "workouts": "treningów",
+    "empty": "Brak aktywności — zacznij od dzisiejszego planu."
+  },
+  "Badges": {
+    "title": "Twoje odznaki",
+    "backToPlan": "Wróć do planu",
+    "summary": "Zdobyto {earned} z {total}",
+    "earned": "Zdobyte",
+    "locked": "Do zdobycia",
+    "emptyEarned": "Jeszcze brak odznak — wykonaj pierwszy trening, by zdobyć pierwszą.",
+    "allEarned": "Wszystkie odznaki zdobyte. Mistrzostwo!"
+  },
+  "Errors": {
+    "default": "Coś poszło nie tak. Spróbuj ponownie.",
+    "notFound": "Nie znaleziono strony",
+    "notFoundBack": "Wróć na stronę główną"
+  }
+}
