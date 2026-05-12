@@ -53,7 +53,7 @@ export async function EuFooter() {
 
         <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row gap-3 justify-between text-xs text-muted">
           <p>
-            © 2026 Spółdzielnia Socjalna Reha Silesia · EURO-NET ·{' '}
+            © 2026 Spółdzielnia Socjalna Zielone Śląskie · EURO-NET ·{' '}
             <span className="text-foreground font-medium">Project ID 101245857</span>
           </p>
           <p className="flex items-center gap-6 flex-wrap">

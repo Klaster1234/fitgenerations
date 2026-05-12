@@ -2,7 +2,7 @@
 
 Smart, free, AI-driven training companion for every generation — built for the
 **Erasmus+ Sport SSCP** project *FitGenerations Smart TrAIner* (proposal
-ID 101245857), coordinated by Spółdzielnia Socjalna Reha Silesia (PL) and
+ID 101245857), coordinated by Spółdzielnia Socjalna Zielone Śląskie (PL) and
 EURO-NET (IT).
 
 ## Stack
