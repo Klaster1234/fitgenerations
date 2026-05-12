@@ -154,7 +154,8 @@
     "badges": "Distintivi",
     "plan": "Piano",
     "challenge": "Sfida",
-    "logout": "Esci"
+    "logout": "Esci",
+    "saveProgress": "Salva i progressi"
   },
   "Challenge": {
     "intro": "Ispira gli altri. Registra un video di 15-30 secondi mentre ti muovi — yoga, camminata, danza, qualunque cosa — e condividi il link con la tua comunità. Insieme rendiamo virale il movimento.",

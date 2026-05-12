@@ -20,21 +20,14 @@ export default async function PlanPage({
 
   const supabase = await createSupabaseServerClient();
   const { data: userData } = await supabase.auth.getUser();
+  // Proxy.ts auto-creates an anonymous session on protected paths, so
+  // userData.user is essentially always populated here. The fallback
+  // redirect to "/" handles the edge case where Supabase is unreachable.
   if (!userData.user) {
-    redirect({ href: '/login', locale });
+    redirect({ href: '/', locale });
   }
 
   const userId = userData.user!.id;
-
-  // Make sure profile is onboarded.
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('onboarded_at, locale, city')
-    .eq('id', userId)
-    .single();
-  if (!profile?.onboarded_at) {
-    redirect({ href: '/onboarding', locale });
-  }
 
   const today = new Date().toISOString().slice(0, 10);
 

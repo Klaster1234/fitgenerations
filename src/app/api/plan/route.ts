@@ -24,8 +24,7 @@ export async function POST(request: Request) {
   });
 
   if (!result.ok) {
-    const status = result.error === 'onboarding_required' ? 400 : 500;
-    return NextResponse.json({ error: result.error }, { status });
+    return NextResponse.json({ error: result.error }, { status: 500 });
   }
 
   return NextResponse.json({

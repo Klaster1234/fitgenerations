@@ -117,7 +117,7 @@ export default async function LandingPage({
 
               <div className="mt-9 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-center">
                 <Link
-                  href="/signup"
+                  href="/plan"
                   className="group inline-flex items-center gap-2 px-8 py-4 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-base shadow-brand hover:bg-emerald-400 hover:shadow-elevated transition-all"
                 >
                   {t('ctaPrimary')}
@@ -319,7 +319,7 @@ export default async function LandingPage({
             {t('ctaSectionTitle')}
           </h2>
           <Link
-            href="/signup"
+            href="/plan"
             className="group mt-12 inline-flex items-center gap-2 px-9 py-5 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-lg shadow-brand hover:bg-emerald-400 hover:shadow-elevated transition-all"
           >
             <span>{t('ctaPrimary')}</span>

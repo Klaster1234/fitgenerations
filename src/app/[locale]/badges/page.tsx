@@ -16,8 +16,9 @@ export default async function BadgesPage({
 
   const supabase = await createSupabaseServerClient();
   const { data: userData } = await supabase.auth.getUser();
+  // Proxy auto-signs-in anonymously; fall back to landing if Supabase is down.
   if (!userData.user) {
-    redirect({ href: '/login', locale });
+    redirect({ href: '/', locale });
   }
   const userId = userData.user!.id;
 

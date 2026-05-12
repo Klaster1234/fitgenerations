@@ -24,7 +24,7 @@ export type DailyPlan = {
 
 export type EnsurePlanResult =
   | { ok: true; plan: DailyPlan; cached: boolean; source: 'ai' | 'baseline' }
-  | { ok: false; error: 'onboarding_required' | 'catalogue_unavailable' | 'save_failed' };
+  | { ok: false; error: 'catalogue_unavailable' | 'save_failed' };
 
 /**
  * Ensure today's plan exists for `userId`. Generates and persists when missing
@@ -42,17 +42,23 @@ export async function ensureTodayPlan(
 ): Promise<EnsurePlanResult> {
   const today = new Date().toISOString().slice(0, 10);
 
-  // 1. Profile (also gates onboarding)
+  // 1. Profile — falls back to sensible defaults when the user hasn't
+  // gone through onboarding yet, so the plan is generated immediately on
+  // first visit. They can personalize later via /onboarding.
   const { data: profileRow } = await supabase
     .from('profiles')
     .select('locale, age, fitness_level, equipment, goals, city')
     .eq('id', userId)
     .single();
 
-  if (!profileRow || !profileRow.age || !profileRow.fitness_level) {
-    return { ok: false, error: 'onboarding_required' };
-  }
-  const profile = profileRow as Profile;
+  const profile: Profile = {
+    locale: ((profileRow?.locale as Profile['locale']) ?? 'en'),
+    age: profileRow?.age ?? 40,
+    fitness_level: (profileRow?.fitness_level as Profile['fitness_level']) ?? 'mid',
+    equipment: (profileRow?.equipment as string[]) ?? [],
+    goals: (profileRow?.goals as string[]) ?? [],
+    city: profileRow?.city ?? null,
+  };
 
   // 2. Reuse today's plan unless explicitly regenerating
   if (!options.regenerate) {

@@ -17,8 +17,9 @@ export default async function OnboardingPage({
 
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
+  // Proxy auto-signs-in anonymously; fall back to landing if Supabase is down.
   if (!data.user) {
-    redirect({ href: '/login', locale });
+    redirect({ href: '/', locale });
   }
 
   const t = await getTranslations('Onboarding');

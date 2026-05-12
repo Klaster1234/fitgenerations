@@ -68,7 +68,7 @@ export default async function EventsPage({
         <div className="flex items-center gap-3">
           <LocaleSwitcher />
           <Link
-            href="/signup"
+            href="/plan"
             className="inline-flex items-center px-5 py-2.5 rounded-pill bg-foreground text-background font-semibold text-sm shadow-soft hover:bg-brand-darker hover:text-white transition-all"
           >
             {tc('appName')}
@@ -151,7 +151,7 @@ export default async function EventsPage({
               </p>
 
               <Link
-                href="/signup"
+                href="/plan"
                 className="mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-sm shadow-soft hover:bg-emerald-400 hover:shadow-card transition-all"
               >
                 {t('signUpCta')}
@@ -175,7 +175,7 @@ export default async function EventsPage({
               {t('joinBody')}
             </p>
             <Link
-              href="/signup"
+              href="/plan"
               className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-base shadow-brand hover:bg-emerald-400 hover:shadow-elevated transition-all"
             >
               {t('joinCta')}

@@ -154,7 +154,8 @@
     "badges": "Badges",
     "plan": "Plan",
     "challenge": "Challenge",
-    "logout": "Log out"
+    "logout": "Log out",
+    "saveProgress": "Save progress"
   },
   "Challenge": {
     "intro": "Inspire others. Record a 15-30 second video of you moving — yoga, walk, dance, anything — and share the link with your community. Together we make movement go viral.",

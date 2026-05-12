@@ -56,16 +56,36 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
   }
 
   const supabase = await createSupabaseServerClient();
-  // Email confirmation is disabled in Supabase (mailer_autoconfirm=true),
-  // so signUp returns a session immediately — no email link, no friction.
+  const { data: existing } = await supabase.auth.getUser();
+
+  // If the visitor already has an anonymous session (proxy.ts created
+  // one when they opened /plan etc.), upgrade it instead of creating
+  // a new account. This preserves their plan + history + badges +
+  // streak across the conversion to a permanent account.
+  if (existing.user && existing.user.is_anonymous) {
+    const { error: updateErr } = await supabase.auth.updateUser({
+      email: parsed.data.email,
+      password: parsed.data.password,
+    });
+    if (updateErr) {
+      console.error('[signup] anonymous upgrade failed', updateErr);
+      return { ok: false, error: 'invalidCredentials' };
+    }
+    revalidatePath('/', 'layout');
+    redirect({ href: '/plan', locale });
+    return { ok: true };
+  }
+
+  // No session yet — create a fresh account. Email confirmation is
+  // disabled (mailer_autoconfirm=true) so signUp returns a session
+  // immediately. Redirect to /plan; onboarding is opt-in from there.
   const { error } = await supabase.auth.signUp(parsed.data);
   if (error) {
     return { ok: false, error: 'invalidCredentials' };
   }
 
   revalidatePath('/', 'layout');
-  redirect({ href: '/onboarding', locale });
-  // Unreachable — `redirect` throws.
+  redirect({ href: '/plan', locale });
   return { ok: true };
 }
 

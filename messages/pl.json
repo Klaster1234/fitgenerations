@@ -154,7 +154,8 @@
     "badges": "Odznaki",
     "plan": "Plan",
     "challenge": "Wyzwanie",
-    "logout": "Wyloguj"
+    "logout": "Wyloguj",
+    "saveProgress": "Zapisz postęp"
   },
   "Challenge": {
     "intro": "Zainspiruj innych. Nagraj 15–30-sekundowe wideo, jak się ruszasz — joga, spacer, taniec, cokolwiek — i podziel się linkiem ze społecznością. Razem rozkręcamy ruch.",
