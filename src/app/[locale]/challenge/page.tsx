@@ -24,15 +24,31 @@ export default async function ChallengePage({
 
   const { data: videos } = await supabase
     .from('challenge_videos')
-    .select('id, url, caption, created_at, user_id')
+    .select('id, url, caption, created_at, user_id, country')
     .eq('is_public', true)
     .order('created_at', { ascending: false })
     .limit(30);
 
   const t = await getTranslations('Challenge');
 
-  type Video = { id: string; url: string; caption: string | null; created_at: string };
+  type Video = {
+    id: string;
+    url: string;
+    caption: string | null;
+    created_at: string;
+    country: string | null;
+  };
   const list = (videos as Video[] | null) ?? [];
+
+  // Country bucket → flag emoji shown next to each card. Keep the set small
+  // — Erasmus+ project partners are PL + IT, plus UA (refugees) and EU.
+  const COUNTRY_FLAG: Record<string, string> = {
+    pl: '🇵🇱',
+    it: '🇮🇹',
+    uk: '🇺🇦',
+    eu: '🇪🇺',
+    other: '🌍',
+  };
 
   return (
     <>
@@ -69,12 +85,20 @@ export default async function ChallengePage({
                 } catch {
                   host = '';
                 }
+                const flag = v.country ? COUNTRY_FLAG[v.country] : null;
                 return (
                   <li key={v.id}>
                     <Card>
                       <CardHeader>
                         <div className="flex items-center justify-between gap-2">
-                          <CardTitle className="text-base">{host}</CardTitle>
+                          <CardTitle className="text-base flex items-center gap-2">
+                            {flag && (
+                              <span className="text-lg leading-none" aria-hidden>
+                                {flag}
+                              </span>
+                            )}
+                            <span>{host}</span>
+                          </CardTitle>
                           <span className="text-xs text-muted">
                             {new Date(v.created_at).toLocaleDateString(locale)}
                           </span>

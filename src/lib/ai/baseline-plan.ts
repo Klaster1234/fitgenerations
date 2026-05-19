@@ -131,7 +131,14 @@ export function buildBaselinePlan(
 
   tryPick('warmup');
   tryPick('functional');
-  tryPick('functional');
+  // When the user trains with a partner, replace one functional slot with a
+  // pair exercise so the plan always includes something for the duo.
+  // Fall back to another functional if no pair exercises are in the catalogue.
+  if (profile.trains_with_partner && byCategory.has('pair')) {
+    tryPick('pair');
+  } else {
+    tryPick('functional');
+  }
   tryPick('cooldown');
 
   // Fill any remaining slots from any category if the targeted ones missed.

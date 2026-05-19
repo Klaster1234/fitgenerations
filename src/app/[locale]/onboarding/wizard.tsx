@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { saveOnboarding } from './actions';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
 
 const FITNESS_LEVELS = ['low', 'mid', 'high'] as const;
 const EQUIPMENT = ['none', 'mat', 'bands', 'dumbbells', 'bike', 'park'] as const;
@@ -16,16 +16,40 @@ const GOALS = ['energy', 'strength', 'mobility', 'social'] as const;
 type Equipment = (typeof EQUIPMENT)[number];
 type Goal = (typeof GOALS)[number];
 
-export function OnboardingWizard() {
+// Default values come from saved profile when editing via /settings, so the
+// wizard doubles as the edit form. Empty values mean a fresh onboarding.
+export type OnboardingDefaults = {
+  age?: number | null;
+  fitness_level?: 'low' | 'mid' | 'high' | null;
+  equipment?: string[] | null;
+  goals?: string[] | null;
+  city?: string | null;
+  trains_with_partner?: boolean | null;
+  group_code?: string | null;
+};
+
+export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults } = {}) {
   const t = useTranslations('Onboarding');
   const tc = useTranslations('Common');
   const locale = useLocale();
   const [step, setStep] = useState(1);
-  const [age, setAge] = useState('');
-  const [fitness, setFitness] = useState<(typeof FITNESS_LEVELS)[number] | ''>('');
-  const [equipment, setEquipment] = useState<Set<Equipment>>(new Set());
-  const [goals, setGoals] = useState<Set<Goal>>(new Set());
-  const [city, setCity] = useState('');
+  const [age, setAge] = useState(defaults?.age ? String(defaults.age) : '');
+  const [fitness, setFitness] = useState<(typeof FITNESS_LEVELS)[number] | ''>(
+    defaults?.fitness_level ?? '',
+  );
+  const [equipment, setEquipment] = useState<Set<Equipment>>(
+    new Set((defaults?.equipment ?? []) as Equipment[]),
+  );
+  const [goals, setGoals] = useState<Set<Goal>>(new Set((defaults?.goals ?? []) as Goal[]));
+  const [city, setCity] = useState(defaults?.city ?? '');
+  const [trainsWithPartner, setTrainsWithPartner] = useState<'yes' | 'no' | ''>(
+    defaults?.trains_with_partner === true
+      ? 'yes'
+      : defaults?.trains_with_partner === false
+        ? 'no'
+        : '',
+  );
+  const [groupCode, setGroupCode] = useState(defaults?.group_code ?? '');
 
   const [state, formAction, pending] = useActionState(saveOnboarding, { ok: false });
   const liveRegionId = useId();
@@ -36,6 +60,13 @@ export function OnboardingWizard() {
     if (step === 3) return true; // equipment optional, can skip with body-only
     if (step === 4) return goals.size > 0;
     if (step === 5) return city.trim().length > 0;
+    if (step === 6) {
+      // Partner answer is required (yes/no). Group code is optional but if
+      // provided must match the schema (4-12 uppercased alphanumerics).
+      if (trainsWithPartner === '') return false;
+      if (groupCode.length > 0 && !/^[A-Z0-9]{4,12}$/.test(groupCode)) return false;
+      return true;
+    }
     return false;
   })();
 
@@ -199,6 +230,53 @@ export function OnboardingWizard() {
           placeholder={t('locationPlaceholder')}
           autoComplete="address-level2"
         />
+      </div>
+
+      <div className={step === 6 ? '' : 'hidden'}>
+        <fieldset>
+          <legend className="block text-sm font-semibold mb-3">
+            {t('partnerQuestion')}
+          </legend>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(['yes', 'no'] as const).map((value) => (
+              <label
+                key={value}
+                className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-colors ${
+                  trainsWithPartner === value
+                    ? 'border-brand bg-brand-light'
+                    : 'border-border bg-surface'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="trains_with_partner"
+                  value={value}
+                  checked={trainsWithPartner === value}
+                  onChange={() => setTrainsWithPartner(value)}
+                  className="h-5 w-5 accent-brand"
+                />
+                <span className="text-base font-medium">
+                  {t(value === 'yes' ? 'partnerYes' : 'partnerNo')}
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div className="mt-6">
+          <Label htmlFor="group_code">{t('groupCodeQuestion')}</Label>
+          <Input
+            id="group_code"
+            name="group_code"
+            value={groupCode}
+            onChange={(e) => setGroupCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
+            placeholder={t('groupCodePlaceholder')}
+            maxLength={12}
+            autoComplete="off"
+            inputMode="text"
+          />
+          <p className="mt-1 text-sm text-muted">{t('groupCodeHint')}</p>
+        </div>
       </div>
 
       {state.error && (

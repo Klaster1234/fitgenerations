@@ -80,7 +80,7 @@
     "faq4Question": "Jak działa AI?",
     "faq4Answer": "Używamy Claude — najnowszego modelu Anthropic — który codziennie generuje nowy plan na podstawie Twojego profilu, lokalnej pogody, sprzętu i celów. Plany nigdy nie powtarzają się dokładnie.",
     "faq5Question": "Czy moje dane są bezpieczne?",
-    "faq5Answer": "Tak. Aplikacja działa na serwerach UE (Vercel + Supabase), dane przechowywane są w UE, przestrzegamy RODO. Możesz w każdej chwili wyeksportować dane i usunąć konto.",
+    "faq5Answer": "Tak. Twoje dane zostają wewnątrz Unii Europejskiej — koniec, kropka. Aplikacja działa na serwerach UE (Vercel + Supabase, hostowane we Frankfurcie i Dublinie); nic nie jest replikowane do USA, Rosji ani poza UE. Działamy zgodnie z RODO — w każdej chwili możesz wyeksportować swoje dane lub usunąć konto, a żadna trzecia strona nie dostaje Twojego profilu ani historii treningów.",
     "faq6Question": "Czy mogę jej używać podczas Move & Improve Days?",
     "faq6Answer": "Oczywiście — to kluczowy element projektu. Załóż konto, przejdź onboarding i przynieś aplikację na wydarzenie. Trenerzy użyją jej do prowadzenia sesji grupowych i śledzenia postępów."
   },
@@ -137,6 +137,12 @@
     "goalSocial": "Trenowanie z innymi",
     "locationQuestion": "Gdzie mieszkasz?",
     "locationPlaceholder": "Miasto — potrzebujemy do prognozy pogody",
+    "partnerQuestion": "Trenujesz z kimś? (np. dziadek + wnuczka)",
+    "partnerYes": "Tak — z kimś bliskim",
+    "partnerNo": "Nie — na razie sam(a)",
+    "groupCodeQuestion": "Kod grupy (opcjonalnie)",
+    "groupCodePlaceholder": "np. GLIWICE1",
+    "groupCodeHint": "Masz kod od trenera lub z Move & Improve Day? Wpisz go, żeby dołączyć do grupy.",
     "finish": "Pokaż mój pierwszy plan"
   },
   "Plan": {
@@ -147,15 +153,36 @@
     "doneToast": "Brawo — zapisane.",
     "regenerateCta": "Ułóż nowy plan",
     "noPlanYet": "Układam Twój pierwszy plan…",
-    "streakLabel": "Dni z rzędu"
+    "streakLabel": "Dni z rzędu",
+    "allDoneTitle": "Dzisiejszy plan zaliczony!",
+    "allDoneBody": "Wróć jutro, żeby utrzymać serię {count} dni z rzędu. Jutrzejszy plan już się szykuje."
   },
   "Nav": {
     "history": "Historia",
     "badges": "Odznaki",
     "plan": "Plan",
     "challenge": "Wyzwanie",
+    "settings": "Ustawienia",
     "logout": "Wyloguj",
     "saveProgress": "Zapisz postęp"
+  },
+  "Settings": {
+    "title": "Twoje ustawienia",
+    "subtitle": "Zaktualizuj profil — jutrzejszy plan dopasuje się do zmian."
+  },
+  "Group": {
+    "eyebrow": "Panel grupy",
+    "title": "Grupa {code}",
+    "invalidCode": "Ten kod grupy wygląda dziwnie. Kody mają 4–12 liter i cyfr.",
+    "empty": "Nikt jeszcze nie dołączył do tej grupy.",
+    "emptyHint": "Podaj kod {code} trenerowi lub uczestnikom Move & Improve Day. Po wpisaniu w ustawieniach pojawią się tutaj.",
+    "members": "Uczestnicy",
+    "totalWorkouts": "Treningi",
+    "activeToday": "Dziś aktywni",
+    "howTitle": "Jak działają kody grupy",
+    "howStep1": "Trener lub organizator wybiera krótki kod (np. GLIWICE1) i go udostępnia.",
+    "howStep2": "Każdy uczestnik wchodzi w ustawienia i wpisuje kod {code}.",
+    "howStep3": "Ta strona pokazuje statystyki całej grupy na żywo — bez ujawniania danych osobowych."
   },
   "Challenge": {
     "intro": "Zainspiruj innych. Nagraj 15–30-sekundowe wideo, jak się ruszasz — joga, spacer, taniec, cokolwiek — i podziel się linkiem ze społecznością. Razem rozkręcamy ruch.",

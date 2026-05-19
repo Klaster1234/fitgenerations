@@ -35,7 +35,7 @@ export function DoneButton({
   if (alreadyDone || state.ok) {
     return (
       <span
-        className="inline-flex items-center gap-2 text-sm font-semibold text-success"
+        className="inline-flex items-center gap-2 text-base font-bold text-success"
         aria-live="polite"
       >
         ✓ {t('doneToast')}

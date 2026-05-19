@@ -12,7 +12,7 @@ export function LogoutButton() {
     <button
       onClick={() => startTransition(() => logoutAction())}
       disabled={pending}
-      className="text-sm font-medium text-muted hover:text-foreground transition-colors px-3 py-1.5 rounded-full hover:bg-surface disabled:opacity-50"
+      className="inline-flex items-center min-h-12 text-base font-semibold text-muted hover:text-foreground transition-colors px-4 py-2 rounded-pill hover:bg-surface disabled:opacity-50"
       aria-label={tn('logout')}
     >
       {tn('logout')}
