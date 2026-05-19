@@ -41,6 +41,12 @@ export async function generateMetadata({
     description: t('appTagline'),
     applicationName: t('appName'),
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fgst.vercel.app'),
+    appleWebApp: {
+      capable: true,
+      title: 'FGST',
+      statusBarStyle: 'default',
+    },
+    formatDetection: { telephone: false, address: false, email: false },
   };
 }
 
