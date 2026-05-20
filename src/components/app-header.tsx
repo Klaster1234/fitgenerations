@@ -1,3 +1,4 @@
+import { Settings } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -32,7 +33,7 @@ export async function AppHeader() {
           <Logo size="sm" />
         </Link>
 
-        <nav className="flex items-center gap-0.5 text-sm flex-wrap">
+        <nav className="flex items-center gap-0.5 text-base flex-wrap">
           <Link
             href="/plan"
             className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
@@ -60,11 +61,19 @@ export async function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
+          <Link
+            href="/settings"
+            aria-label={t('settings')}
+            title={t('settings')}
+            className="inline-flex items-center justify-center min-h-12 min-w-12 rounded-pill text-foreground hover:bg-surface-2 transition-colors"
+          >
+            <Settings className="w-5 h-5" strokeWidth={2.25} aria-hidden />
+          </Link>
           <LocaleSwitcher />
           {isAnonymous ? (
             <Link
               href="/signup"
-              className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill bg-emerald-500 text-emerald-950 font-semibold text-sm shadow-soft hover:bg-emerald-400 transition-all"
+              className="inline-flex items-center min-h-12 px-4 py-2 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-base shadow-soft hover:bg-emerald-400 transition-all"
             >
               {t('saveProgress')}
             </Link>

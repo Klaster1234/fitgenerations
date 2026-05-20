@@ -38,26 +38,32 @@ export type EnsurePlanResult =
 export async function ensureTodayPlan(
   supabase: SupabaseClient,
   userId: string,
-  options: { regenerate?: boolean } = {},
+  options: { regenerate?: boolean; locale?: Profile['locale'] } = {},
 ): Promise<EnsurePlanResult> {
   const today = new Date().toISOString().slice(0, 10);
 
   // 1. Profile — falls back to sensible defaults when the user hasn't
   // gone through onboarding yet, so the plan is generated immediately on
-  // first visit. They can personalize later via /onboarding.
+  // first visit. They can personalize later via /onboarding. The fallback
+  // locale comes from the request URL (passed by the caller) so an
+  // anonymous user landing on /uk doesn't get an English plan.
   const { data: profileRow } = await supabase
     .from('profiles')
-    .select('locale, age, fitness_level, equipment, goals, city')
+    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner')
     .eq('id', userId)
     .single();
 
   const profile: Profile = {
-    locale: ((profileRow?.locale as Profile['locale']) ?? 'en'),
+    locale:
+      (profileRow?.locale as Profile['locale']) ??
+      options.locale ??
+      'en',
     age: profileRow?.age ?? 40,
     fitness_level: (profileRow?.fitness_level as Profile['fitness_level']) ?? 'mid',
     equipment: (profileRow?.equipment as string[]) ?? [],
     goals: (profileRow?.goals as string[]) ?? [],
     city: profileRow?.city ?? null,
+    trains_with_partner: profileRow?.trains_with_partner ?? false,
   };
 
   // 2. Reuse today's plan unless explicitly regenerating

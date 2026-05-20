@@ -18,7 +18,9 @@ const buttonVariants = cva(
         danger: 'bg-danger text-white hover:opacity-90',
       },
       size: {
-        sm: 'h-10 px-4 text-sm rounded-full',
+        // Senior-friendly minimum: 48px (h-12). 'sm' bumps text size up too
+        // so the smaller variant still hits the readable floor.
+        sm: 'h-12 px-4 text-base rounded-full',
         md: 'h-12 px-6 text-base rounded-full',
         lg: 'h-14 px-8 text-lg rounded-full',
       },

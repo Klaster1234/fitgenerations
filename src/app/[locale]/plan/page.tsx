@@ -29,11 +29,25 @@ export default async function PlanPage({
 
   const userId = userData.user!.id;
 
+  // Force onboarding for fresh accounts so the AI plan is tailored — without
+  // this, anonymous users land on /plan with default age=40 / locale=en and
+  // never see the wizard, which the persona audit flagged as a P0.
+  const { data: onboardingState } = await supabase
+    .from('profiles')
+    .select('onboarded_at')
+    .eq('id', userId)
+    .maybeSingle();
+  if (!onboardingState?.onboarded_at) {
+    redirect({ href: '/onboarding', locale });
+  }
+
   const today = new Date().toISOString().slice(0, 10);
 
   // Make sure today's plan exists (generates + persists if missing).
   // Calls the service directly — no same-origin fetch, no cookie forwarding.
-  const ensured = await ensureTodayPlan(supabase, userId);
+  // Pass the URL locale as a fallback so unfilled profiles still get
+  // localized plans.
+  const ensured = await ensureTodayPlan(supabase, userId, { locale });
 
   // Fetch streak + today's done logs in parallel with the plan already loaded.
   const [streak, doneTodayRes] = await Promise.all([
@@ -63,6 +77,9 @@ export default async function PlanPage({
 
   const items = plan?.items ?? [];
   const slugs = items.map((it) => it.exercise_slug);
+  // Used to render the "see you tomorrow" retention banner — cheaper than
+  // shipping push notifications for the MVP, addresses persona-audit P1 #12.
+  const allDone = items.length > 0 && items.every((it) => doneSlugs.has(it.exercise_slug));
   const { data: exercises } = await supabase
     .from('exercises')
     .select('slug, name, category, video_url')
@@ -154,6 +171,19 @@ export default async function PlanPage({
               );
             })}
           </ol>
+
+            {allDone && (
+              <Card className="border-2 border-success/40 bg-brand-light/40">
+                <CardContent className="p-6 text-center">
+                  <p className="text-2xl font-bold text-brand-darker dark:text-brand">
+                    {t('allDoneTitle')}
+                  </p>
+                  <p className="mt-2 text-base text-foreground/90 leading-relaxed">
+                    {t('allDoneBody', { count: streak })}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
 
             <div className="pt-4 flex justify-center">
               <RegenerateButton />

@@ -80,7 +80,7 @@
     "faq4Question": "How does the AI work?",
     "faq4Answer": "We use Claude — Anthropic's most advanced model — to generate a fresh plan every day based on your profile, the local weather, your equipment, and your goals. Plans never repeat exactly the same.",
     "faq5Question": "Is my data safe?",
-    "faq5Answer": "Yes. The app runs on EU servers (Vercel + Supabase), data is hosted in the EU, and we follow GDPR. You can export your data and delete your account anytime.",
+    "faq5Answer": "Yes. Your data stays inside the European Union — full stop. The app runs on EU servers (Vercel + Supabase, hosted in Frankfurt and Dublin); nothing is replicated to the United States, Russia, or anywhere outside the EU. We follow GDPR, so you can export everything or delete your account at any time, and no third party receives your profile or workout history.",
     "faq6Question": "Can I use it during the Move & Improve Days events?",
     "faq6Answer": "Absolutely — that's a core part of the project. Sign up, do the onboarding, and bring the app to the events. Trainers will use it to lead group sessions and track progress."
   },
@@ -137,6 +137,12 @@
     "goalSocial": "Train with others",
     "locationQuestion": "Where do you live? (for weather)",
     "locationPlaceholder": "City",
+    "partnerQuestion": "Do you train with a partner? (e.g. grandparent + grandchild)",
+    "partnerYes": "Yes — with someone",
+    "partnerNo": "No — solo for now",
+    "groupCodeQuestion": "Group code (optional)",
+    "groupCodePlaceholder": "e.g. GLIWICE1",
+    "groupCodeHint": "Got a code from a trainer or Move & Improve Day? Enter it to join the group.",
     "finish": "See my first plan"
   },
   "Plan": {
@@ -147,15 +153,36 @@
     "doneToast": "Nice — logged.",
     "regenerateCta": "Generate a new plan",
     "noPlanYet": "Generating your first plan…",
-    "streakLabel": "Day streak"
+    "streakLabel": "Day streak",
+    "allDoneTitle": "Today is done — well done!",
+    "allDoneBody": "Come back tomorrow to keep your {count}-day streak alive. Tomorrow's plan is already on its way."
   },
   "Nav": {
     "history": "History",
     "badges": "Badges",
     "plan": "Plan",
     "challenge": "Challenge",
+    "settings": "Settings",
     "logout": "Log out",
     "saveProgress": "Save progress"
+  },
+  "Settings": {
+    "title": "Your settings",
+    "subtitle": "Update your profile — we'll adjust tomorrow's plan to match."
+  },
+  "Group": {
+    "eyebrow": "Group dashboard",
+    "title": "Group {code}",
+    "invalidCode": "That group code doesn't look right. Codes are 4–12 letters and numbers.",
+    "empty": "No one has joined this group yet.",
+    "emptyHint": "Share the code {code} with your trainer or the participants of your Move & Improve Day. Once they enter it in their profile, they'll show up here.",
+    "members": "Members",
+    "totalWorkouts": "Workouts",
+    "activeToday": "Active today",
+    "howTitle": "How group codes work",
+    "howStep1": "A trainer or organiser picks a short code (e.g. POTENZA1) and shares it.",
+    "howStep2": "Every participant opens their settings and enters the code {code}.",
+    "howStep3": "This page shows live stats for the whole group — without exposing anyone's personal data."
   },
   "Challenge": {
     "intro": "Inspire others. Record a 15-30 second video of you moving — yoga, walk, dance, anything — and share the link with your community. Together we make movement go viral.",

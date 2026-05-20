@@ -12,6 +12,21 @@ const profileSchema = z.object({
   equipment: z.array(z.string()).default([]),
   goals: z.array(z.string()).default([]),
   city: z.string().min(1).max(80),
+  // Wizard step 6: pair / group. Both default to "no partner / no group" so
+  // existing onboarding payloads (and the /api/plan regenerate flow) stay
+  // backwards-compatible. Zod 4 propagates the post-transform type into
+  // .default, so we put the default BEFORE the transform.
+  trains_with_partner: z
+    .union([z.literal('yes'), z.literal('no')])
+    .default('no')
+    .transform((v) => v === 'yes'),
+  group_code: z
+    .string()
+    .trim()
+    .default('')
+    .transform((v) => v.toUpperCase())
+    .refine((v) => v === '' || /^[A-Z0-9]{4,12}$/.test(v), 'invalid_group_code')
+    .transform((v) => (v === '' ? null : v)),
 });
 
 type SaveState = { ok: boolean; error?: string };
@@ -35,6 +50,8 @@ export async function saveOnboarding(
     equipment: formData.getAll('equipment'),
     goals: formData.getAll('goals'),
     city: formData.get('city'),
+    trains_with_partner: formData.get('trains_with_partner') ?? undefined,
+    group_code: formData.get('group_code') ?? '',
   });
   if (!parsed.success) {
     console.error('[onboarding] zod validation failed', parsed.error.flatten());

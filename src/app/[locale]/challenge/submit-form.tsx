@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,7 @@ const initialState: SubmitState = { ok: false };
 export function SubmitForm() {
   const t = useTranslations('Challenge');
   const tc = useTranslations('Common');
+  const locale = useLocale();
   const [state, formAction, pending] = useActionState(submitChallengeVideo, initialState);
 
   if (state.ok) {
@@ -24,6 +25,9 @@ export function SubmitForm() {
 
   return (
     <form action={formAction} className="space-y-4">
+      {/* Pass the current locale so the server action can tag the row with a
+          country bucket (pl/it/uk/eu) for feed filtering. */}
+      <input type="hidden" name="locale" value={locale} />
       <div>
         <Label htmlFor="url">{t('urlLabel')}</Label>
         <Input

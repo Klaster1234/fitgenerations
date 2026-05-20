@@ -12,6 +12,10 @@ export type Profile = {
   equipment: string[];
   goals: string[];
   city: string | null;
+  // When true, the AI prefers `category: 'pair'` exercises so the user can
+  // train with a partner (grandparent + grandchild flow is the RDZEŃ of the
+  // Erasmus+ proposal).
+  trains_with_partner: boolean;
 };
 
 export type ExerciseCandidate = {
@@ -62,6 +66,7 @@ Hard rules:
 6. Respect weather: if outdoor-friendly is false, prefer indoor exercises (avoid 'park' equipment).
 7. Tone: warm, encouraging, plain language. Avoid jargon, avoid emojis. The user may be a senior or a teenager — calibrate accordingly.
 8. Localization: write greeting, motivation and ai_note IN THE USER'S LOCALE (en/pl/it/uk). Use natural phrasing for that language.
+9. Partner training: when user_profile.trains_with_partner is true, include AT LEAST ONE exercise from category 'pair' if any are present in the catalogue, and frame the motivation around training together.
 
 Output: return only JSON conforming to the schema. No prose outside the JSON.`;
 
