@@ -16,6 +16,9 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Match all paths except: API routes, Next.js internals, and static assets.
-  matcher: ['/((?!api|trpc|_next|_vercel|.*\\..*).*)'],
+  // Match all paths except: API routes, Next.js internals, static assets, and
+  // the metadata-file routes Next.js generates from `app/{icon,apple-icon,manifest}.{tsx,ts}`.
+  // Without the metadata-file exclusions, intl middleware appends a locale
+  // prefix (e.g. /icon → /en/icon) which 404s and breaks PWA install icons.
+  matcher: ['/((?!api|trpc|_next|_vercel|icon|icon1|apple-icon|manifest|.*\\..*).*)'],
 };
