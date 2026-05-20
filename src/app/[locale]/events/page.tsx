@@ -60,7 +60,7 @@ export default async function EventsPage({
 
   return (
     <div className="bg-hero-gradient flex-1 flex flex-col">
-      {/* Header — public, so use simple nav */}
+      {/* Header - public, so use simple nav */}
       <nav className="relative z-20 max-w-6xl mx-auto px-6 py-5 flex items-center justify-between w-full">
         <Link href="/" className="hover:opacity-80 transition-opacity" aria-label={tc('appName')}>
           <Logo size="md" />

@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
-/* FGST design tokens — green/health/movement.
+/* FGST design tokens - green/health/movement.
    Senior-friendly defaults: larger base font, strong focus, generous spacing.
    Production-ready visual polish: gradients, shadows, refined palette. */
 :root {
-  /* Surface palette — warm cream, not stark white */
+  /* Surface palette - warm cream, not stark white */
   --background: #fafaf7;
   --foreground: #0f172a;
   --surface: #ffffff;
@@ -12,14 +12,14 @@
   --border: #e7e5dc;
   --muted: #525766;
 
-  /* Brand — green spectrum */
+  /* Brand - green spectrum */
   --brand: #16a34a;
   --brand-dark: #15803d;
   --brand-darker: #14532d;
   --brand-light: #dcfce7;
   --brand-cream: #f0fdf4;
 
-  /* Accents — warm orange + sun yellow */
+  /* Accents - warm orange + sun yellow */
   --accent: #f97316;
   --accent-warm: #fb923c;
   --sun: #facc15;
@@ -54,7 +54,7 @@
     --surface: #111827;
     --surface-2: #0f1421;
     --border: #1e293b;
-    /* slate-300 instead of slate-400 — passes WCAG AAA on dark bg.
+    /* slate-300 instead of slate-400 - passes WCAG AAA on dark bg.
        Critical for senior 60+ readability per UX audit. */
     --muted: #cbd5e1;
 
@@ -188,7 +188,7 @@ html {
   }
 }
 
-/* Scroll-triggered reveals — pure CSS, no JS.
+/* Scroll-triggered reveals - pure CSS, no JS.
    Falls back to no animation in older browsers. */
 @keyframes reveal {
   from {
@@ -242,7 +242,7 @@ html {
   animation: breathe 6s ease-in-out infinite;
 }
 
-/* Optical sizing for Fraunces — display feel on big text */
+/* Optical sizing for Fraunces - display feel on big text */
 @utility font-display {
   font-family: var(--font-serif), Georgia, serif;
   font-variation-settings: 'opsz' 144, 'SOFT' 50;

@@ -47,7 +47,7 @@ export async function AppHeader() {
             <Logo size="sm" />
           </Link>
 
-          {/* Desktop nav — hidden on mobile, the bottom tab bar takes over there */}
+          {/* Desktop nav - hidden on mobile, the bottom tab bar takes over there */}
           <nav className="hidden sm:flex items-center gap-0.5 text-base">
             <Link
               href="/plan"
@@ -108,7 +108,7 @@ export async function AppHeader() {
         </div>
       </header>
 
-      {/* Mobile bottom tab bar — only renders on < sm */}
+      {/* Mobile bottom tab bar - only renders on < sm */}
       <MobileTabBar />
     </>
   );

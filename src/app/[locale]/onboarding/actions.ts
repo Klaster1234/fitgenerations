@@ -64,7 +64,7 @@ export async function saveOnboarding(
     return { ok: false, error: 'unauthorized' };
   }
 
-  // Upsert (not update) — resilient if the trigger-created row got removed
+  // Upsert (not update) - resilient if the trigger-created row got removed
   // or if the user's profile was wiped during testing.
   const { error } = await supabase
     .from('profiles')
@@ -85,6 +85,6 @@ export async function saveOnboarding(
 
   revalidatePath('/', 'layout');
   redirect({ href: '/plan', locale });
-  // Unreachable — `redirect` throws. Satisfies the explicit return type.
+  // Unreachable - `redirect` throws. Satisfies the explicit return type.
   return { ok: true };
 }

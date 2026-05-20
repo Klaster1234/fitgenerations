@@ -8,7 +8,7 @@ import { updateSupabaseSession } from './lib/supabase/proxy';
 const intlMiddleware = createIntlMiddleware(routing);
 
 export default async function proxy(request: NextRequest) {
-  // Run intl first — it handles locale detection and may issue redirects.
+  // Run intl first - it handles locale detection and may issue redirects.
   const response = intlMiddleware(request);
 
   // If intl returned a redirect, we still want to refresh Supabase cookies on it.

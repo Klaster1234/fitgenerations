@@ -6,9 +6,9 @@ import { ensureTodayPlan } from '@/lib/ai/plan-service';
  * POST /api/plan
  *
  * Used by the client-side "Regenerate" button. The page itself calls
- * ensureTodayPlan directly — it doesn't need this route handler.
+ * ensureTodayPlan directly - it doesn't need this route handler.
  *
- * Body: optional `{ regenerate?: boolean }` — when true, replaces today's plan.
+ * Body: optional `{ regenerate?: boolean }` - when true, replaces today's plan.
  */
 export async function POST(request: Request) {
   const supabase = await createSupabaseServerClient();

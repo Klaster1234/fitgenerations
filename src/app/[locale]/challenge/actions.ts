@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
-// Allow only popular video platforms — pre-validates we're dealing with safe links.
+// Allow only popular video platforms - pre-validates we're dealing with safe links.
 const ALLOWED_HOSTS = [
   'www.youtube.com',
   'youtube.com',

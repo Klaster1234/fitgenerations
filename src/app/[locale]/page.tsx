@@ -16,7 +16,7 @@ export default async function LandingPage({
 
   return (
     <div className="relative">
-      {/* Top nav — minimal, no duplicate CTA (per UX audit) */}
+      {/* Top nav - minimal, no duplicate CTA (per UX audit) */}
       <nav className="relative z-20 max-w-6xl mx-auto px-6 py-5 flex items-center justify-between gap-2">
         <Link
           href="/"
@@ -44,7 +44,7 @@ export default async function LandingPage({
         </div>
       </nav>
 
-      {/* HERO — 2-column, mockup right */}
+      {/* HERO - 2-column, mockup right */}
       <section className="relative bg-hero-gradient overflow-hidden">
         <svg
           className="absolute -right-32 -top-32 w-[44rem] h-[44rem] opacity-50 pointer-events-none"
@@ -80,7 +80,7 @@ export default async function LandingPage({
         <div className="relative z-10 max-w-6xl mx-auto px-6 pt-10 pb-24 sm:pt-16 sm:pb-32">
           <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-14 items-center">
             <div className="text-center lg:text-left">
-              {/* Erasmus+ EU badge — proper EU-style pill, always readable */}
+              {/* Erasmus+ EU badge - proper EU-style pill, always readable */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-eu-blue text-white shadow-soft animate-float mb-7">
                 <span className="text-eu-yellow text-base leading-none font-black" aria-hidden>
                   ★
@@ -139,7 +139,7 @@ export default async function LandingPage({
         </div>
       </section>
 
-      {/* MANIFEST — dark, dramatic, serif. The page's emotional centerpiece. */}
+      {/* MANIFEST - dark, dramatic, serif. The page's emotional centerpiece. */}
       <section className="relative bg-[#0a1018] text-white overflow-hidden">
         {/* Subtle grid pattern overlay */}
         <div
@@ -151,7 +151,7 @@ export default async function LandingPage({
           }}
           aria-hidden
         />
-        {/* Starry dots — subtle */}
+        {/* Starry dots - subtle */}
         <div
           className="absolute inset-0 opacity-[0.18] pointer-events-none"
           style={{
@@ -167,7 +167,7 @@ export default async function LandingPage({
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[44rem] h-[44rem] rounded-full bg-brand/20 blur-[100px] pointer-events-none animate-breathe"
           aria-hidden
         />
-        {/* Secondary warmth glow — bottom right */}
+        {/* Secondary warmth glow - bottom right */}
         <div
           className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-[28rem] h-[28rem] rounded-full bg-accent-warm/15 blur-[80px] pointer-events-none"
           aria-hidden
@@ -202,10 +202,10 @@ export default async function LandingPage({
         </div>
       </section>
 
-      {/* THREE VALUES — editorial, alternating */}
+      {/* THREE VALUES - editorial, alternating */}
       <section className="relative bg-surface border-y border-border">
         <div className="max-w-6xl mx-auto px-6 py-24 sm:py-32 space-y-24 sm:space-y-32">
-          {/* Value 1 — text left, big number right */}
+          {/* Value 1 - text left, big number right */}
           <div className="reveal-on-scroll grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <p className="text-[0.75rem] font-bold uppercase tracking-wider text-emerald-400 mb-5">
@@ -240,7 +240,7 @@ export default async function LandingPage({
             </svg>
           </div>
 
-          {/* Value 2 — number left, text right */}
+          {/* Value 2 - number left, text right */}
           <div className="reveal-on-scroll grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="text-center lg:text-left lg:order-1 order-2">
               <span className="font-display block text-[9rem] sm:text-[12rem] lg:text-[14rem] font-medium leading-[0.85] tracking-[-0.05em] bg-gradient-to-br from-amber-300 via-orange-400 to-amber-500 bg-clip-text text-transparent">
@@ -275,7 +275,7 @@ export default async function LandingPage({
             </svg>
           </div>
 
-          {/* Value 3 — text left, number right */}
+          {/* Value 3 - text left, number right */}
           <div className="reveal-on-scroll grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <p className="text-[0.75rem] font-bold uppercase tracking-wider text-emerald-400 mb-5">
@@ -298,7 +298,7 @@ export default async function LandingPage({
         </div>
       </section>
 
-      {/* FAQ — collapsible Q&A. Renders existing translations (en/pl/it/uk).
+      {/* FAQ - collapsible Q&A. Renders existing translations (en/pl/it/uk).
           Uses native <details>/<summary> so it works without JS and stays
           accessible to screen readers + keyboard users. The data-residency
           answer (faq5) explicitly covers EU/Frankfurt/Dublin per the
@@ -343,7 +343,7 @@ export default async function LandingPage({
         </div>
       </section>
 
-      {/* CTA — direct, no fluff */}
+      {/* CTA - direct, no fluff */}
       <section className="relative bg-hero-gradient overflow-hidden">
         <svg
           className="absolute -right-24 top-1/2 -translate-y-1/2 w-[36rem] h-[36rem] opacity-30 pointer-events-none"

@@ -41,7 +41,7 @@ export default async function ChallengePage({
   const list = (videos as Video[] | null) ?? [];
 
   // Country bucket → flag emoji shown next to each card. Keep the set small
-  // — Erasmus+ project partners are PL + IT, plus UA (refugees) and EU.
+  // - Erasmus+ project partners are PL + IT, plus UA (refugees) and EU.
   const COUNTRY_FLAG: Record<string, string> = {
     pl: '🇵🇱',
     it: '🇮🇹',

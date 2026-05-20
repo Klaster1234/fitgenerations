@@ -13,7 +13,7 @@ export type WeatherSnapshot = {
 
 /**
  * Look up current weather for a city via OpenWeather.
- * Returns null when the API key is missing or the lookup fails — callers
+ * Returns null when the API key is missing or the lookup fails - callers
  * fall back to "no weather data" mode rather than blocking the user.
  */
 export async function getWeather(city: string): Promise<WeatherSnapshot | null> {

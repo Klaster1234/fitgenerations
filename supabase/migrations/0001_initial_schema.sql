@@ -2,7 +2,7 @@
 -- Run via: supabase db push   (or paste in Supabase SQL editor for the project)
 -- Conventions:
 --   * RLS enabled on every user-data table.
---   * `auth.users` is owned by Supabase Auth — we extend it via `profiles`.
+--   * `auth.users` is owned by Supabase Auth - we extend it via `profiles`.
 --   * Timestamps use `timestamptz`, defaults to now().
 
 -- ============================================================================

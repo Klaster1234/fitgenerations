@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
  * Server-side Supabase client.
  * Use in Server Components, Server Actions, and Route Handlers.
  *
- * Cookies are read/written on every request — the client refreshes the
+ * Cookies are read/written on every request - the client refreshes the
  * user's session automatically via the proxy.
  */
 export async function createSupabaseServerClient() {
@@ -26,7 +26,7 @@ export async function createSupabaseServerClient() {
               cookieStore.set(name, value, options);
             });
           } catch {
-            // setAll was called from a Server Component — safe to ignore
+            // setAll was called from a Server Component - safe to ignore
             // when the proxy is also refreshing sessions.
           }
         },

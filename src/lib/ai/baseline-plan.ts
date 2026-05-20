@@ -15,7 +15,7 @@ import type { ExerciseCandidate, GeneratedPlan, Profile } from './plan-generator
 type Locale = Profile['locale'];
 
 // Greetings + motivation + per-category exercise note, in all four locales.
-// Kept short and warm — no jargon, no emojis (consistent with the AI prompt).
+// Kept short and warm - no jargon, no emojis (consistent with the AI prompt).
 const COPY: Record<
   Locale,
   {
@@ -27,69 +27,69 @@ const COPY: Record<
   en: {
     greeting: "Today's plan is ready.",
     motivation:
-      'Four short blocks. Move at your pace — finish what you can today, the rest stays for tomorrow.',
+      'Four short blocks. Move at your pace - finish what you can today, the rest stays for tomorrow.',
     note: {
       warmup: 'Loosen up. Light, easy moves to wake the body.',
-      functional: 'Steady work. Quality over speed — feel the muscle.',
+      functional: 'Steady work. Quality over speed - feel the muscle.',
       mobility: 'Open the joints. Slow and breathing-led.',
       flexibility: 'Stretch. Hold each position without forcing it.',
       cardio: 'Get the heart up gently. Talk-pace is fine.',
       cooldown: 'Slow down. End calmer than you started.',
       balance: 'Find the centre. Steady, eyes open or closed.',
       green: 'Outside if you can. Movement plus fresh air.',
-      pair: 'Better with company — invite someone.',
+      pair: 'Better with company - invite someone.',
       team: 'A group activity to keep on the radar.',
     },
   },
   pl: {
     greeting: 'Twój plan na dziś jest gotowy.',
     motivation:
-      'Cztery krótkie bloki. Idź swoim tempem — zrób tyle, ile dasz radę. Reszta poczeka.',
+      'Cztery krótkie bloki. Idź swoim tempem - zrób tyle, ile dasz radę. Reszta poczeka.',
     note: {
-      warmup: 'Rozgrzewka. Spokojne, łagodne ruchy — budzimy ciało.',
-      functional: 'Praca właściwa. Jakość ważniejsza od tempa — czuj mięsień.',
+      warmup: 'Rozgrzewka. Spokojne, łagodne ruchy - budzimy ciało.',
+      functional: 'Praca właściwa. Jakość ważniejsza od tempa - czuj mięsień.',
       mobility: 'Otwieramy stawy. Powoli, w rytmie oddechu.',
       flexibility: 'Rozciąganie. Zatrzymaj się bez forsowania.',
       cardio: 'Lekko podnieś tętno. Tempo „rozmowne" wystarczy.',
       cooldown: 'Wyciszenie. Skończ spokojniej niż zacząłeś.',
       balance: 'Złap środek. Stabilnie, z otwartymi lub zamkniętymi oczami.',
-      green: 'Jeśli możesz — wyjdź na zewnątrz. Ruch i świeże powietrze.',
-      pair: 'Lepsze w parze — zaproś kogoś bliskiego.',
-      team: 'Aktywność grupowa — warto mieć w głowie.',
+      green: 'Jeśli możesz - wyjdź na zewnątrz. Ruch i świeże powietrze.',
+      pair: 'Lepsze w parze - zaproś kogoś bliskiego.',
+      team: 'Aktywność grupowa - warto mieć w głowie.',
     },
   },
   it: {
     greeting: 'Il tuo piano di oggi è pronto.',
     motivation:
-      'Quattro brevi blocchi. Vai al tuo ritmo — fai quel che puoi oggi, il resto resta per domani.',
+      'Quattro brevi blocchi. Vai al tuo ritmo - fai quel che puoi oggi, il resto resta per domani.',
     note: {
       warmup: 'Riscaldamento. Movimenti leggeri per svegliare il corpo.',
-      functional: 'Lavoro principale. Qualità più che velocità — senti il muscolo.',
+      functional: 'Lavoro principale. Qualità più che velocità - senti il muscolo.',
       mobility: 'Apri le articolazioni. Lento, guidato dal respiro.',
       flexibility: 'Allungamento. Tieni la posizione senza forzare.',
       cardio: 'Alza il battito con calma. Ritmo da chiacchierata.',
       cooldown: 'Defaticamento. Finisci più calmo di come hai iniziato.',
       balance: 'Trova il centro. Stabile, occhi aperti o chiusi.',
-      green: 'Se puoi — fuori. Movimento e aria fresca.',
-      pair: 'Meglio in coppia — invita qualcuno.',
-      team: 'Attività di gruppo — tienila a mente.',
+      green: 'Se puoi - fuori. Movimento e aria fresca.',
+      pair: 'Meglio in coppia - invita qualcuno.',
+      team: 'Attività di gruppo - tienila a mente.',
     },
   },
   uk: {
     greeting: 'Ваш план на сьогодні готовий.',
     motivation:
-      "Чотири короткі блоки. Йдіть у своєму темпі — зробіть стільки, скільки зможете. Решта почекає.",
+      "Чотири короткі блоки. Йдіть у своєму темпі - зробіть стільки, скільки зможете. Решта почекає.",
     note: {
-      warmup: 'Розминка. Легкі, плавні рухи — будимо тіло.',
-      functional: 'Основна робота. Якість важливіша за темп — відчуйте м\'яз.',
+      warmup: 'Розминка. Легкі, плавні рухи - будимо тіло.',
+      functional: 'Основна робота. Якість важливіша за темп - відчуйте м\'яз.',
       mobility: 'Відкриваємо суглоби. Повільно, у ритмі дихання.',
       flexibility: 'Розтяжка. Затримайтеся без зайвого зусилля.',
-      cardio: 'М\'яко підніміть пульс. Темп «розмовний» — ідеально.',
+      cardio: 'М\'яко підніміть пульс. Темп «розмовний» - ідеально.',
       cooldown: 'Заспокоєння. Завершіть тихіше, ніж почали.',
       balance: 'Знайдіть центр. Стабільно, з відкритими або заплющеними очима.',
-      green: 'Якщо можна — на свіже повітря. Рух і кисень.',
-      pair: 'Краще удвох — запросіть когось.',
-      team: 'Групова активність — варто пам\'ятати.',
+      green: 'Якщо можна - на свіже повітря. Рух і кисень.',
+      pair: 'Краще удвох - запросіть когось.',
+      team: 'Групова активність - варто пам\'ятати.',
     },
   },
 };
@@ -115,7 +115,7 @@ export function buildBaselinePlan(
     byCategory.set(ex.category, list);
   }
 
-  // Pick: 1 warmup, 2 functional, 1 cooldown — fall back to any category
+  // Pick: 1 warmup, 2 functional, 1 cooldown - fall back to any category
   // when one is empty so we never ship fewer than 3 items.
   const picks: ExerciseCandidate[] = [];
   const used = new Set<string>();

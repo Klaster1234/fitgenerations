@@ -29,7 +29,7 @@ export default async function PlanPage({
 
   const userId = userData.user!.id;
 
-  // Force onboarding for fresh accounts so the AI plan is tailored — without
+  // Force onboarding for fresh accounts so the AI plan is tailored - without
   // this, anonymous users land on /plan with default age=40 / locale=en and
   // never see the wizard, which the persona audit flagged as a P0.
   const { data: onboardingState } = await supabase
@@ -44,7 +44,7 @@ export default async function PlanPage({
   const today = new Date().toISOString().slice(0, 10);
 
   // Make sure today's plan exists (generates + persists if missing).
-  // Calls the service directly — no same-origin fetch, no cookie forwarding.
+  // Calls the service directly - no same-origin fetch, no cookie forwarding.
   // Pass the URL locale as a fallback so unfilled profiles still get
   // localized plans.
   const ensured = await ensureTodayPlan(supabase, userId, { locale });
@@ -77,7 +77,7 @@ export default async function PlanPage({
 
   const items = plan?.items ?? [];
   const slugs = items.map((it) => it.exercise_slug);
-  // Used to render the "see you tomorrow" retention banner — cheaper than
+  // Used to render the "see you tomorrow" retention banner - cheaper than
   // shipping push notifications for the MVP, addresses persona-audit P1 #12.
   const allDone = items.length > 0 && items.every((it) => doneSlugs.has(it.exercise_slug));
   const { data: exercises } = await supabase
@@ -97,7 +97,7 @@ export default async function PlanPage({
             <h1 className="text-3xl font-bold tracking-tight">{t('todayTitle')}</h1>
             {weather && (
               <p className="mt-2 text-muted">
-                {t('weatherFor', { city: weather.city })}: {weather.temperatureC}°C — {weather.description}
+                {t('weatherFor', { city: weather.city })}: {weather.temperatureC}°C - {weather.description}
               </p>
             )}
           </div>

@@ -10,7 +10,7 @@ const dimensions: Record<Size, { box: string; icon: string; text: string }> = {
 };
 
 /**
- * FGST logo. Inline SVG / icon only — no image asset dependency.
+ * FGST logo. Inline SVG / icon only - no image asset dependency.
  * The lightning bolt visually conveys "smart" / "energy" / "movement".
  */
 export function Logo({ size = 'md', className }: { size?: Size; className?: string }) {

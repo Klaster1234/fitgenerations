@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 /**
  * Erasmus+ co-funding acknowledgment footer.
- * Required by EU funding rules — must be visible on every public page.
+ * Required by EU funding rules - must be visible on every public page.
  *
  * The badge here follows the official EU Visibility Manual composition:
  *   • EU emblem (12 yellow stars on blue) on the LEFT
@@ -20,7 +20,7 @@ export async function EuFooter() {
       <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           {/* Official "Co-funded by the European Union" badge.
-              Always rendered on a white card — EU Visual Identity Manual
+              Always rendered on a white card - EU Visual Identity Manual
               requires a light background for the emblem to remain legible. */}
           <div className="shrink-0 inline-flex items-center gap-3 rounded-md bg-white p-3 shadow-soft">
             <svg
@@ -47,7 +47,7 @@ export async function EuFooter() {
                 );
               })}
             </svg>
-            {/* Wordmark on the right — EU blue, sans-serif, two lines, tight
+            {/* Wordmark on the right - EU blue, sans-serif, two lines, tight
                 line-height to match the manual's reference proportions. */}
             <div
               className="flex flex-col font-bold text-[#003399] text-base leading-[1.05] tracking-tight"

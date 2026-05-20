@@ -1,7 +1,7 @@
 -- Fill missing video_url for 31 exercises with senior-friendly YouTube demos.
 -- Sources: HASfit, More Life Health, Yoga With Adriene, Ask Doctor Jo, Bob & Brad,
 -- NBC News (plogging), Brodie Smith (frisbee), PE-teacher channels (relay/beanbag/petanque).
--- pair-mirror is intentionally left NULL — no quality partner mirror-game demo found;
+-- pair-mirror is intentionally left NULL - no quality partner mirror-game demo found;
 -- description in DB is self-contained.
 
 update public.exercises set video_url = 'https://www.youtube.com/watch?v=QilgMPG7OaA' where slug = 'marching-in-place';

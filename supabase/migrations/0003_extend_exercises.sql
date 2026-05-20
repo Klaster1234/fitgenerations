@@ -1,6 +1,6 @@
 -- Extend exercise categories to cover Erasmus+ scope:
--- + 'green' (Nordic walking, tai-chi, plogging, frisbee — green sports per proposal)
--- + 'pair' (intergenerational pair training — Move & Improve / Olympics)
+-- + 'green' (Nordic walking, tai-chi, plogging, frisbee - green sports per proposal)
+-- + 'pair' (intergenerational pair training - Move & Improve / Olympics)
 -- + 'team' (already in schema, seed empty)
 
 alter table public.exercises drop constraint exercises_category_check;
@@ -130,7 +130,7 @@ insert into public.exercises (slug, category, difficulty, name, description, vid
     '{"en": "Walk slowly outdoors. Notice 5 things you see, 4 you hear, 3 you can touch. Calming + active.", "pl": "Spaceruj powoli na zewnątrz. Zauważ 5 rzeczy które widzisz, 4 słyszysz, 3 możesz dotknąć. Wyciszenie + ruch.", "it": "Cammina lentamente all''aperto. Nota 5 cose che vedi, 4 che senti, 3 che puoi toccare. Calmante + attivo."}',
     null, '{"park"}', 15, 6, 120),
 
-  -- Team games (Move & Improve / Olympics — proposal explicitly lists)
+  -- Team games (Move & Improve / Olympics - proposal explicitly lists)
   ('petanque-practice', 'team', 'low',
     '{"en": "Petanque practice", "pl": "Petanka - ćwiczenie", "it": "Pratica di petanque"}',
     '{"en": "Throw boules toward target ball. Aim for accuracy. Play 3-4 rounds. Great intergenerational game.", "pl": "Rzucaj kulami do kulki celu. Trafność > siła. Zagraj 3-4 rundy. Świetna gra międzypokoleniowa.", "it": "Lancia le bocce verso il pallino. Mira alla precisione. Gioca 3-4 round. Ottimo gioco intergenerazionale."}',

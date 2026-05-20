@@ -13,10 +13,10 @@
 --   4. Kliknij Run (zielony przycisk u dołu, albo Ctrl+Enter)
 --
 -- JEŚLI BAZA JEST CZYSTA (jak FitGenerations / fhvfgtekyemsyegsqnnr):
---   Wklej całość — wszystko się utworzy w jednym strzale.
+--   Wklej całość - wszystko się utworzy w jednym strzale.
 --
 -- JEŚLI MASZ JUŻ 0001-0004 (production):
---   Skok do "STEP 5" — paste tylko od linii "-- STEP 5: 0005_exercise_videos"
+--   Skok do "STEP 5" - paste tylko od linii "-- STEP 5: 0005_exercise_videos"
 --   do końca pliku.
 --
 -- WERYFIKACJA PO RUN:
@@ -31,14 +31,14 @@
 
 
 -- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║ STEP 1: 0001_initial_schema — tables, RLS, triggers                      ║
+-- ║ STEP 1: 0001_initial_schema - tables, RLS, triggers                      ║
 -- ╚══════════════════════════════════════════════════════════════════════════╝
 
 -- FGST initial schema
 -- Run via: supabase db push   (or paste in Supabase SQL editor for the project)
 -- Conventions:
 --   * RLS enabled on every user-data table.
---   * `auth.users` is owned by Supabase Auth — we extend it via `profiles`.
+--   * `auth.users` is owned by Supabase Auth - we extend it via `profiles`.
 --   * Timestamps use `timestamptz`, defaults to now().
 
 -- ============================================================================
@@ -255,10 +255,10 @@ create trigger profiles_touch_updated_at
 
 
 -- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║ STEP 2: 0002_seed_exercises — 9 base exercises                           ║
+-- ║ STEP 2: 0002_seed_exercises - 9 base exercises                           ║
 -- ╚══════════════════════════════════════════════════════════════════════════╝
 
--- Seed initial exercise catalog (small starter set — extend over time).
+-- Seed initial exercise catalog (small starter set - extend over time).
 -- Names/descriptions in EN/PL/IT.
 
 insert into public.exercises (slug, category, difficulty, name, description, video_url, equipment, duration_minutes, min_age, max_age) values
@@ -324,12 +324,12 @@ insert into public.exercises (slug, category, difficulty, name, description, vid
 
 
 -- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║ STEP 3: 0003_extend_exercises — +30 exercises, +categories green/pair   ║
+-- ║ STEP 3: 0003_extend_exercises - +30 exercises, +categories green/pair   ║
 -- ╚══════════════════════════════════════════════════════════════════════════╝
 
 -- Extend exercise categories to cover Erasmus+ scope:
--- + 'green' (Nordic walking, tai-chi, plogging, frisbee — green sports per proposal)
--- + 'pair' (intergenerational pair training — Move & Improve / Olympics)
+-- + 'green' (Nordic walking, tai-chi, plogging, frisbee - green sports per proposal)
+-- + 'pair' (intergenerational pair training - Move & Improve / Olympics)
 -- + 'team' (already in schema, seed empty)
 
 alter table public.exercises drop constraint exercises_category_check;
@@ -459,7 +459,7 @@ insert into public.exercises (slug, category, difficulty, name, description, vid
     '{"en": "Walk slowly outdoors. Notice 5 things you see, 4 you hear, 3 you can touch. Calming + active.", "pl": "Spaceruj powoli na zewnątrz. Zauważ 5 rzeczy które widzisz, 4 słyszysz, 3 możesz dotknąć. Wyciszenie + ruch.", "it": "Cammina lentamente all''aperto. Nota 5 cose che vedi, 4 che senti, 3 che puoi toccare. Calmante + attivo."}',
     null, '{"park"}', 15, 6, 120),
 
-  -- Team games (Move & Improve / Olympics — proposal explicitly lists)
+  -- Team games (Move & Improve / Olympics - proposal explicitly lists)
   ('petanque-practice', 'team', 'low',
     '{"en": "Petanque practice", "pl": "Petanka - ćwiczenie", "it": "Pratica di petanque"}',
     '{"en": "Throw boules toward target ball. Aim for accuracy. Play 3-4 rounds. Great intergenerational game.", "pl": "Rzucaj kulami do kulki celu. Trafność > siła. Zagraj 3-4 rundy. Świetna gra międzypokoleniowa.", "it": "Lancia le bocce verso il pallino. Mira alla precisione. Gioca 3-4 round. Ottimo gioco intergenerazionale."}',
@@ -503,7 +503,7 @@ insert into public.exercises (slug, category, difficulty, name, description, vid
 
 
 -- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║ STEP 4: 0004_seed_badges — 8 motivational badges                        ║
+-- ║ STEP 4: 0004_seed_badges - 8 motivational badges                        ║
 -- ╚══════════════════════════════════════════════════════════════════════════╝
 
 -- Motivational badges (proposal: "motivational mechanisms").
@@ -560,13 +560,13 @@ insert into public.badges (slug, name, description, icon, criteria) values
 
 
 -- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║ STEP 5: 0005_exercise_videos — 31 YouTube URLs (audit fix)              ║
+-- ║ STEP 5: 0005_exercise_videos - 31 YouTube URLs (audit fix)              ║
 -- ╚══════════════════════════════════════════════════════════════════════════╝
 
 -- Fill missing video_url for 31 exercises with senior-friendly YouTube demos.
 -- Sources: HASfit, More Life Health, Yoga With Adriene, Ask Doctor Jo, Bob & Brad,
 -- NBC News (plogging), Brodie Smith (frisbee), PE-teacher channels (relay/beanbag/petanque).
--- pair-mirror is intentionally left NULL — no quality partner mirror-game demo found;
+-- pair-mirror is intentionally left NULL - no quality partner mirror-game demo found;
 -- description in DB is self-contained.
 
 update public.exercises set video_url = 'https://www.youtube.com/watch?v=QilgMPG7OaA' where slug = 'marching-in-place';
@@ -611,7 +611,7 @@ update public.exercises set video_url = 'https://www.youtube.com/watch?v=HVFQS3R
 
 
 -- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║ STEP 6: 0006_persona_audit_fixes — uk locale, pair, group, country, RPC ║
+-- ║ STEP 6: 0006_persona_audit_fixes - uk locale, pair, group, country, RPC ║
 -- ╚══════════════════════════════════════════════════════════════════════════╝
 
 -- Schema additions driven by the 5-persona audit. Append-only.
@@ -621,7 +621,7 @@ update public.exercises set video_url = 'https://www.youtube.com/watch?v=HVFQS3R
 --    forced Ukrainian users back to 'en').
 -- 2. Add `trains_with_partner` for the intergenerational pair-training flow
 --    (RDZEŃ projektu: grandparent + grandchild).
--- 3. Add `group_code` so trainers can run Move & Improve Days sessions —
+-- 3. Add `group_code` so trainers can run Move & Improve Days sessions -
 --    every participant enters the same code, and the /group/[code] page
 --    aggregates progress.
 -- 4. Add `country` to challenge_videos so the feed can be sliced PL/IT/EU.
@@ -668,7 +668,7 @@ create index if not exists challenge_videos_country_idx on public.challenge_vide
   where country is not null;
 
 -- ============================================================================
--- 5. get_group_stats RPC — returns per-group aggregates without leaking PII
+-- 5. get_group_stats RPC - returns per-group aggregates without leaking PII
 -- ============================================================================
 -- Safe to expose: counts members, sums activity logs, returns max streak.
 -- Profiles' RLS still hides individual rows; this function runs with

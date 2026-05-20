@@ -1,4 +1,4 @@
--- Seed initial exercise catalog (small starter set — extend over time).
+-- Seed initial exercise catalog (small starter set - extend over time).
 -- Names/descriptions in EN/PL/IT.
 
 insert into public.exercises (slug, category, difficulty, name, description, video_url, equipment, duration_minutes, min_age, max_age) values

@@ -54,9 +54,9 @@ export type GeneratedPlan = z.infer<typeof planSchema>;
 // Override via env if needed; default to the current top model per Anthropic guidance.
 const MODEL_ID = process.env.ANTHROPIC_MODEL ?? 'claude-opus-4-7';
 
-// Stable system prompt — eligible for prompt caching across calls.
+// Stable system prompt - eligible for prompt caching across calls.
 // Keep deterministic; do NOT interpolate timestamps or per-user data here.
-const SYSTEM_PROMPT = `You are FitGenerations Smart TrAIner — an AI training companion for an EU-funded sport-and-inclusion project.
+const SYSTEM_PROMPT = `You are FitGenerations Smart TrAIner - an AI training companion for an EU-funded sport-and-inclusion project.
 
 Your job: pick 3 to 5 exercises from a provided catalogue and assemble a short daily plan that is realistic for the user's age, fitness, equipment and weather.
 
@@ -67,7 +67,7 @@ Hard rules:
 4. Adapt to age: for users 60+ avoid high-impact and prefer 'low' difficulty; for users under 16 keep it playful and short.
 5. Respect equipment: never select exercises requiring equipment the user does not have. If equipment list is empty, body-weight only.
 6. Respect weather: if outdoor-friendly is false, prefer indoor exercises (avoid 'park' equipment).
-7. Tone: warm, encouraging, plain language. Avoid jargon, avoid emojis. The user may be a senior or a teenager — calibrate accordingly.
+7. Tone: warm, encouraging, plain language. Avoid jargon, avoid emojis. The user may be a senior or a teenager - calibrate accordingly.
 8. Localization: write greeting, motivation and ai_note IN THE USER'S LOCALE (en/pl/it/uk). Use natural phrasing for that language.
 9. Partner training: when user_profile.trains_with_partner is true, include AT LEAST ONE exercise from category 'pair' if any are present in the catalogue, and frame the motivation around training together.
 
@@ -87,7 +87,7 @@ export async function generatePlan(args: {
 
   const client = new Anthropic();
 
-  // The schema we ask Claude to fill (kept simple — Anthropic structured outputs).
+  // The schema we ask Claude to fill (kept simple - Anthropic structured outputs).
   const jsonSchema = {
     type: 'object',
     additionalProperties: false,

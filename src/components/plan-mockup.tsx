@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 
 /**
  * Visual mockup of the "Today's plan" screen.
- * Pure HTML/SVG — no real data needed. Used as hero illustration.
+ * Pure HTML/SVG - no real data needed. Used as hero illustration.
  */
 export async function PlanMockup() {
   const t = await getTranslations('Mockup');
@@ -23,7 +23,7 @@ export async function PlanMockup() {
           transformStyle: 'preserve-3d',
         }}
       >
-        {/* Top bar — pretend browser/app frame */}
+        {/* Top bar - pretend browser/app frame */}
         <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border bg-surface-2">
           <span className="w-2.5 h-2.5 rounded-full bg-red-400" aria-hidden />
           <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" aria-hidden />
@@ -56,7 +56,7 @@ export async function PlanMockup() {
             <span>{t('weather')}</span>
           </div>
 
-          {/* AI greeting — labelled with sparkle, with left accent border */}
+          {/* AI greeting - labelled with sparkle, with left accent border */}
           <div className="relative pl-4 mb-6">
             <span className="absolute left-0 top-1 bottom-1 w-0.5 rounded-full bg-gradient-to-b from-brand to-accent" aria-hidden />
             <div className="inline-flex items-center gap-1 mb-1.5 text-[0.6rem] font-bold uppercase tracking-[0.2em] text-brand">

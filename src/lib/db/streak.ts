@@ -8,7 +8,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 export async function getStreak(userId: string): Promise<number> {
   const supabase = await createSupabaseServerClient();
 
-  // Pull last 60 distinct days — plenty for the longest realistic streak.
+  // Pull last 60 distinct days - plenty for the longest realistic streak.
   const sixtyDaysAgo = new Date();
   sixtyDaysAgo.setDate(sixtyDaysAgo.getDate() - 60);
 
@@ -26,7 +26,7 @@ export async function getStreak(userId: string): Promise<number> {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Allow streak to remain valid if user hasn't logged today yet — start from yesterday.
+  // Allow streak to remain valid if user hasn't logged today yet - start from yesterday.
   const cursor = new Date(today);
   if (!days.has(toDateStr(cursor))) {
     cursor.setDate(cursor.getDate() - 1);

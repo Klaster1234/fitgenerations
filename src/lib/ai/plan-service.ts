@@ -33,7 +33,7 @@ export type EnsurePlanResult =
 
 /**
  * Ensure today's plan exists for `userId`. Generates and persists when missing
- * (or when `regenerate` is true). Single source of truth — both the
+ * (or when `regenerate` is true). Single source of truth - both the
  * `/api/plan` route and the `/plan` server component call this directly so
  * we don't have to forward auth cookies through a same-origin fetch.
  *
@@ -47,7 +47,7 @@ export async function ensureTodayPlan(
 ): Promise<EnsurePlanResult> {
   const today = new Date().toISOString().slice(0, 10);
 
-  // 1. Profile — falls back to sensible defaults when the user hasn't
+  // 1. Profile - falls back to sensible defaults when the user hasn't
   // gone through onboarding yet, so the plan is generated immediately on
   // first visit. They can personalize later via /onboarding. The fallback
   // locale comes from the request URL (passed by the caller) so an

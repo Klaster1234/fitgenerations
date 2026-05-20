@@ -2,8 +2,8 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 /**
- * Refreshes the Supabase session on every request and — for protected
- * paths — auto-creates an anonymous user when there's no session yet.
+ * Refreshes the Supabase session on every request and - for protected
+ * paths - auto-creates an anonymous user when there's no session yet.
  *
  * The goal is "open the app and it works": visitors never see a login
  * gate. They get a real `auth.uid()` (anonymous), a real `profiles` row

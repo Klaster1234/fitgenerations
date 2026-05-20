@@ -5,7 +5,7 @@
 --    forced Ukrainian users back to 'en').
 -- 2. Add `trains_with_partner` for the intergenerational pair-training flow
 --    (RDZEŃ projektu: grandparent + grandchild).
--- 3. Add `group_code` so trainers can run Move & Improve Days sessions —
+-- 3. Add `group_code` so trainers can run Move & Improve Days sessions -
 --    every participant enters the same code, and the /group/[code] page
 --    aggregates progress.
 -- 4. Add `country` to challenge_videos so the feed can be sliced PL/IT/EU.
@@ -52,7 +52,7 @@ create index if not exists challenge_videos_country_idx on public.challenge_vide
   where country is not null;
 
 -- ============================================================================
--- 5. get_group_stats RPC — returns per-group aggregates without leaking PII
+-- 5. get_group_stats RPC - returns per-group aggregates without leaking PII
 -- ============================================================================
 -- Safe to expose: counts members, sums activity logs, returns max streak.
 -- Profiles' RLS still hides individual rows; this function runs with

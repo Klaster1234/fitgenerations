@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'FitGenerations Smart TrAIner',
     short_name: 'FGST',
-    description: 'AI training companion for every generation — Erasmus+ Sport 2026',
+    description: 'AI training companion for every generation - Erasmus+ Sport 2026',
     start_url: '/',
     scope: '/',
     display: 'standalone',

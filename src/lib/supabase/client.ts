@@ -6,7 +6,7 @@ import { createBrowserClient } from '@supabase/ssr';
  * Use in Client Components for realtime subscriptions, OAuth flows,
  * or when you specifically need client-side interactions.
  *
- * Prefer the server client for queries — keeps secrets out of the browser
+ * Prefer the server client for queries - keeps secrets out of the browser
  * and benefits from React Cache.
  */
 export function createSupabaseBrowserClient() {
