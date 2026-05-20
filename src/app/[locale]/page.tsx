@@ -298,6 +298,51 @@ export default async function LandingPage({
         </div>
       </section>
 
+      {/* FAQ — collapsible Q&A. Renders existing translations (en/pl/it/uk).
+          Uses native <details>/<summary> so it works without JS and stays
+          accessible to screen readers + keyboard users. The data-residency
+          answer (faq5) explicitly covers EU/Frankfurt/Dublin per the
+          persona-audit P1 #9. */}
+      <section className="relative bg-surface border-y border-border">
+        <div className="max-w-3xl mx-auto px-6 py-24 sm:py-32">
+          <header className="text-center mb-14">
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.35em] text-brand mb-5">
+              ★ {t('faqTitle')} ★
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-[-0.025em] text-balance leading-[1.05]">
+              {t('faqTitle')}
+            </h2>
+            <p className="mt-6 text-lg text-muted text-pretty max-w-xl mx-auto leading-relaxed">
+              {t('faqLede')}
+            </p>
+          </header>
+          <ul className="space-y-3">
+            {([1, 2, 3, 4, 5, 6] as const).map((i) => {
+              const qKey = `faq${i}Question` as 'faq1Question';
+              const aKey = `faq${i}Answer` as 'faq1Answer';
+              return (
+                <li key={i}>
+                  <details className="group rounded-card border-2 border-border bg-surface-2 hover:border-brand/40 transition-colors open:border-brand/60 open:shadow-card">
+                    <summary className="cursor-pointer list-none p-6 flex items-start justify-between gap-4 text-lg font-bold tracking-tight">
+                      <span className="text-pretty">{t(qKey)}</span>
+                      <span
+                        aria-hidden
+                        className="text-brand text-3xl leading-none shrink-0 -mt-1 transition-transform group-open:rotate-45 select-none"
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <div className="px-6 pb-6 text-base leading-relaxed text-foreground/85 text-pretty">
+                      {t(aKey)}
+                    </div>
+                  </details>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
       {/* CTA — direct, no fluff */}
       <section className="relative bg-hero-gradient overflow-hidden">
         <svg
