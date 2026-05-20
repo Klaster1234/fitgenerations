@@ -114,7 +114,19 @@
     "loginLink": "Zaloguj się",
     "invalidCredentials": "E-mail lub hasło są nieprawidłowe.",
     "trainerLabel": "Jestem trenerem",
-    "trainerHint": "Trenerzy mogą tworzyć kody grup do Move & Improve Days i widzą panel grupy na żywo."
+    "trainerHint": "Trenerzy mogą tworzyć kody grup do Move & Improve Days i widzą panel grupy na żywo.",
+    "errors": {
+      "invalidCredentials": "E-mail lub hasło są nieprawidłowe.",
+      "wrongPassword": "Hasło nie pasuje. Spróbuj ponownie lub zresetuj hasło.",
+      "accountNotFound": "Nie ma konta z tym adresem e-mail.",
+      "accountNotFoundCta": "Załóż nowe konto",
+      "userAlreadyExists": "Konto z tym e-mailem już istnieje.",
+      "userAlreadyExistsCta": "Zaloguj się zamiast rejestracji",
+      "weakPassword": "Hasło za słabe. Użyj co najmniej 8 znaków, najlepiej z dużą literą i cyfrą.",
+      "emailNotConfirmed": "Najpierw potwierdź e-mail - sprawdź skrzynkę i kliknij link aktywacyjny.",
+      "rateLimited": "Za dużo prób. Spróbuj ponownie za minutę.",
+      "serverError": "Problem po naszej stronie. Spróbuj ponownie za chwilę."
+    }
   },
   "Onboarding": {
     "title": "Powiedz nam coś o sobie",

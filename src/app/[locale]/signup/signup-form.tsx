@@ -5,9 +5,19 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Link } from '@/i18n/navigation';
 import { signupAction } from '../login/actions';
 
-type AuthState = { ok: boolean; error?: string };
+type AuthErrorCode =
+  | 'invalidCredentials'
+  | 'wrongPassword'
+  | 'accountNotFound'
+  | 'userAlreadyExists'
+  | 'weakPassword'
+  | 'emailNotConfirmed'
+  | 'rateLimited'
+  | 'serverError';
+type AuthState = { ok: boolean; error?: AuthErrorCode };
 const initialState: AuthState = { ok: false };
 
 export function SignupForm() {
@@ -59,9 +69,25 @@ export function SignupForm() {
       </label>
 
       {state.error && (
-        <p role="alert" className="text-sm text-danger" aria-live="polite">
-          {t(state.error as 'invalidCredentials')}
-        </p>
+        <div
+          role="alert"
+          aria-live="polite"
+          className="rounded-xl border-2 border-danger/30 bg-danger/5 p-4"
+        >
+          <p className="text-base font-semibold text-danger">
+            {t(`errors.${state.error}` as 'errors.invalidCredentials')}
+          </p>
+          {state.error === 'userAlreadyExists' && (
+            <p className="mt-2 text-sm text-foreground/85">
+              <Link
+                href="/login"
+                className="font-semibold text-brand hover:text-brand-dark underline underline-offset-2"
+              >
+                {t('errors.userAlreadyExistsCta')}
+              </Link>
+            </p>
+          )}
+        </div>
       )}
 
       <Button type="submit" className="w-full" disabled={pending}>

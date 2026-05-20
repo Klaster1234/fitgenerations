@@ -114,7 +114,19 @@
     "loginLink": "Accedi",
     "invalidCredentials": "Email o password non corretti.",
     "trainerLabel": "Sono un allenatore",
-    "trainerHint": "Gli allenatori possono creare codici di gruppo per i Move & Improve Days e vedono un pannello di gruppo in tempo reale."
+    "trainerHint": "Gli allenatori possono creare codici di gruppo per i Move & Improve Days e vedono un pannello di gruppo in tempo reale.",
+    "errors": {
+      "invalidCredentials": "Email o password non corretti.",
+      "wrongPassword": "La password non corrisponde. Riprova o reimposta la password.",
+      "accountNotFound": "Non esiste ancora un account con questa email.",
+      "accountNotFoundCta": "Crea un nuovo account",
+      "userAlreadyExists": "Esiste già un account con questa email.",
+      "userAlreadyExistsCta": "Accedi invece",
+      "weakPassword": "La password è troppo debole. Usa almeno 8 caratteri, idealmente con una maiuscola e un numero.",
+      "emailNotConfirmed": "Conferma prima la tua email - controlla la casella di posta per il link di attivazione.",
+      "rateLimited": "Troppi tentativi. Riprova tra un minuto.",
+      "serverError": "Problema dalla nostra parte. Riprova tra poco."
+    }
   },
   "Onboarding": {
     "title": "Parlaci di te",

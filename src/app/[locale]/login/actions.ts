@@ -20,8 +20,51 @@ const signupSchema = credentialsSchema.extend({
 
 type AuthState = {
   ok: boolean;
-  error?: string;
+  // Specific error codes so the UI can show actionable messages
+  // ("account already exists, log in" vs generic "wrong credentials").
+  error?:
+    | 'invalidCredentials'      // Zod or other validation failed
+    | 'wrongPassword'           // login: email exists but password wrong
+    | 'accountNotFound'         // login: email not in DB
+    | 'userAlreadyExists'       // signup: email already registered (very common)
+    | 'weakPassword'            // signup: password too short / weak
+    | 'emailNotConfirmed'       // signup: confirmation email pending
+    | 'rateLimited'             // too many attempts
+    | 'serverError';            // unexpected
 };
+
+/**
+ * Map a Supabase auth error to a stable client-facing code.
+ * Falls back to 'invalidCredentials' so we never leak Supabase internals.
+ */
+function mapAuthError(
+  err: { code?: string; message?: string; status?: number } | null | undefined,
+  fallback: AuthState['error'] = 'invalidCredentials',
+): NonNullable<AuthState['error']> {
+  if (!err) return fallback;
+  const code = err.code ?? '';
+  const msg = (err.message ?? '').toLowerCase();
+
+  if (code === 'user_already_exists' || msg.includes('already registered') || msg.includes('user already')) {
+    return 'userAlreadyExists';
+  }
+  if (code === 'weak_password' || msg.includes('password should be at least') || msg.includes('weak password')) {
+    return 'weakPassword';
+  }
+  if (code === 'email_not_confirmed' || msg.includes('email not confirmed')) {
+    return 'emailNotConfirmed';
+  }
+  if (code === 'invalid_credentials' || msg.includes('invalid login credentials')) {
+    return 'wrongPassword';
+  }
+  if (code === 'over_email_send_rate_limit' || code === 'over_request_rate_limit' || (err.status ?? 0) === 429) {
+    return 'rateLimited';
+  }
+  if ((err.status ?? 0) >= 500) {
+    return 'serverError';
+  }
+  return fallback;
+}
 
 function pickLocale(value: FormDataEntryValue | null): Locale {
   if (typeof value === 'string' && (routing.locales as readonly string[]).includes(value)) {
@@ -43,12 +86,12 @@ export async function loginAction(_prev: AuthState, formData: FormData): Promise
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) {
-    return { ok: false, error: 'invalidCredentials' };
+    return { ok: false, error: mapAuthError(error, 'wrongPassword') };
   }
 
   revalidatePath('/', 'layout');
   redirect({ href: '/plan', locale });
-  // Unreachable — `redirect` throws. Satisfies the explicit return type.
+  // Unreachable - `redirect` throws. Satisfies the explicit return type.
   return { ok: true };
 }
 
@@ -81,7 +124,7 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
     });
     if (updateErr) {
       console.error('[signup] anonymous upgrade failed', updateErr);
-      return { ok: false, error: 'invalidCredentials' };
+      return { ok: false, error: mapAuthError(updateErr, 'userAlreadyExists') };
     }
     if (isTrainer) {
       await supabase
@@ -102,7 +145,7 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
     password: parsed.data.password,
   });
   if (error) {
-    return { ok: false, error: 'invalidCredentials' };
+    return { ok: false, error: mapAuthError(error, 'userAlreadyExists') };
   }
 
   if (isTrainer && signupData.user) {

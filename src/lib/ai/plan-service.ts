@@ -19,6 +19,11 @@ export type DailyPlan = {
   items: PlanItem[];
   ai_summary: string | null;
   ai_model: string | null;
+  // Locale the plan was generated in (en/pl/it/uk). When the user switches
+  // language in the locale switcher, we compare this against the request
+  // locale and regenerate if they differ so the AI greeting + ai_note
+  // copy is in the right language. Added in migration 0008.
+  locale: Profile['locale'];
   created_at: string;
 };
 
@@ -54,9 +59,13 @@ export async function ensureTodayPlan(
     .single();
 
   const profile: Profile = {
+    // Priority: URL locale (passed via options) > stored profile.locale > 'en'.
+    // URL wins because the user is *currently viewing* in that language - if
+    // they flipped the locale switcher to Italian we want the next plan in
+    // Italian, not whatever was saved during onboarding.
     locale:
-      (profileRow?.locale as Profile['locale']) ??
       options.locale ??
+      (profileRow?.locale as Profile['locale']) ??
       'en',
     age: profileRow?.age ?? 40,
     fitness_level: (profileRow?.fitness_level as Profile['fitness_level']) ?? 'mid',
@@ -67,7 +76,10 @@ export async function ensureTodayPlan(
     role: (profileRow?.role as Profile['role']) ?? 'participant',
   };
 
-  // 2. Reuse today's plan unless explicitly regenerating
+  // 2. Reuse today's plan unless we're forced to regenerate OR the cached
+  // plan is in a different language than what the user is now viewing.
+  // Switching the locale switcher should make the AI greeting + motivation +
+  // ai_note land in the new language, not stay stuck in the old one.
   if (!options.regenerate) {
     const { data: existing } = await supabase
       .from('daily_plans')
@@ -76,7 +88,13 @@ export async function ensureTodayPlan(
       .eq('plan_date', today)
       .maybeSingle();
     if (existing) {
-      return { ok: true, plan: existing as DailyPlan, cached: true, source: 'ai' };
+      const cached = existing as DailyPlan;
+      const sameLocale = cached.locale === profile.locale;
+      if (sameLocale) {
+        return { ok: true, plan: cached, cached: true, source: 'ai' };
+      }
+      // Fall through to regeneration. The upsert at the end will replace
+      // this row (same user_id + plan_date key).
     }
   }
 
@@ -138,7 +156,8 @@ export async function ensureTodayPlan(
     aiPlan = buildBaselinePlan(catalogue, profile);
   }
 
-  // 6. Persist (one row per user per day)
+  // 6. Persist (one row per user per day). The `locale` stamp lets us
+  // invalidate the cache when the user switches languages.
   const planRow = {
     user_id: userId,
     plan_date: today,
@@ -147,6 +166,7 @@ export async function ensureTodayPlan(
     ai_summary: `${aiPlan.greeting}\n\n${aiPlan.motivation}`,
     ai_model:
       source === 'ai' ? process.env.ANTHROPIC_MODEL ?? 'claude-opus-4-7' : 'baseline-template',
+    locale: profile.locale,
   };
 
   const { data: saved, error: saveErr } = await supabase

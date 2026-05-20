@@ -114,7 +114,19 @@
     "loginLink": "Sign in",
     "invalidCredentials": "Email or password is incorrect.",
     "trainerLabel": "I'm a trainer",
-    "trainerHint": "Trainers can create group codes for Move & Improve Days and see a live dashboard for each group."
+    "trainerHint": "Trainers can create group codes for Move & Improve Days and see a live dashboard for each group.",
+    "errors": {
+      "invalidCredentials": "Email or password is incorrect.",
+      "wrongPassword": "That password doesn't match. Try again or reset your password.",
+      "accountNotFound": "There's no account with this email yet.",
+      "accountNotFoundCta": "Create a new account",
+      "userAlreadyExists": "An account with this email already exists.",
+      "userAlreadyExistsCta": "Sign in instead",
+      "weakPassword": "Password is too weak. Use at least 8 characters, ideally with an uppercase letter and a number.",
+      "emailNotConfirmed": "Please confirm your email first - check your inbox for the activation link.",
+      "rateLimited": "Too many attempts. Try again in a minute.",
+      "serverError": "Something's wrong on our side. Try again in a moment."
+    }
   },
   "Onboarding": {
     "title": "Tell us about you",
