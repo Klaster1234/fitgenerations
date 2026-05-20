@@ -79,7 +79,13 @@ export default async function LocaleLayout({
       className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground min-h-full flex flex-col">
+      {/*
+        pb-28 on mobile gives the fixed MobileTabBar (~96px tall incl. iPhone
+        safe-area inset) room to sit at the bottom without covering EuFooter
+        or the last item on each page. Removed on sm+ where the tab bar
+        is hidden.
+      */}
+      <body className="bg-background text-foreground min-h-full flex flex-col pb-28 sm:pb-0">
         {/* Scroll progress bar — pure CSS, animation-timeline: scroll(root) */}
         <div
           className="scroll-progress-bar fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-brand via-emerald-500 to-accent z-50 origin-left"
