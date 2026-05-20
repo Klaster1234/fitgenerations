@@ -63,8 +63,12 @@ create trigger groups_touch_updated_at
   for each row execute function public.touch_updated_at();
 
 -- ============================================================================
--- 3. Updated RPC — now returns group_name + group_city
+-- 3. Updated RPC — now returns group_name + group_city.
+-- PostgreSQL refuses to alter an existing function's return type via
+-- `create or replace`, so we drop and recreate.
 -- ============================================================================
+drop function if exists public.get_group_stats(text);
+
 create or replace function public.get_group_stats(p_code text)
 returns table (
   member_count integer,
