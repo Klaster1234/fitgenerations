@@ -5,6 +5,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Logo } from './logo';
 import { LocaleSwitcher } from './locale-switcher';
 import { LogoutButton } from './logout-button';
+import { MobileTabBar } from './mobile-tab-bar';
 
 /**
  * Header for authenticated pages. Renders nav + locale switcher + auth
@@ -23,65 +24,71 @@ export async function AppHeader() {
   const isAnonymous = !userData.user?.email;
 
   return (
-    <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-30">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-        <Link
-          href="/plan"
-          className="hover:opacity-80 transition-opacity shrink-0"
-          aria-label={tc('appName')}
-        >
-          <Logo size="sm" />
-        </Link>
-
-        <nav className="flex items-center gap-0.5 text-base flex-wrap">
+    <>
+      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-30">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-2 sm:gap-3">
           <Link
             href="/plan"
-            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            className="hover:opacity-80 transition-opacity shrink-0"
+            aria-label={tc('appName')}
           >
-            {t('plan')}
+            <Logo size="sm" />
           </Link>
-          <Link
-            href="/history"
-            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
-          >
-            {t('history')}
-          </Link>
-          <Link
-            href="/badges"
-            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
-          >
-            {t('badges')}
-          </Link>
-          <Link
-            href="/challenge"
-            className="inline-flex items-center min-h-11 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
-          >
-            {t('challenge')}
-          </Link>
-        </nav>
 
-        <div className="flex items-center gap-2 shrink-0">
-          <Link
-            href="/settings"
-            aria-label={t('settings')}
-            title={t('settings')}
-            className="inline-flex items-center justify-center min-h-12 min-w-12 rounded-pill text-foreground hover:bg-surface-2 transition-colors"
-          >
-            <Settings className="w-5 h-5" strokeWidth={2.25} aria-hidden />
-          </Link>
-          <LocaleSwitcher />
-          {isAnonymous ? (
+          {/* Desktop nav — hidden on mobile, the bottom tab bar takes over there */}
+          <nav className="hidden sm:flex items-center gap-0.5 text-base">
             <Link
-              href="/signup"
-              className="inline-flex items-center min-h-12 px-4 py-2 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-base shadow-soft hover:bg-emerald-400 transition-all"
+              href="/plan"
+              className="inline-flex items-center min-h-12 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
             >
-              {t('saveProgress')}
+              {t('plan')}
             </Link>
-          ) : (
-            <LogoutButton />
-          )}
+            <Link
+              href="/history"
+              className="inline-flex items-center min-h-12 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            >
+              {t('history')}
+            </Link>
+            <Link
+              href="/badges"
+              className="inline-flex items-center min-h-12 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            >
+              {t('badges')}
+            </Link>
+            <Link
+              href="/challenge"
+              className="inline-flex items-center min-h-12 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+            >
+              {t('challenge')}
+            </Link>
+          </nav>
+
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            <Link
+              href="/settings"
+              aria-label={t('settings')}
+              title={t('settings')}
+              className="inline-flex items-center justify-center min-h-12 min-w-12 rounded-pill text-foreground hover:bg-surface-2 transition-colors"
+            >
+              <Settings className="w-5 h-5" strokeWidth={2.25} aria-hidden />
+            </Link>
+            <LocaleSwitcher />
+            {isAnonymous ? (
+              <Link
+                href="/signup"
+                className="inline-flex items-center min-h-12 px-3 sm:px-4 py-2 rounded-pill bg-emerald-500 text-emerald-950 font-bold text-sm sm:text-base shadow-soft hover:bg-emerald-400 transition-all whitespace-nowrap"
+              >
+                {t('saveProgress')}
+              </Link>
+            ) : (
+              <LogoutButton />
+            )}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile bottom tab bar — only renders on < sm */}
+      <MobileTabBar />
+    </>
   );
 }
