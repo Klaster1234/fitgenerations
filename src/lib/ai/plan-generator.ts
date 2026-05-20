@@ -16,6 +16,9 @@ export type Profile = {
   // train with a partner (grandparent + grandchild flow is the RDZEŃ of the
   // Erasmus+ proposal).
   trains_with_partner: boolean;
+  // Self-declared role. Trainers see the /trainer dashboard and can create
+  // owned groups; participants just join via group_code.
+  role: 'participant' | 'trainer';
 };
 
 export type ExerciseCandidate = {

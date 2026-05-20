@@ -49,7 +49,7 @@ export async function ensureTodayPlan(
   // anonymous user landing on /uk doesn't get an English plan.
   const { data: profileRow } = await supabase
     .from('profiles')
-    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner')
+    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role')
     .eq('id', userId)
     .single();
 
@@ -64,6 +64,7 @@ export async function ensureTodayPlan(
     goals: (profileRow?.goals as string[]) ?? [],
     city: profileRow?.city ?? null,
     trains_with_partner: profileRow?.trains_with_partner ?? false,
+    role: (profileRow?.role as Profile['role']) ?? 'participant',
   };
 
   // 2. Reuse today's plan unless explicitly regenerating

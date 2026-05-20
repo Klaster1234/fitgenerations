@@ -112,7 +112,9 @@
     "haveAccount": "Hai già un account?",
     "signupLink": "Registrati",
     "loginLink": "Accedi",
-    "invalidCredentials": "Email o password non corretti."
+    "invalidCredentials": "Email o password non corretti.",
+    "trainerLabel": "Sono un allenatore",
+    "trainerHint": "Gli allenatori possono creare codici di gruppo per i Move & Improve Days e vedono un pannello di gruppo in tempo reale."
   },
   "Onboarding": {
     "title": "Parlaci di te",
@@ -164,7 +166,48 @@
     "challenge": "Sfida",
     "settings": "Impostazioni",
     "logout": "Esci",
-    "saveProgress": "Salva i progressi"
+    "saveProgress": "Salva i progressi",
+    "groups": "Gruppi"
+  },
+  "Trainer": {
+    "upgradeTitle": "Pannello dell'allenatore",
+    "upgradeBody": "Quest'area è per gli allenatori che gestiscono i Move & Improve Days o le sessioni di gruppo.",
+    "upgradeAnonHint": "Crea un account e spunta \"Sono un allenatore\" per sbloccare il pannello.",
+    "upgradeAnonCta": "Crea account allenatore",
+    "upgradeParticipantHint": "Il tuo account è impostato come partecipante.",
+    "upgradeContactSupport": "Contatta il team del progetto per essere promosso ad allenatore.",
+    "dashboardTitle": "I tuoi gruppi",
+    "dashboardLede": "{count, plural, =0 {Nessun gruppo ancora - creane uno.} one {Gestisci 1 gruppo.} other {Gestisci # gruppi.}}",
+    "createCta": "Nuovo gruppo",
+    "emptyTitle": "Nessun gruppo",
+    "emptyHint": "Creane uno per condividere un codice con i partecipanti e vedere chi è attivo oggi.",
+    "groupLabelCode": "Codice",
+    "howTitle": "Come funziona",
+    "howStep1": "Clicca \"Nuovo gruppo\" e scegli un codice (es. POTENZA1, GLIWICE1).",
+    "howStep2": "Condividi il codice con i partecipanti prima della sessione.",
+    "howStep3": "Ogni partecipante inserisce il codice nelle Impostazioni (una volta sola).",
+    "howStep4": "Apri la pagina del gruppo per vedere chi si è iscritto e chi è attivo oggi.",
+    "backToDashboard": "Torna al pannello",
+    "createTitle": "Crea un gruppo",
+    "createSubtitle": "Scegli un nome e un codice breve. Condividi il codice con i partecipanti.",
+    "formNameLabel": "Nome del gruppo",
+    "formNamePlaceholder": "es. Potenza Estate 2026",
+    "formNameHint": "Quello che i partecipanti vedranno aprendo la pagina del gruppo.",
+    "formCodeLabel": "Codice del gruppo",
+    "formCodePlaceholder": "es. POTENZA1",
+    "formCodeHint": "4-12 lettere e numeri. Maiuscole, senza spazi. Lo digitano i partecipanti.",
+    "formCodeSuggest": "Suggerisci",
+    "formCityLabel": "Città (opzionale)",
+    "formCityPlaceholder": "es. Potenza, Gliwice",
+    "formCityHint": "Dove si incontra il gruppo. Aiuta l'AI ad adattare gli esercizi al meteo locale.",
+    "formSubmit": "Crea gruppo",
+    "errors": {
+      "invalidCode": "Il codice deve avere 4-12 lettere maiuscole e numeri (es. POTENZA1).",
+      "codeTaken": "Qualcuno sta già usando questo codice. Scegline un altro.",
+      "notTrainer": "Solo gli account allenatore possono creare gruppi.",
+      "unauthorized": "Effettua di nuovo l'accesso.",
+      "db": "Errore nel salvataggio del gruppo. Riprova."
+    }
   },
   "Settings": {
     "title": "Le tue impostazioni",

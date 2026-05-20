@@ -1,4 +1,4 @@
-import { Settings } from 'lucide-react';
+import { Settings, Users } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
@@ -22,6 +22,18 @@ export async function AppHeader() {
   const supabase = await createSupabaseServerClient();
   const { data: userData } = await supabase.auth.getUser();
   const isAnonymous = !userData.user?.email;
+
+  // Trainer-only links surface only when profile.role === 'trainer'.
+  // Single round-trip — we already have a session, this is one row by PK.
+  let isTrainer = false;
+  if (userData.user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', userData.user.id)
+      .maybeSingle();
+    isTrainer = profile?.role === 'trainer';
+  }
 
   return (
     <>
@@ -61,6 +73,15 @@ export async function AppHeader() {
             >
               {t('challenge')}
             </Link>
+            {isTrainer && (
+              <Link
+                href="/trainer"
+                className="inline-flex items-center gap-1.5 min-h-12 px-4 py-2 rounded-pill font-semibold text-brand-darker dark:text-brand hover:bg-surface-2 transition-colors"
+              >
+                <Users className="w-4 h-4" strokeWidth={2.25} aria-hidden />
+                <span>{t('groups')}</span>
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">

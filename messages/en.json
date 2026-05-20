@@ -112,7 +112,9 @@
     "haveAccount": "Already have an account?",
     "signupLink": "Sign up",
     "loginLink": "Sign in",
-    "invalidCredentials": "Email or password is incorrect."
+    "invalidCredentials": "Email or password is incorrect.",
+    "trainerLabel": "I'm a trainer",
+    "trainerHint": "Trainers can create group codes for Move & Improve Days and see a live dashboard for each group."
   },
   "Onboarding": {
     "title": "Tell us about you",
@@ -164,7 +166,48 @@
     "challenge": "Challenge",
     "settings": "Settings",
     "logout": "Log out",
-    "saveProgress": "Save progress"
+    "saveProgress": "Save progress",
+    "groups": "Groups"
+  },
+  "Trainer": {
+    "upgradeTitle": "Trainer dashboard",
+    "upgradeBody": "This area is for trainers running Move & Improve Days or group sessions.",
+    "upgradeAnonHint": "Create an account and tick \"I'm a trainer\" to unlock the dashboard.",
+    "upgradeAnonCta": "Create trainer account",
+    "upgradeParticipantHint": "Your current account is set up as a participant.",
+    "upgradeContactSupport": "Ask the project team to upgrade your account if you should be a trainer.",
+    "dashboardTitle": "Your groups",
+    "dashboardLede": "{count, plural, =0 {No groups yet — create your first one.} one {You manage 1 group.} other {You manage # groups.}}",
+    "createCta": "New group",
+    "emptyTitle": "No groups yet",
+    "emptyHint": "Create one to share a code with your participants and see live attendance.",
+    "groupLabelCode": "Code",
+    "howTitle": "How it works",
+    "howStep1": "Click \"New group\" and pick a memorable code (e.g. GLIWICE1, POTENZA1).",
+    "howStep2": "Share the code with your participants before the session.",
+    "howStep3": "Each participant enters the code in their Settings (one-time setup).",
+    "howStep4": "Open the group page on your phone or laptop to see who's joined and active today.",
+    "backToDashboard": "Back to dashboard",
+    "createTitle": "Create a group",
+    "createSubtitle": "Pick a name and a short code. Share the code with your participants.",
+    "formNameLabel": "Group name",
+    "formNamePlaceholder": "e.g. Sikornik Summer 2026",
+    "formNameHint": "What participants will see when they open the group page.",
+    "formCodeLabel": "Group code",
+    "formCodePlaceholder": "e.g. GLIWICE1",
+    "formCodeHint": "4-12 letters and numbers. Uppercase, no spaces. This is what participants type.",
+    "formCodeSuggest": "Suggest",
+    "formCityLabel": "City (optional)",
+    "formCityPlaceholder": "e.g. Gliwice, Potenza",
+    "formCityHint": "Where the group meets. Helps the AI tailor outdoor exercises to local weather.",
+    "formSubmit": "Create group",
+    "errors": {
+      "invalidCode": "Code must be 4-12 uppercase letters and numbers (e.g. GLIWICE1).",
+      "codeTaken": "Someone is already using this code. Pick a different one.",
+      "notTrainer": "Only trainer accounts can create groups.",
+      "unauthorized": "Please sign in again.",
+      "db": "Something went wrong saving the group. Try again."
+    }
   },
   "Settings": {
     "title": "Your settings",

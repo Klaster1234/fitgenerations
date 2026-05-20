@@ -11,6 +11,13 @@ const credentialsSchema = z.object({
   password: z.string().min(8),
 });
 
+const signupSchema = credentialsSchema.extend({
+  // Optional: when the visitor ticks "I'm a trainer" on the signup form
+  // we flip their profiles.role to 'trainer' so they unlock the /trainer
+  // dashboard. Empty / unchecked = stays default 'participant'.
+  is_trainer: z.union([z.literal('true'), z.literal('on'), z.literal(''), z.null()]).optional(),
+});
+
 type AuthState = {
   ok: boolean;
   error?: string;
@@ -47,13 +54,18 @@ export async function loginAction(_prev: AuthState, formData: FormData): Promise
 
 export async function signupAction(_prev: AuthState, formData: FormData): Promise<AuthState> {
   const locale = pickLocale(formData.get('locale'));
-  const parsed = credentialsSchema.safeParse({
+  const parsed = signupSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
+    is_trainer: formData.get('is_trainer'),
   });
   if (!parsed.success) {
     return { ok: false, error: 'invalidCredentials' };
   }
+
+  // Checkbox returns 'on' (default) or 'true' (if value="true") when ticked.
+  // Empty / null = unticked = participant.
+  const isTrainer = parsed.data.is_trainer === 'on' || parsed.data.is_trainer === 'true';
 
   const supabase = await createSupabaseServerClient();
   const { data: existing } = await supabase.auth.getUser();
@@ -71,21 +83,37 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
       console.error('[signup] anonymous upgrade failed', updateErr);
       return { ok: false, error: 'invalidCredentials' };
     }
+    if (isTrainer) {
+      await supabase
+        .from('profiles')
+        .update({ role: 'trainer' })
+        .eq('id', existing.user.id);
+    }
     revalidatePath('/', 'layout');
-    redirect({ href: '/plan', locale });
+    redirect({ href: isTrainer ? '/trainer' : '/plan', locale });
     return { ok: true };
   }
 
-  // No session yet — create a fresh account. Email confirmation is
+  // No session yet - create a fresh account. Email confirmation is
   // disabled (mailer_autoconfirm=true) so signUp returns a session
   // immediately. Redirect to /plan; onboarding is opt-in from there.
-  const { error } = await supabase.auth.signUp(parsed.data);
+  const { data: signupData, error } = await supabase.auth.signUp({
+    email: parsed.data.email,
+    password: parsed.data.password,
+  });
   if (error) {
     return { ok: false, error: 'invalidCredentials' };
   }
 
+  if (isTrainer && signupData.user) {
+    await supabase
+      .from('profiles')
+      .update({ role: 'trainer' })
+      .eq('id', signupData.user.id);
+  }
+
   revalidatePath('/', 'layout');
-  redirect({ href: '/plan', locale });
+  redirect({ href: isTrainer ? '/trainer' : '/plan', locale });
   return { ok: true };
 }
 

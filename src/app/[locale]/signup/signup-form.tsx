@@ -41,6 +41,23 @@ export function SignupForm() {
         </p>
       </div>
 
+      {/* Trainer self-declaration. When ticked, profile.role is set to
+          'trainer' on signup and the user lands on /trainer after signup
+          instead of /plan. Senior-friendly checkbox: 24px box, label
+          fully clickable, padding for 44px+ touch target. */}
+      <label className="inline-flex items-start gap-3 text-base py-3 cursor-pointer">
+        <input
+          type="checkbox"
+          name="is_trainer"
+          value="true"
+          className="h-6 w-6 mt-0.5 accent-brand cursor-pointer shrink-0"
+        />
+        <span className="flex-1">
+          <span className="block font-semibold">{t('trainerLabel')}</span>
+          <span className="block text-sm text-muted mt-0.5">{t('trainerHint')}</span>
+        </span>
+      </label>
+
       {state.error && (
         <p role="alert" className="text-sm text-danger" aria-live="polite">
           {t(state.error as 'invalidCredentials')}

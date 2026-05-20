@@ -112,7 +112,9 @@
     "haveAccount": "Masz już konto?",
     "signupLink": "Zarejestruj się",
     "loginLink": "Zaloguj się",
-    "invalidCredentials": "E-mail lub hasło są nieprawidłowe."
+    "invalidCredentials": "E-mail lub hasło są nieprawidłowe.",
+    "trainerLabel": "Jestem trenerem",
+    "trainerHint": "Trenerzy mogą tworzyć kody grup do Move & Improve Days i widzą panel grupy na żywo."
   },
   "Onboarding": {
     "title": "Powiedz nam coś o sobie",
@@ -164,7 +166,48 @@
     "challenge": "Wyzwanie",
     "settings": "Ustawienia",
     "logout": "Wyloguj",
-    "saveProgress": "Zapisz postęp"
+    "saveProgress": "Zapisz postęp",
+    "groups": "Grupy"
+  },
+  "Trainer": {
+    "upgradeTitle": "Panel trenera",
+    "upgradeBody": "Ta strefa jest dla trenerów prowadzących Move & Improve Days i sesje grupowe.",
+    "upgradeAnonHint": "Załóż konto i zaznacz \"Jestem trenerem\", żeby odblokować panel.",
+    "upgradeAnonCta": "Załóż konto trenera",
+    "upgradeParticipantHint": "Twoje konto jest ustawione jako uczestnik.",
+    "upgradeContactSupport": "Skontaktuj się z zespołem projektu, żeby podnieść uprawnienia do trenera.",
+    "dashboardTitle": "Twoje grupy",
+    "dashboardLede": "{count, plural, =0 {Nie masz jeszcze grup - stwórz pierwszą.} one {Zarządzasz 1 grupą.} few {Zarządzasz # grupami.} many {Zarządzasz # grupami.} other {Zarządzasz # grupami.}}",
+    "createCta": "Nowa grupa",
+    "emptyTitle": "Brak grup",
+    "emptyHint": "Stwórz grupę, żeby udostępnić kod uczestnikom i widzieć obecność na żywo.",
+    "groupLabelCode": "Kod",
+    "howTitle": "Jak to działa",
+    "howStep1": "Kliknij \"Nowa grupa\" i wybierz kod (np. GLIWICE1, POTENZA1).",
+    "howStep2": "Udostępnij kod uczestnikom przed sesją.",
+    "howStep3": "Każdy uczestnik wpisuje kod w swoich Ustawieniach (jednorazowo).",
+    "howStep4": "Otwórz stronę grupy z telefonu lub laptopa, żeby zobaczyć kto jest aktywny dziś.",
+    "backToDashboard": "Wróć do panelu",
+    "createTitle": "Stwórz grupę",
+    "createSubtitle": "Wybierz nazwę i krótki kod. Udostępnij kod uczestnikom.",
+    "formNameLabel": "Nazwa grupy",
+    "formNamePlaceholder": "np. Sikornik Lato 2026",
+    "formNameHint": "To, co uczestnicy zobaczą gdy otworzą stronę grupy.",
+    "formCodeLabel": "Kod grupy",
+    "formCodePlaceholder": "np. GLIWICE1",
+    "formCodeHint": "4-12 liter i cyfr. Wielkie litery, bez spacji. To wpisują uczestnicy.",
+    "formCodeSuggest": "Zaproponuj",
+    "formCityLabel": "Miasto (opcjonalnie)",
+    "formCityPlaceholder": "np. Gliwice, Potenza",
+    "formCityHint": "Gdzie grupa się spotyka. Pomaga AI dopasować ćwiczenia plenerowe do lokalnej pogody.",
+    "formSubmit": "Stwórz grupę",
+    "errors": {
+      "invalidCode": "Kod musi mieć 4-12 wielkich liter i cyfr (np. GLIWICE1).",
+      "codeTaken": "Ten kod jest już zajęty. Wybierz inny.",
+      "notTrainer": "Tylko konta trenerów mogą tworzyć grupy.",
+      "unauthorized": "Zaloguj się ponownie.",
+      "db": "Coś poszło nie tak przy zapisywaniu grupy. Spróbuj ponownie."
+    }
   },
   "Settings": {
     "title": "Twoje ustawienia",
