@@ -50,7 +50,7 @@ const COPY: Record<
       functional: 'Praca właściwa. Jakość ważniejsza od tempa - czuj mięsień.',
       mobility: 'Otwieramy stawy. Powoli, w rytmie oddechu.',
       flexibility: 'Rozciąganie. Zatrzymaj się bez forsowania.',
-      cardio: 'Lekko podnieś tętno. Tempo „rozmowne" wystarczy.',
+      cardio: 'Lekko podnieś tętno. Tempo "rozmowne" wystarczy.',
       cooldown: 'Wyciszenie. Skończ spokojniej niż zacząłeś.',
       balance: 'Złap środek. Stabilnie, z otwartymi lub zamkniętymi oczami.',
       green: 'Jeśli możesz - wyjdź na zewnątrz. Ruch i świeże powietrze.',
