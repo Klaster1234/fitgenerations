@@ -169,6 +169,8 @@
     "doneCta": "Mark as done",
     "doneToast": "Nice - logged.",
     "regenerateCta": "Generate a new plan",
+    "regenerateRateLimited": "You just generated a plan - wait {seconds, plural, one {# second} other {# seconds}} before trying again.",
+    "regenerateFailed": "Something went wrong - try again in a moment.",
     "noPlanYet": "Generating your first plan…",
     "streakLabel": "Day streak",
     "allDoneTitle": "Today is done - well done!",

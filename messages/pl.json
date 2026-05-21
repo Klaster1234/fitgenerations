@@ -169,6 +169,8 @@
     "doneCta": "Oznacz jako wykonane",
     "doneToast": "Brawo - zapisane.",
     "regenerateCta": "Ułóż nowy plan",
+    "regenerateRateLimited": "Plan już wygenerowany - poczekaj {seconds, plural, one {# sekundę} few {# sekundy} many {# sekund} other {# sekund}} i spróbuj ponownie.",
+    "regenerateFailed": "Coś poszło nie tak - spróbuj za chwilę.",
     "noPlanYet": "Układam Twój pierwszy plan…",
     "streakLabel": "Dni z rzędu",
     "allDoneTitle": "Dzisiejszy plan zaliczony!",

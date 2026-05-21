@@ -26,7 +26,11 @@ const exerciseRowSchema = z.object({
   slug: z.string(),
   category: z.string(),
   difficulty: z.enum(['low', 'mid', 'high']),
-  name: z.record(z.string(), z.string()),
+  // Allow null values for locales that haven't been translated yet (e.g.
+  // every UK name was null at launch). Without `.nullable()` here, a single
+  // null locale would drop the row and the catalogue would end up empty,
+  // forcing every plan to baseline-template. Verified live 2026-05-21.
+  name: z.record(z.string(), z.string().nullable()),
   duration_minutes: z.number().int().min(1).max(60),
   equipment: z.array(z.string()),
   min_age: z.number().int(),
@@ -170,6 +174,8 @@ export async function ensureTodayPlan(
       slug: ex.slug,
       category: ex.category,
       difficulty: ex.difficulty,
+      // ex.name values can be null (untranslated locale) - fall through to
+      // English, then to the slug itself as a last resort.
       name: ex.name[profile.locale] ?? ex.name.en ?? ex.slug,
       duration_minutes: ex.duration_minutes,
       equipment: ex.equipment,

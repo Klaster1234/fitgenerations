@@ -169,6 +169,8 @@
     "doneCta": "Segna come fatto",
     "doneToast": "Bene - registrato.",
     "regenerateCta": "Genera un nuovo piano",
+    "regenerateRateLimited": "Piano già generato - aspetta {seconds, plural, one {# secondo} other {# secondi}} e riprova.",
+    "regenerateFailed": "Qualcosa è andato storto - riprova tra poco.",
     "noPlanYet": "Sto generando il tuo primo piano…",
     "streakLabel": "Giorni consecutivi",
     "allDoneTitle": "Piano di oggi completato!",
