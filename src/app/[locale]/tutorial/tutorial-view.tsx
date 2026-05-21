@@ -2,7 +2,14 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Sparkles, CheckCircle2, Users, ArrowRight, ChevronLeft } from 'lucide-react';
+import {
+  Sparkles,
+  CheckCircle2,
+  Users,
+  UserPlus,
+  ArrowRight,
+  ChevronLeft,
+} from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 
@@ -17,22 +24,25 @@ import { Button } from '@/components/ui/button';
  * is only ever reached when the user hasn't completed onboarding yet, so
  * we don't need a "tutorial_seen" flag.
  */
-const TOTAL = 3;
+const TOTAL = 4;
 
 export function TutorialView() {
   const t = useTranslations('Tutorial');
-  const [slide, setSlide] = useState(0); // 0-indexed: 0, 1, 2
+  const [slide, setSlide] = useState(0); // 0-indexed: 0, 1, 2, 3
 
   const next = () => setSlide((s) => Math.min(s + 1, TOTAL - 1));
   const back = () => setSlide((s) => Math.max(s - 1, 0));
   const isLast = slide === TOTAL - 1;
 
-  // Three slide content blocks. Translation keys live under Tutorial.* in
-  // all four locale files (en/pl/it/uk).
+  // Four slide content blocks. Translation keys live under Tutorial.* in
+  // all four locale files (en/pl/it/uk). Slide 4 covers the optional
+  // account benefits + the trainer-account self-declaration so newcomers
+  // know about both flows before they hit the wizard.
   const slides = [
     { icon: Sparkles, titleKey: 'slide1Title' as const, bodyKey: 'slide1Body' as const },
     { icon: CheckCircle2, titleKey: 'slide2Title' as const, bodyKey: 'slide2Body' as const },
     { icon: Users, titleKey: 'slide3Title' as const, bodyKey: 'slide3Body' as const },
+    { icon: UserPlus, titleKey: 'slide4Title' as const, bodyKey: 'slide4Body' as const },
   ];
   const current = slides[slide];
   const Icon = current.icon;
@@ -45,7 +55,7 @@ export function TutorialView() {
           {t('progress', { current: slide + 1, total: TOTAL })}
         </p>
         <div className="flex items-center gap-2" aria-hidden>
-          {[0, 1, 2].map((i) => (
+          {Array.from({ length: TOTAL }).map((_, i) => (
             <span
               key={i}
               className={`block h-2 rounded-full transition-all ${
