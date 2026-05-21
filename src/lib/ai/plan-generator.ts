@@ -91,6 +91,12 @@ const jsonSchema = {
     total_minutes: { type: 'integer' },
     items: {
       type: 'array',
+      // Hard-cap at 5 (rule 1 in the system prompt) so the model can't
+      // ramble past our planSchema.max(7) and trip a ZodError. gpt-oss
+      // routinely returned 8 items without this. Lower bound matches
+      // the 'min 3 exercises' downstream check.
+      minItems: 3,
+      maxItems: 5,
       items: {
         type: 'object',
         additionalProperties: false,
