@@ -60,11 +60,14 @@ const COPY: Record<
   },
   it: {
     greeting: 'Il tuo piano di oggi è pronto.',
+    // Wording reviewed by Luigi (EURO-NET, IT partner) — native-Italian
+    // edits to avoid the awkward "resto/resta" repetition and the
+    // non-idiomatic "senti il muscolo".
     motivation:
-      'Quattro brevi blocchi. Vai al tuo ritmo - fai quel che puoi oggi, il resto resta per domani.',
+      'Quattro brevi blocchi. Vai al tuo ritmo: fai quello che puoi oggi, il resto può aspettare domani.',
     note: {
       warmup: 'Riscaldamento. Movimenti leggeri per svegliare il corpo.',
-      functional: 'Lavoro principale. Qualità più che velocità - senti il muscolo.',
+      functional: 'Lavoro principale. Qualità più che velocità - ascolta il tuo corpo.',
       mobility: 'Apri le articolazioni. Lento, guidato dal respiro.',
       flexibility: 'Allungamento. Tieni la posizione senza forzare.',
       cardio: 'Alza il battito con calma. Ritmo da chiacchierata.',
