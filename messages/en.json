@@ -225,6 +225,19 @@
     "title": "Your settings",
     "subtitle": "Update your profile - we'll adjust tomorrow's plan to match."
   },
+  "Tutorial": {
+    "slide1Title": "Personalized fitness, every day",
+    "slide1Body": "FitGenerations builds a short plan of 3-5 exercises for you each day. The AI matches them to your age, fitness level, available equipment and even the weather outside.",
+    "slide2Title": "Mark, track, grow",
+    "slide2Body": "Each exercise has a duration, a short tip and a YouTube demo. Mark them done as you go - the app builds your streak and unlocks badges along the way.",
+    "slide3Title": "Move together",
+    "slide3Body": "Training with a grandparent or grandchild? Turn on Pair mode and get exercises designed for two. Joining a Move & Improve Day? Your trainer will give you a group code to enter.",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip",
+    "finish": "Start setup",
+    "progress": "Slide {current} of {total}"
+  },
   "Group": {
     "eyebrow": "Group dashboard",
     "title": "Group {code}",

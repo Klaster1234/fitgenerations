@@ -225,6 +225,19 @@
     "title": "Twoje ustawienia",
     "subtitle": "Zaktualizuj profil - jutrzejszy plan dopasuje się do zmian."
   },
+  "Tutorial": {
+    "slide1Title": "Trening dopasowany do Ciebie - codziennie",
+    "slide1Body": "FitGenerations układa dla Ciebie krótki plan 3-5 ćwiczeń każdego dnia. AI dopasowuje je do wieku, kondycji, dostępnego sprzętu i pogody za oknem.",
+    "slide2Title": "Zaznacz, śledź, rozwijaj się",
+    "slide2Body": "Każde ćwiczenie ma czas, krótką podpowiedź i film z YouTube. Oznaczaj wykonane - aplikacja buduje Twoją serię dni z rzędu i odblokowuje odznaki.",
+    "slide3Title": "Ruszamy się razem",
+    "slide3Body": "Trenujesz z dziadkiem lub wnukiem? Włącz Tryb pary - dostaniesz ćwiczenia do wykonania we dwoje. Idziesz na Move & Improve Day? Trener da Ci kod grupy do wpisania.",
+    "next": "Dalej",
+    "back": "Wstecz",
+    "skip": "Pomiń",
+    "finish": "Zaczynam",
+    "progress": "Slajd {current} z {total}"
+  },
   "Group": {
     "eyebrow": "Panel grupy",
     "title": "Grupa {code}",

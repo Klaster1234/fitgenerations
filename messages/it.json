@@ -225,6 +225,19 @@
     "title": "Le tue impostazioni",
     "subtitle": "Aggiorna il profilo - il piano di domani si adatterà alle modifiche."
   },
+  "Tutorial": {
+    "slide1Title": "Allenamento su misura, ogni giorno",
+    "slide1Body": "FitGenerations crea per te un piano breve di 3-5 esercizi ogni giorno. L'AI li adatta alla tua età, alla forma fisica, all'attrezzatura disponibile e perfino al meteo fuori.",
+    "slide2Title": "Segna, traccia, cresci",
+    "slide2Body": "Ogni esercizio ha una durata, un breve consiglio e un video YouTube. Segnali come fatti man mano - l'app costruisce la tua serie e sblocca i distintivi.",
+    "slide3Title": "Muoviamoci insieme",
+    "slide3Body": "Ti alleni con un nonno o un nipote? Attiva la Modalità coppia per esercizi pensati per due. Partecipi a un Move & Improve Day? Il tuo allenatore ti darà un codice di gruppo da inserire.",
+    "next": "Avanti",
+    "back": "Indietro",
+    "skip": "Salta",
+    "finish": "Inizia",
+    "progress": "Slide {current} di {total}"
+  },
   "Group": {
     "eyebrow": "Pannello gruppo",
     "title": "Gruppo {code}",

@@ -29,16 +29,19 @@ export default async function PlanPage({
 
   const userId = userData.user!.id;
 
-  // Force onboarding for fresh accounts so the AI plan is tailored - without
-  // this, anonymous users land on /plan with default age=40 / locale=en and
-  // never see the wizard, which the persona audit flagged as a P0.
+  // Force the tutorial+onboarding flow for fresh accounts so the AI plan is
+  // actually tailored. Without this, anonymous users land on /plan with
+  // default age=40 / locale=en and never see the wizard. New users are
+  // sent to /tutorial first (3 short intro slides per Luigi's alpha-review
+  // feedback), then the tutorial forwards them into /onboarding for the
+  // 6-step form. Returning, fully-onboarded users skip both.
   const { data: onboardingState } = await supabase
     .from('profiles')
     .select('onboarded_at')
     .eq('id', userId)
     .maybeSingle();
   if (!onboardingState?.onboarded_at) {
-    redirect({ href: '/onboarding', locale });
+    redirect({ href: '/tutorial', locale });
   }
 
   const today = new Date().toISOString().slice(0, 10);
