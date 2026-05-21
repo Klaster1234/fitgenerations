@@ -60,7 +60,7 @@ const COPY: Record<
   },
   it: {
     greeting: 'Il tuo piano di oggi è pronto.',
-    // Wording reviewed by Luigi (EURO-NET, IT partner) — native-Italian
+    // Wording reviewed by Luigi (EURO-NET, IT partner) - native-Italian
     // edits to avoid the awkward "resto/resta" repetition and the
     // non-idiomatic "senti il muscolo".
     motivation:

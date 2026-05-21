@@ -189,7 +189,7 @@
     "upgradeParticipantHint": "Your current account is set up as a participant.",
     "upgradeContactSupport": "Ask the project team to upgrade your account if you should be a trainer.",
     "dashboardTitle": "Your groups",
-    "dashboardLede": "{count, plural, =0 {No groups yet — create your first one.} one {You manage 1 group.} other {You manage # groups.}}",
+    "dashboardLede": "{count, plural, =0 {No groups yet - create your first one.} one {You manage 1 group.} other {You manage # groups.}}",
     "createCta": "New group",
     "emptyTitle": "No groups yet",
     "emptyHint": "Create one to share a code with your participants and see live attendance.",
