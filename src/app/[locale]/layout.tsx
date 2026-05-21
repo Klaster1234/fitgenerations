@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { EuFooter } from '@/components/eu-footer';
+import { CookieConsent } from '@/components/cookie-consent';
 import '../globals.css';
 
 const geistSans = Geist({
@@ -94,6 +95,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <div className="flex-1 flex flex-col relative z-10">{children}</div>
           <EuFooter />
+          <CookieConsent />
         </NextIntlClientProvider>
       </body>
     </html>

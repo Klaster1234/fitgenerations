@@ -2,5 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "github": {
     "silent": true
+  },
+  "regions": ["fra1"],
+  "functions": {
+    "src/app/api/plan/route.ts": {
+      "maxDuration": 30
+    },
+    "src/app/api/account/export/route.ts": {
+      "maxDuration": 30
+    }
   }
 }

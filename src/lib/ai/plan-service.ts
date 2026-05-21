@@ -1,8 +1,37 @@
 import 'server-only';
+import { z } from 'zod';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { generatePlan, type Profile, type ExerciseCandidate } from './plan-generator';
 import { buildBaselinePlan } from './baseline-plan';
 import { getWeather, type WeatherSnapshot } from '@/lib/weather';
+
+// Runtime schemas for what we read from Supabase. Until we move to
+// `supabase gen types typescript`, these protect the AI pipeline from
+// surprises like a `fitness_level = 'foo'` row sneaking past the type
+// system and crashing `allowedDifficulty[profile.fitness_level]` with an
+// undefined.has(...) error downstream.
+
+const profileRowSchema = z.object({
+  locale: z.enum(['en', 'pl', 'it', 'uk']).nullable().optional(),
+  age: z.number().int().min(6).max(120).nullable().optional(),
+  fitness_level: z.enum(['low', 'mid', 'high']).nullable().optional(),
+  equipment: z.array(z.string()).nullable().optional(),
+  goals: z.array(z.string()).nullable().optional(),
+  city: z.string().nullable().optional(),
+  trains_with_partner: z.boolean().nullable().optional(),
+  role: z.enum(['participant', 'trainer']).nullable().optional(),
+});
+
+const exerciseRowSchema = z.object({
+  slug: z.string(),
+  category: z.string(),
+  difficulty: z.enum(['low', 'mid', 'high']),
+  name: z.record(z.string(), z.string()),
+  duration_minutes: z.number().int().min(1).max(60),
+  equipment: z.array(z.string()),
+  min_age: z.number().int(),
+  max_age: z.number().int(),
+});
 
 export type PlanItem = {
   exercise_slug: string;
@@ -52,28 +81,29 @@ export async function ensureTodayPlan(
   // first visit. They can personalize later via /onboarding. The fallback
   // locale comes from the request URL (passed by the caller) so an
   // anonymous user landing on /uk doesn't get an English plan.
-  const { data: profileRow } = await supabase
+  const { data: rawProfileRow } = await supabase
     .from('profiles')
     .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role')
     .eq('id', userId)
     .single();
+
+  // Validate at runtime so a malformed row (rare, but possible on legacy
+  // data or post-migration) cannot crash the AI pipeline downstream.
+  const profileRow = rawProfileRow ? profileRowSchema.parse(rawProfileRow) : null;
 
   const profile: Profile = {
     // Priority: URL locale (passed via options) > stored profile.locale > 'en'.
     // URL wins because the user is *currently viewing* in that language - if
     // they flipped the locale switcher to Italian we want the next plan in
     // Italian, not whatever was saved during onboarding.
-    locale:
-      options.locale ??
-      (profileRow?.locale as Profile['locale']) ??
-      'en',
+    locale: options.locale ?? profileRow?.locale ?? 'en',
     age: profileRow?.age ?? 40,
-    fitness_level: (profileRow?.fitness_level as Profile['fitness_level']) ?? 'mid',
-    equipment: (profileRow?.equipment as string[]) ?? [],
-    goals: (profileRow?.goals as string[]) ?? [],
+    fitness_level: profileRow?.fitness_level ?? 'mid',
+    equipment: profileRow?.equipment ?? [],
+    goals: profileRow?.goals ?? [],
     city: profileRow?.city ?? null,
     trains_with_partner: profileRow?.trains_with_partner ?? false,
-    role: (profileRow?.role as Profile['role']) ?? 'participant',
+    role: profileRow?.role ?? 'participant',
   };
 
   // 2. Reuse today's plan unless we're forced to regenerate OR the cached
@@ -118,10 +148,20 @@ export async function ensureTodayPlan(
     high: new Set(['low', 'mid', 'high']),
   };
 
-  const catalogue: ExerciseCandidate[] = exercisesRes.data
+  // Validate the catalogue rows up front. Drop any row that doesn't match
+  // the schema rather than crashing - a single malformed exercise should
+  // not block today's plan for the user.
+  const validatedRows = exercisesRes.data
+    .map((row) => {
+      const parsed = exerciseRowSchema.safeParse(row);
+      return parsed.success ? parsed.data : null;
+    })
+    .filter((row): row is z.infer<typeof exerciseRowSchema> => row !== null);
+
+  const catalogue: ExerciseCandidate[] = validatedRows
     .filter((ex) => {
       const equipOk =
-        ex.equipment.length === 0 || ex.equipment.every((e: string) => userEquip.has(e));
+        ex.equipment.length === 0 || ex.equipment.every((e) => userEquip.has(e));
       const ageOk = profile.age >= ex.min_age && profile.age <= ex.max_age;
       const diffOk = allowedDifficulty[profile.fitness_level].has(ex.difficulty);
       return equipOk && ageOk && diffOk;
@@ -130,9 +170,7 @@ export async function ensureTodayPlan(
       slug: ex.slug,
       category: ex.category,
       difficulty: ex.difficulty,
-      name:
-        (ex.name as Record<string, string>)[profile.locale] ??
-        (ex.name as Record<string, string>).en,
+      name: ex.name[profile.locale] ?? ex.name.en ?? ex.slug,
       duration_minutes: ex.duration_minutes,
       equipment: ex.equipment,
     }));

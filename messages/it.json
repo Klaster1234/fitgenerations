@@ -98,7 +98,9 @@
   "Footer": {
     "cofundedTitle": "Cofinanziato dall'Unione Europea",
     "cofundedBody": "FitGenerations Smart TrAIner è cofinanziato dal Programma Erasmus+ dell'Unione Europea, nell'ambito di Sport - Partenariati di Cooperazione su Piccola Scala (progetto 101245857).",
-    "disclaimer": "Finanziato dall'Unione Europea. Le opinioni espresse sono tuttavia esclusivamente quelle dell'autore o degli autori e non riflettono necessariamente quelle dell'Unione Europea o dell'Agenzia esecutiva europea per l'istruzione e la cultura (EACEA). Né l'Unione Europea né l'EACEA possono esserne ritenute responsabili."
+    "disclaimer": "Finanziato dall'Unione Europea. Le opinioni espresse sono tuttavia esclusivamente quelle dell'autore o degli autori e non riflettono necessariamente quelle dell'Unione Europea o dell'Agenzia esecutiva europea per l'istruzione e la cultura (EACEA). Né l'Unione Europea né l'EACEA possono esserne ritenute responsabili.",
+    "euEmblemAlt": "Emblema dell'Unione Europea",
+    "cofundedAria": "Cofinanziato dall'Unione Europea"
   },
   "Auth": {
     "loginTitle": "Accedi",
@@ -163,13 +165,17 @@
     "todayTitle": "Piano di oggi",
     "weatherFor": "Meteo a {city}",
     "minutes": "{count, plural, one {# minuto} other {# minuti}}",
+    "video": "Video",
     "doneCta": "Segna come fatto",
     "doneToast": "Bene - registrato.",
     "regenerateCta": "Genera un nuovo piano",
     "noPlanYet": "Sto generando il tuo primo piano…",
     "streakLabel": "Giorni consecutivi",
     "allDoneTitle": "Piano di oggi completato!",
-    "allDoneBody": "Torna domani per mantenere la serie di {count} giorni. Il piano di domani è già in arrivo."
+    "allDoneBody": "Torna domani per mantenere la serie di {count} giorni. Il piano di domani è già in arrivo.",
+    "partnerBannerTitle": "Allenati oggi con il tuo partner",
+    "partnerBannerBody": "Hai detto che ti alleni con qualcuno - l'IA include esercizi in coppia (es. nonno + nipote) per muovervi insieme.",
+    "partnerBadge": "Coppia"
   },
   "Nav": {
     "history": "Cronologia",
@@ -179,7 +185,9 @@
     "settings": "Impostazioni",
     "logout": "Esci",
     "saveProgress": "Salva i progressi",
-    "groups": "Gruppi"
+    "groups": "Gruppi",
+    "mainNav": "Navigazione principale",
+    "langSwitcher": "Lingua"
   },
   "Trainer": {
     "upgradeTitle": "Pannello dell'allenatore",
@@ -313,5 +321,52 @@
     "default": "Qualcosa è andato storto. Riprova.",
     "notFound": "Pagina non trovata",
     "notFoundBack": "Torna alla home"
+  },
+  "Privacy": {
+    "title": "Informativa sulla privacy",
+    "templateNotice": "[MODELLO - testo da far rivedere a un legale prima della produzione]",
+    "intro": "Questa pagina spiega quali dati personali raccoglie FitGenerations Smart TrAIner (FGST), perché li raccoglie e come puoi controllarli. L'app è cofinanziata dall'Unione Europea nell'ambito di Erasmus+ Sport e rispetta il Regolamento Generale sulla Protezione dei Dati (GDPR).",
+    "controller": "Titolare del trattamento. Il titolare dei tuoi dati personali è il consorzio del progetto FGST. Per qualsiasi questione sulla protezione dei dati scrivi all'indirizzo indicato nella sezione Contatti qui sotto.",
+    "dataCollected": "Dati raccolti. Email dell'account e hash della password (gestiti da Supabase Auth). Risposte all'onboarding: età, livello di forma, attrezzatura, obiettivi, città. Registro attività: quali esercizi completi e quando. Facoltativo: link a un video che invii al feed pubblico #SmartMoveChallenge.",
+    "purpose": "Finalità del trattamento. Generare il tuo piano quotidiano personalizzato, tenere traccia della serie e dei distintivi, mostrare statistiche di gruppo all'allenatore del Move & Improve Day e valutare la portata del progetto come richiesto dal finanziatore Erasmus+.",
+    "legalBasis": "Base giuridica. Per i dati dell'onboarding ci basiamo sul consenso (art. 6, par. 1, lett. a GDPR), per la gestione dell'account sull'esecuzione del contratto (art. 6, par. 1, lett. b GDPR), per le statistiche aggregate anonimizzate destinate al finanziatore sul legittimo interesse (art. 6, par. 1, lett. f GDPR).",
+    "retention": "Tempo di conservazione. I dati dell'account sono conservati finché l'account è attivo. In caso di cancellazione, vengono rimossi entro 30 giorni. Le statistiche d'uso aggregate e anonime possono essere conservate per la durata del periodo di rendicontazione del progetto Erasmus+.",
+    "rights": "I tuoi diritti. Puoi accedere, correggere, esportare o cancellare i tuoi dati in qualsiasi momento dalla pagina Impostazioni. Hai inoltre il diritto di presentare un reclamo al Garante per la protezione dei dati personali.",
+    "thirdParties": "Terze parti. L'app gira su infrastruttura UE: Vercel (Francoforte) per l'hosting e Supabase (Dublino) per il database. I piani AI sono generati dall'API Claude di Anthropic, che tratta i prompt sulla base di un accordo di trattamento dei dati e non li usa per addestrare il modello. Nessuna terza parte di marketing o analitica riceve i tuoi dati.",
+    "contact": "Contatti. Per qualsiasi domanda sulla privacy o per esercitare i tuoi diritti, scrivi al coordinatore del progetto all'indirizzo indicato nel registro pubblico Erasmus+ (progetto 101245857).",
+    "lastUpdated": "Ultimo aggiornamento: 2026-05-21"
+  },
+  "Terms": {
+    "title": "Termini di servizio",
+    "templateNotice": "[MODELLO - revisione legale richiesta prima della produzione]",
+    "intro": "Questi termini regolano l'uso di FitGenerations Smart TrAIner (FGST). L'app è fornita gratuitamente nell'ambito del progetto Erasmus+ Sport 101245857. Creando un account accetti questi termini.",
+    "eligibility": "Requisiti. FGST è aperto a chiunque abbia tra i 6 e i 120 anni. Gli utenti con meno di 16 anni devono avere il consenso di un genitore o tutore che accetta i termini e l'informativa sulla privacy per loro conto.",
+    "accountResponsibility": "Il tuo account. Sei responsabile della riservatezza della tua password e dell'attività svolta con il tuo account. Avvisaci subito se sospetti un accesso non autorizzato.",
+    "acceptableUse": "Uso accettabile. Non caricare contenuti illegali, dannosi o offensivi. Non tentare di disturbare il servizio, raccogliere dati in modo automatizzato o aggirare l'autenticazione. Gli account allenatore vanno usati solo per gestire gruppi reali di Move & Improve Day.",
+    "disclaimer": "Avvertenza sanitaria. I piani di esercizi sono suggerimenti generati dall'AI e non costituiscono consulenza medica. Consulta un medico prima di iniziare un nuovo programma di allenamento, soprattutto in presenza di patologie. Interrompi l'esercizio in caso di dolore.",
+    "liability": "Limitazione di responsabilità. L'app è fornita così com'è. Nei limiti massimi consentiti dalla legge, il consorzio del progetto non è responsabile per danni derivanti dall'uso dell'app, salvo dolo o colpa grave.",
+    "changes": "Modifiche. Possiamo aggiornare questi termini per riflettere nuove funzionalità o requisiti di legge. Comunicheremo qualsiasi modifica sostanziale nell'app prima della sua entrata in vigore.",
+    "contact": "Contatti. Le domande sui termini vanno indirizzate al coordinatore del progetto, i cui contatti sono nel registro pubblico Erasmus+ (progetto 101245857).",
+    "lastUpdated": "Ultimo aggiornamento: 2026-05-21"
+  },
+  "Account": {
+    "deleteTitle": "Elimina l'account",
+    "deleteIntro": "Puoi eliminare il tuo account FGST in qualsiasi momento. Questa pagina spiega cosa succede quando lo fai.",
+    "deleteWarning": "ATTENZIONE: L'operazione è irreversibile. Profilo, piani giornalieri, cronologia attività, distintivi ottenuti e video inviati saranno cancellati definitivamente entro 30 giorni. Le statistiche aggregate e anonime già condivise con il finanziatore Erasmus+ non possono essere revocate.",
+    "deleteConfirmLabel": "Per confermare, digita DELETE (in lettere maiuscole)",
+    "deleteConfirmWord": "DELETE",
+    "deleteButton": "Elimina il mio account per sempre",
+    "deleteError": "Non è stato possibile eliminare l'account. Riprova o contatta il team del progetto.",
+    "deleteSuccess": "L'account è stato eliminato.",
+    "exportTitle": "Esporta i tuoi dati",
+    "exportIntro": "Scarica un file JSON con tutti i dati che FGST conserva su di te: profilo, piani, registro attività, distintivi e video. Il download parte subito dopo il click.",
+    "exportButton": "Genera l'esportazione",
+    "exportError": "Non è stato possibile preparare l'esportazione. Riprova."
+  },
+  "Consent": {
+    "message": "FGST usa cookie essenziali per mantenere la sessione. Non usiamo tracker di analitica o pubblicitari. I dettagli sono nell'informativa sulla privacy.",
+    "accept": "Accetta tutto",
+    "reject": "Solo essenziali",
+    "privacyLink": "Informativa sulla privacy"
   }
 }

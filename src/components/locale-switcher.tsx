@@ -1,7 +1,7 @@
 'use client';
 
 import { useTransition } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { routing, type Locale } from '@/i18n/routing';
 
@@ -17,10 +17,11 @@ export function LocaleSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const t = useTranslations('Nav');
 
   return (
     <label className="inline-flex items-center gap-2 text-sm">
-      <span className="sr-only">Language</span>
+      <span className="sr-only">{t('langSwitcher')}</span>
       <select
         value={locale}
         disabled={pending}

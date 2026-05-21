@@ -25,7 +25,7 @@ export function MobileTabBar() {
 
   return (
     <nav
-      aria-label="Main navigation"
+      aria-label={t('mainNav')}
       className="sm:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur-md pb-[env(safe-area-inset-bottom)]"
     >
       <ul className="grid grid-cols-4">
@@ -37,7 +37,7 @@ export function MobileTabBar() {
               <Link
                 href={tab.href}
                 aria-current={isActive ? 'page' : undefined}
-                className={`flex flex-col items-center justify-center gap-1 py-2.5 min-h-16 text-[0.7rem] font-bold tracking-tight transition-colors ${
+                className={`flex flex-col items-center justify-center gap-1 py-2.5 min-h-16 text-sm font-bold tracking-tight transition-colors ${
                   isActive
                     ? 'text-brand-darker dark:text-brand'
                     : 'text-muted hover:text-foreground'

@@ -157,9 +157,13 @@ body::before {
   color: var(--brand-darker);
 }
 
-/* Scroll behavior */
-html {
-  scroll-behavior: smooth;
+/* Scroll behavior - smooth scroll is itself motion, so guard it behind the
+   reduced-motion preference rather than letting the global animation reset
+   above silently fight with it. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Custom utilities */

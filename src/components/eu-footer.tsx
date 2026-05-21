@@ -28,7 +28,7 @@ export async function EuFooter() {
               width="96"
               height="64"
               role="img"
-              aria-label="European Union emblem"
+              aria-label={t('euEmblemAlt')}
               className="rounded-sm shrink-0"
             >
               <rect width="60" height="40" fill="#003399" />
@@ -48,10 +48,15 @@ export async function EuFooter() {
               })}
             </svg>
             {/* Wordmark on the right - EU blue, sans-serif, two lines, tight
-                line-height to match the manual's reference proportions. */}
+                line-height to match the manual's reference proportions.
+                Visible wordmark stays in English per the EU Visual Identity
+                Manual (lang="en" tells screen readers in other locales to
+                use the English voice). The aria-label is localised so the
+                announced name matches the user's UI language. */}
             <div
+              lang="en"
               className="flex flex-col font-bold text-[#003399] text-base leading-[1.05] tracking-tight"
-              aria-label="Co-funded by the European Union"
+              aria-label={t('cofundedAria')}
             >
               <span>Co-funded by</span>
               <span>the European Union</span>

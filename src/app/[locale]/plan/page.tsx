@@ -37,12 +37,13 @@ export default async function PlanPage({
   // 6-step form. Returning, fully-onboarded users skip both.
   const { data: onboardingState } = await supabase
     .from('profiles')
-    .select('onboarded_at')
+    .select('onboarded_at, trains_with_partner')
     .eq('id', userId)
     .maybeSingle();
   if (!onboardingState?.onboarded_at) {
     redirect({ href: '/tutorial', locale });
   }
+  const trainsWithPartner = onboardingState?.trains_with_partner === true;
 
   const today = new Date().toISOString().slice(0, 10);
 
@@ -83,10 +84,13 @@ export default async function PlanPage({
   // Used to render the "see you tomorrow" retention banner - cheaper than
   // shipping push notifications for the MVP, addresses persona-audit P1 #12.
   const allDone = items.length > 0 && items.every((it) => doneSlugs.has(it.exercise_slug));
-  const { data: exercises } = await supabase
-    .from('exercises')
-    .select('slug, name, category, video_url')
-    .in('slug', slugs.length ? slugs : ['']);
+  const { data: exercises } =
+    slugs.length === 0
+      ? { data: [] as { slug: string; name: Record<string, string>; category: string; video_url: string | null }[] }
+      : await supabase
+          .from('exercises')
+          .select('slug, name, category, video_url')
+          .in('slug', slugs);
 
   const byslug = new Map((exercises ?? []).map((e) => [e.slug, e]));
   const weather = plan?.weather ?? null;
@@ -105,7 +109,10 @@ export default async function PlanPage({
             )}
           </div>
           <div className="text-right shrink-0">
-            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-brand-light text-brand-dark font-bold text-lg">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-brand-light text-brand-darker dark:bg-brand-dark/20 dark:text-foreground font-bold text-lg"
+              aria-label={t('streakLabel') + ': ' + streak}
+            >
               <span aria-hidden>🔥</span>
               <span>{streak}</span>
             </div>
@@ -127,6 +134,20 @@ export default async function PlanPage({
             </Card>
           )}
 
+          {trainsWithPartner && (
+            <Card className="border-2 border-accent/40 bg-accent-warm/15 dark:bg-accent/10">
+              <CardContent className="p-5">
+                <p className="text-base font-bold text-foreground">
+                  <span aria-hidden className="mr-2">👯</span>
+                  {t('partnerBannerTitle')}
+                </p>
+                <p className="mt-1.5 text-sm text-foreground/85 leading-relaxed">
+                  {t('partnerBannerBody')}
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
           <ol className="space-y-3">
             {items.map((it) => {
               const ex = byslug.get(it.exercise_slug);
@@ -135,6 +156,7 @@ export default async function PlanPage({
                   ? (ex.name as Record<string, string>)[locale]
                   : it.exercise_slug;
               const done = doneSlugs.has(it.exercise_slug);
+              const isPair = ex?.category === 'pair';
               return (
                 <li key={it.order}>
                   <Card className={done ? 'border-success/40 bg-brand-light/30' : ''}>
@@ -142,6 +164,11 @@ export default async function PlanPage({
                       <div className="flex items-baseline gap-3 justify-between">
                         <CardTitle className="text-lg">
                           {it.order}. {name}
+                          {isPair && (
+                            <span className="ml-2 inline-flex items-center align-middle px-2 py-0.5 rounded-full bg-accent-warm/30 text-accent text-xs font-bold uppercase tracking-wide">
+                              {t('partnerBadge')}
+                            </span>
+                          )}
                         </CardTitle>
                         <span className="text-sm text-muted shrink-0">
                           {t('minutes', { count: it.duration_minutes })}
@@ -162,9 +189,10 @@ export default async function PlanPage({
                             href={ex.video_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm font-semibold text-brand hover:text-brand-dark underline"
+                            className="text-base font-semibold text-brand hover:text-brand-dark underline inline-flex items-center gap-1 min-h-12 px-2"
                           >
-                            ▸ Video
+                            <span aria-hidden>▸</span>
+                            <span>{t('video')}</span>
                           </a>
                         )}
                       </div>

@@ -17,8 +17,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Localization
 
-- Hardcoded English strings are forbidden in any UI file. Add the key to `messages/en.json`, then `pl.json` and `it.json`, and use `useTranslations()` (client) or `getTranslations()` (server).
-- The default locale is `en`. URL prefix is always shown: `/en/login`, `/pl/login`, `/it/login`.
+- Four locales are supported: **en, pl, it, uk**.
+- Hardcoded English strings are forbidden in any UI file. Add the key to `messages/en.json`, then `pl.json`, `it.json`, and `uk.json`, and use `useTranslations()` (client) or `getTranslations()` (server).
+- The default locale is `en`. URL prefix is always shown: `/en/login`, `/pl/login`, `/it/login`, `/uk/login`.
 
 ## Supabase
 
@@ -40,6 +41,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Every interactive element must be keyboard-reachable.
 - Forms surface errors via `role="alert"` and `aria-live`.
 - Honor `prefers-reduced-motion` (already in `globals.css`).
+
+## Security
+
+- `profiles.role` is locked: RLS WITH CHECK (migration 0009) rejects any self-update that changes the role. Use the `request_trainer_role()` SECURITY DEFINER RPC for legitimate elevation — never `UPDATE profiles SET role = …` from a client or Server Action.
+- `/api/plan` regenerate is rate-limited to once per 60s per user, using `daily_plans.updated_at` as the authoritative timestamp. The body is validated with Zod.
+- The Supabase **service role key** is server-only — it must never be imported from a Client Component, never read in a non-`server-only` module, and never prefixed `NEXT_PUBLIC_`.
 
 ## Tests & lint before commit
 

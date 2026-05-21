@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    name: lint + build + unit tests
+    runs-on: ubuntu-latest
+    # E2E (Playwright) is intentionally skipped here - it needs a Supabase
+    # test environment + secrets we don't ship in CI yet. Run `npm run e2e`
+    # locally instead. Once a staging Supabase project exists, add a
+    # separate job that boots `next dev` against it.
+    defaults:
+      run:
+        working-directory: fgst-app
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: fgst-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:run
+
+      - name: Build
+        # Build needs the public Supabase env vars to be at least *defined*
+        # (the client constructors throw on empty strings). We pass dummy
+        # values so the build doesn't have to talk to a real backend.
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+        run: npm run build

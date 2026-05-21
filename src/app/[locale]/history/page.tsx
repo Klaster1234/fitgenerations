@@ -71,6 +71,7 @@ export default async function HistoryPage({
   }
 
   const t = await getTranslations('History');
+  const tPlan = await getTranslations('Plan');
 
   return (
     <>
@@ -143,7 +144,8 @@ export default async function HistoryPage({
                   <ul className="mt-1 text-base">
                     {d.entries.map((e, i) => (
                       <li key={i}>
-                        ✓ {e.name} {e.minutes ? `· ${e.minutes} min` : ''}
+                        ✓ {e.name}
+                        {e.minutes ? ` · ${tPlan('minutes', { count: e.minutes })}` : ''}
                       </li>
                     ))}
                   </ul>

@@ -130,7 +130,13 @@ export async function generatePlan(args: {
         cache_control: { type: 'ephemeral' }, // 5-min prompt cache
       },
     ],
-    output_config: { format: { type: 'json_schema', schema: jsonSchema } },
+    // Adaptive thinking lets Opus 4.7 pick its own reasoning budget for each request;
+    // effort='medium' keeps senior-care personalization thorough without burning the budget.
+    thinking: { type: 'adaptive' },
+    output_config: {
+      format: { type: 'json_schema', schema: jsonSchema },
+      effort: 'medium',
+    },
     messages: [
       {
         role: 'user',

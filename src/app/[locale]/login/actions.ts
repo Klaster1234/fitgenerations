@@ -127,10 +127,13 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
       return { ok: false, error: mapAuthError(updateErr, 'userAlreadyExists') };
     }
     if (isTrainer) {
-      await supabase
-        .from('profiles')
-        .update({ role: 'trainer' })
-        .eq('id', existing.user.id);
+      // Role elevation goes through the SECURITY DEFINER RPC (added in
+      // migration 0009). Direct UPDATE on profiles.role is blocked by RLS
+      // so an attacker can't self-promote from the browser console.
+      const { error: rpcErr } = await supabase.rpc('request_trainer_role');
+      if (rpcErr) {
+        console.error('[signup] trainer elevation failed', rpcErr);
+      }
     }
     revalidatePath('/', 'layout');
     redirect({ href: isTrainer ? '/trainer' : '/plan', locale });
@@ -149,10 +152,10 @@ export async function signupAction(_prev: AuthState, formData: FormData): Promis
   }
 
   if (isTrainer && signupData.user) {
-    await supabase
-      .from('profiles')
-      .update({ role: 'trainer' })
-      .eq('id', signupData.user.id);
+    const { error: rpcErr } = await supabase.rpc('request_trainer_role');
+    if (rpcErr) {
+      console.error('[signup] trainer elevation failed', rpcErr);
+    }
   }
 
   revalidatePath('/', 'layout');
