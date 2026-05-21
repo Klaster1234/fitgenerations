@@ -17,7 +17,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://api.openweathermap.org",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.groq.com https://api.openweathermap.org",
   "frame-src 'self' https://www.youtube.com https://youtu.be https://www.tiktok.com https://www.instagram.com https://player.vimeo.com",
   "media-src 'self' https:",
   "object-src 'none'",

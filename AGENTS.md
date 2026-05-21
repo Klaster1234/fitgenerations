@@ -28,12 +28,13 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - All user-data tables have RLS — never expose the service-role key to the client. Server-only secrets must NOT be prefixed `NEXT_PUBLIC_`.
 - Schema lives in `supabase/migrations/`. Treat migrations as append-only — add a new numbered file rather than editing existing ones.
 
-## AI / Claude
+## AI / Groq
 
-- Default model: `claude-opus-4-7`. Override via `ANTHROPIC_MODEL` env var if cost or latency demands it.
-- Use **adaptive thinking** (`thinking: {type: 'adaptive'}`) and the `effort` parameter — never `budget_tokens` (removed on Opus 4.7) or `temperature`/`top_p`/`top_k` (also removed on 4.7).
-- Keep the system prompt **stable** for prompt caching. Per-request data goes in the user message.
-- Use structured outputs (`output_config.format`) instead of assistant-turn prefills for JSON.
+- The plan generator runs on **Groq** (free-tier, OpenAI-compatible API). Default model: `llama-3.3-70b-versatile`. Override via `GROQ_MODEL` env var if you want to test Llama 4 Maverick/Scout or a reasoning model (`deepseek-r1-distill-llama-70b`, `qwen/qwen3-32b`).
+- Use **Structured Outputs**: `response_format: { type: 'json_schema', json_schema: { name, schema, strict: true } }`. The JSON-mode (`type: 'json_object'`) is a fallback for models that don't support strict schema.
+- For reasoning models, the SDK exposes `reasoning_effort: 'low' | 'medium' | 'high'` and `reasoning_format: 'parsed' | 'hidden' | 'raw'`. Llama 3.3/4 are NOT reasoning models — don't pass these params, they'll be ignored.
+- Keep the system prompt **stable** so Groq's server-side caching (where supported) can reuse it. Per-request data goes in the user message.
+- Switched from Anthropic Claude Opus 4.7 → Groq Llama 3.3 70B on 2026-05-21 to remove the $5 spend gate during WP1 prototype. Quality of PL/IT copy is solid; UK (Ukrainian) is slightly weaker than Claude's — flag any regressions to the consortium for a possible model swap.
 
 ## Accessibility
 

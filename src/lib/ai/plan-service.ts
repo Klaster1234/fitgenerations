@@ -182,7 +182,7 @@ export async function ensureTodayPlan(
   // 5. Try AI; fall back to deterministic baseline on any failure (or no key)
   let aiPlan;
   let source: 'ai' | 'baseline' = 'baseline';
-  if (process.env.ANTHROPIC_API_KEY) {
+  if (process.env.GROQ_API_KEY) {
     try {
       aiPlan = await generatePlan({ profile, weather, date: today, catalogue });
       source = 'ai';
@@ -203,7 +203,7 @@ export async function ensureTodayPlan(
     items: aiPlan.items,
     ai_summary: `${aiPlan.greeting}\n\n${aiPlan.motivation}`,
     ai_model:
-      source === 'ai' ? process.env.ANTHROPIC_MODEL ?? 'claude-opus-4-7' : 'baseline-template',
+      source === 'ai' ? process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile' : 'baseline-template',
     locale: profile.locale,
   };
 

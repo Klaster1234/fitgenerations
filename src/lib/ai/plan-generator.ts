@@ -1,5 +1,5 @@
 import 'server-only';
-import Anthropic from '@anthropic-ai/sdk';
+import Groq from 'groq-sdk';
 import { z } from 'zod';
 import type { WeatherSnapshot } from '@/lib/weather';
 
@@ -51,11 +51,14 @@ export type GeneratedPlan = z.infer<typeof planSchema>;
 
 // --- Model configuration --------------------------------------------------
 
-// Override via env if needed; default to the current top model per Anthropic guidance.
-const MODEL_ID = process.env.ANTHROPIC_MODEL ?? 'claude-opus-4-7';
+// Groq's free tier hosts Llama 3.3 70B and Llama 4 variants. Llama 3.3 70B
+// is the safe default: well-tested JSON-mode + Structured Outputs, strong
+// PL/IT/UK copy, ~700ms latency. Override via env if you want to A/B test.
+const MODEL_ID = process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile';
 
-// Stable system prompt - eligible for prompt caching across calls.
-// Keep deterministic; do NOT interpolate timestamps or per-user data here.
+// System prompt is identical to the previous Anthropic version - kept
+// deterministic so server-side prompt caching on Groq (where supported)
+// can reuse it across calls. Per-user data goes into the user message.
 const SYSTEM_PROMPT = `You are FitGenerations Smart TrAIner - an AI training companion for an EU-funded sport-and-inclusion project.
 
 Your job: pick 3 to 5 exercises from a provided catalogue and assemble a short daily plan that is realistic for the user's age, fitness, equipment and weather.
@@ -73,6 +76,33 @@ Hard rules:
 
 Output: return only JSON conforming to the schema. No prose outside the JSON.`;
 
+// JSON schema for Structured Outputs. Llama models on Groq honor this when
+// strict=true so we don't need to re-parse defensively, but we do anyway.
+const jsonSchema = {
+  type: 'object',
+  additionalProperties: false,
+  properties: {
+    greeting: { type: 'string' },
+    motivation: { type: 'string' },
+    total_minutes: { type: 'integer' },
+    items: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          exercise_slug: { type: 'string' },
+          duration_minutes: { type: 'integer' },
+          ai_note: { type: 'string' },
+          order: { type: 'integer' },
+        },
+        required: ['exercise_slug', 'duration_minutes', 'ai_note', 'order'],
+      },
+    },
+  },
+  required: ['greeting', 'motivation', 'total_minutes', 'items'],
+};
+
 // --- Generator ------------------------------------------------------------
 
 export async function generatePlan(args: {
@@ -81,37 +111,11 @@ export async function generatePlan(args: {
   date: string; // YYYY-MM-DD
   catalogue: ExerciseCandidate[];
 }): Promise<GeneratedPlan> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error('ANTHROPIC_API_KEY not configured');
+  if (!process.env.GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY not configured');
   }
 
-  const client = new Anthropic();
-
-  // The schema we ask Claude to fill (kept simple - Anthropic structured outputs).
-  const jsonSchema = {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      greeting: { type: 'string' },
-      motivation: { type: 'string' },
-      total_minutes: { type: 'integer' },
-      items: {
-        type: 'array',
-        items: {
-          type: 'object',
-          additionalProperties: false,
-          properties: {
-            exercise_slug: { type: 'string' },
-            duration_minutes: { type: 'integer' },
-            ai_note: { type: 'string' },
-            order: { type: 'integer' },
-          },
-          required: ['exercise_slug', 'duration_minutes', 'ai_note', 'order'],
-        },
-      },
-    },
-    required: ['greeting', 'motivation', 'total_minutes', 'items'],
-  };
+  const client = new Groq();
 
   const userPayload = {
     user_profile: args.profile,
@@ -120,24 +124,24 @@ export async function generatePlan(args: {
     exercise_catalogue: args.catalogue,
   };
 
-  const response = await client.messages.create({
+  const response = await client.chat.completions.create({
     model: MODEL_ID,
     max_tokens: 2000,
-    system: [
-      {
-        type: 'text',
-        text: SYSTEM_PROMPT,
-        cache_control: { type: 'ephemeral' }, // 5-min prompt cache
+    // Slight creativity so plans don't read like templates, but low enough
+    // to keep clinical/senior-care tone stable. Groq supports the standard
+    // OpenAI-compatible temperature param.
+    temperature: 0.6,
+    response_format: {
+      type: 'json_schema',
+      json_schema: {
+        name: 'daily_plan',
+        description: 'A short daily training plan with localized copy.',
+        schema: jsonSchema,
+        strict: true,
       },
-    ],
-    // Adaptive thinking lets Opus 4.7 pick its own reasoning budget for each request;
-    // effort='medium' keeps senior-care personalization thorough without burning the budget.
-    thinking: { type: 'adaptive' },
-    output_config: {
-      format: { type: 'json_schema', schema: jsonSchema },
-      effort: 'medium',
     },
     messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
       {
         role: 'user',
         content: `Build today's plan for this user. Respond with JSON only.\n\n${JSON.stringify(userPayload, null, 2)}`,
@@ -145,15 +149,16 @@ export async function generatePlan(args: {
     ],
   });
 
-  // Parse the response. The first text block contains the JSON.
-  const textBlock = response.content.find((b) => b.type === 'text');
-  if (!textBlock || textBlock.type !== 'text') {
-    throw new Error('No text response from Claude');
+  const text = response.choices[0]?.message?.content;
+  if (!text) {
+    throw new Error('No text response from Groq');
   }
 
-  const parsed = planSchema.parse(JSON.parse(textBlock.text));
+  const parsed = planSchema.parse(JSON.parse(text));
 
   // Defensive: filter items to those whose slug is in the catalogue.
+  // Even with strict Structured Outputs the model can still hallucinate a
+  // slug value, so we re-validate against the source of truth.
   const validSlugs = new Set(args.catalogue.map((c) => c.slug));
   parsed.items = parsed.items
     .filter((it) => validSlugs.has(it.exercise_slug))
