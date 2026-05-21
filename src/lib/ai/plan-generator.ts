@@ -51,10 +51,14 @@ export type GeneratedPlan = z.infer<typeof planSchema>;
 
 // --- Model configuration --------------------------------------------------
 
-// Groq's free tier hosts Llama 3.3 70B and Llama 4 variants. Llama 3.3 70B
-// is the safe default: well-tested JSON-mode + Structured Outputs, strong
-// PL/IT/UK copy, ~700ms latency. Override via env if you want to A/B test.
-const MODEL_ID = process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile';
+// Default: openai/gpt-oss-120b on Groq's free tier. Picked over Llama 3.3
+// 70B because Llama 3.3 on Groq does NOT support `response_format: json_schema`
+// (verified 2026-05-21 - returns 400). gpt-oss-120b supports strict JSON
+// schema, has built-in chain-of-thought reasoning (better plan structure)
+// and 65k context (plenty for our payload). Alternatives that also support
+// json_schema: meta-llama/llama-4-scout-17b-16e-instruct (smaller, faster),
+// meta-llama/llama-4-maverick-17b-128e-instruct (larger context).
+const MODEL_ID = process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b';
 
 // System prompt is identical to the previous Anthropic version - kept
 // deterministic so server-side prompt caching on Groq (where supported)
@@ -131,6 +135,12 @@ export async function generatePlan(args: {
     // to keep clinical/senior-care tone stable. Groq supports the standard
     // OpenAI-compatible temperature param.
     temperature: 0.6,
+    // gpt-oss models burn a lot of reasoning tokens at the default ('medium')
+    // — for our task (pick 4-5 items from a 20-item catalogue with localized
+    // copy) 'low' produced identical quality at 2-11x lower latency in the
+    // 2026-05-21 4-locale benchmark (UK: 17s → 1.5s). Bump back to 'medium'
+    // only if pilot feedback flags shallow reasoning in the ai_note copy.
+    reasoning_effort: 'low',
     response_format: {
       type: 'json_schema',
       json_schema: {

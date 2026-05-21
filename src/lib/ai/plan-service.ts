@@ -203,7 +203,7 @@ export async function ensureTodayPlan(
     items: aiPlan.items,
     ai_summary: `${aiPlan.greeting}\n\n${aiPlan.motivation}`,
     ai_model:
-      source === 'ai' ? process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile' : 'baseline-template',
+      source === 'ai' ? process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b' : 'baseline-template',
     locale: profile.locale,
   };
 
