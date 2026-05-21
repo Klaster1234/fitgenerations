@@ -244,7 +244,7 @@ export default async function LandingPage({
           <div className="reveal-on-scroll grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="text-center lg:text-left lg:order-1 order-2">
               <span className="font-display block text-[9rem] sm:text-[12rem] lg:text-[14rem] font-medium leading-[0.85] tracking-[-0.05em] bg-gradient-to-br from-amber-300 via-orange-400 to-amber-500 bg-clip-text text-transparent">
-                27<span className="text-[6rem] sm:text-[8rem] lg:text-[9rem]">+</span>
+                40<span className="text-[6rem] sm:text-[8rem] lg:text-[9rem]">+</span>
               </span>
               <p className="mt-3 text-sm font-bold tracking-wider uppercase text-foreground/80">{t('value2Caption')}</p>
             </div>
