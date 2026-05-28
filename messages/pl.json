@@ -232,7 +232,7 @@
     "formCityPlaceholder": "np. Gliwice, Potenza",
     "formCityHint": "Gdzie grupa się spotyka. Pomaga AI dopasować ćwiczenia plenerowe do lokalnej pogody.",
     "formSportLabel": "Sport grupy",
-    "formSportHint": "Wybierz Piłka nożna żeby auto-flagować dołączających członków jako football-track.",
+    "formSportHint": "Wybierz Piłkę nożną, aby automatycznie oznaczać dołączających członków jako uczestników football-track.",
     "formSportGeneral": "Ogólny",
     "formSportFootball": "Piłka nożna",
     "formSubmit": "Stwórz grupę",
