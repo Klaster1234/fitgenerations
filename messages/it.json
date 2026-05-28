@@ -188,6 +188,12 @@
     "partnerBannerBody": "Hai detto che ti alleni con qualcuno - l'IA include esercizi in coppia (es. nonno + nipote) per muovervi insieme.",
     "partnerBadge": "Coppia"
   },
+  "Coaching": {
+    "expand": "Cosa è importante",
+    "whyMatters": "Perché conta",
+    "keyFocus": "Punti chiave",
+    "proTip": "Trucco da pro"
+  },
   "Nav": {
     "history": "Cronologia",
     "badges": "Distintivi",

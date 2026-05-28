@@ -188,6 +188,12 @@
     "partnerBannerBody": "Powiedział(a)ś, że trenujesz z kimś - AI dorzuca ćwiczenia w parach (np. dziadek + wnuczek), żebyście mogli się ruszać razem.",
     "partnerBadge": "Para"
   },
+  "Coaching": {
+    "expand": "Co jest istotne",
+    "whyMatters": "Dlaczego warto",
+    "keyFocus": "Co jest kluczowe",
+    "proTip": "Pro tip"
+  },
   "Nav": {
     "history": "Historia",
     "badges": "Odznaki",

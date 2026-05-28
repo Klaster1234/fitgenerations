@@ -188,6 +188,12 @@
     "partnerBannerBody": "You said you train with someone - the AI mixes in pair exercises (think grandparent + grandchild) so you can move together.",
     "partnerBadge": "Partner"
   },
+  "Coaching": {
+    "expand": "What's important",
+    "whyMatters": "Why it matters",
+    "keyFocus": "Key focus points",
+    "proTip": "Pro tip"
+  },
   "Nav": {
     "history": "History",
     "badges": "Badges",
