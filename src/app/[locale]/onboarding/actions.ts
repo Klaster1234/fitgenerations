@@ -9,6 +9,7 @@ import { routing, type Locale } from '@/i18n/routing';
 const profileSchema = z.object({
   age: z.coerce.number().int().min(6).max(120),
   fitness_level: z.enum(['low', 'mid', 'high']),
+  interests: z.array(z.enum(['fitness', 'football', 'green'])).default([]),
   equipment: z.array(z.string()).default([]),
   goals: z.array(z.string()).default([]),
   city: z.string().min(1).max(80),
@@ -47,6 +48,7 @@ export async function saveOnboarding(
   const parsed = profileSchema.safeParse({
     age: formData.get('age'),
     fitness_level: formData.get('fitness_level'),
+    interests: formData.getAll('interests'),
     equipment: formData.getAll('equipment'),
     goals: formData.getAll('goals'),
     city: formData.get('city'),

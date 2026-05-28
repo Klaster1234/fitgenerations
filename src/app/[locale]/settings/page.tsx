@@ -23,13 +23,14 @@ export default async function SettingsPage({
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('age, fitness_level, equipment, goals, city, trains_with_partner, group_code')
+    .select('age, fitness_level, interests, equipment, goals, city, trains_with_partner, group_code')
     .eq('id', userData.user!.id)
     .maybeSingle();
 
   const defaults: OnboardingDefaults = {
     age: profile?.age ?? null,
     fitness_level: (profile?.fitness_level as OnboardingDefaults['fitness_level']) ?? null,
+    interests: (profile?.interests as string[] | null) ?? null,
     equipment: (profile?.equipment as string[] | null) ?? null,
     goals: (profile?.goals as string[] | null) ?? null,
     city: profile?.city ?? null,

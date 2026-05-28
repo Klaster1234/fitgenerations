@@ -7,12 +7,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { saveOnboarding } from './actions';
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 7;
 
 const FITNESS_LEVELS = ['low', 'mid', 'high'] as const;
+const INTERESTS = ['fitness', 'football', 'green'] as const;
 const EQUIPMENT = ['none', 'mat', 'bands', 'dumbbells', 'bike', 'park'] as const;
 const GOALS = ['energy', 'strength', 'mobility', 'social'] as const;
 
+type Interest = (typeof INTERESTS)[number];
 type Equipment = (typeof EQUIPMENT)[number];
 type Goal = (typeof GOALS)[number];
 
@@ -21,6 +23,7 @@ type Goal = (typeof GOALS)[number];
 export type OnboardingDefaults = {
   age?: number | null;
   fitness_level?: 'low' | 'mid' | 'high' | null;
+  interests?: string[] | null;
   equipment?: string[] | null;
   goals?: string[] | null;
   city?: string | null;
@@ -31,11 +34,15 @@ export type OnboardingDefaults = {
 export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults } = {}) {
   const t = useTranslations('Onboarding');
   const tc = useTranslations('Common');
+  const ti = useTranslations('Interests');
   const locale = useLocale();
   const [step, setStep] = useState(1);
   const [age, setAge] = useState(defaults?.age ? String(defaults.age) : '');
   const [fitness, setFitness] = useState<(typeof FITNESS_LEVELS)[number] | ''>(
     defaults?.fitness_level ?? '',
+  );
+  const [interests, setInterests] = useState<Set<Interest>>(
+    new Set((defaults?.interests ?? []) as Interest[]),
   );
   const [equipment, setEquipment] = useState<Set<Equipment>>(
     new Set((defaults?.equipment ?? []) as Equipment[]),
@@ -57,10 +64,11 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
   const canProceed = (() => {
     if (step === 1) return /^\d+$/.test(age) && Number(age) >= 6 && Number(age) <= 120;
     if (step === 2) return fitness !== '';
-    if (step === 3) return true; // equipment optional, can skip with body-only
-    if (step === 4) return goals.size > 0;
-    if (step === 5) return city.trim().length > 0;
-    if (step === 6) {
+    if (step === 3) return true; // interests optional - default is no extra interests
+    if (step === 4) return true; // equipment optional, can skip with body-only
+    if (step === 5) return goals.size > 0;
+    if (step === 6) return city.trim().length > 0;
+    if (step === 7) {
       // Partner answer is required (yes/no). Group code is optional but if
       // provided must match the schema (4-12 uppercased alphanumerics).
       if (trainsWithPartner === '') return false;
@@ -154,6 +162,36 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
 
       <div className={step === 3 ? '' : 'hidden'}>
         <fieldset>
+          <legend className="block text-sm font-semibold mb-3">{ti('question')}</legend>
+          <p className="mb-3 text-sm text-muted">{ti('hint')}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {INTERESTS.map((key) => {
+              const labelKey = key as 'fitness' | 'football' | 'green';
+              return (
+                <label
+                  key={key}
+                  className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-colors ${
+                    interests.has(key) ? 'border-brand bg-brand-light' : 'border-border bg-surface'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    name="interests"
+                    value={key}
+                    checked={interests.has(key)}
+                    onChange={() => setInterests(toggle(interests, key))}
+                    className="h-5 w-5 accent-brand"
+                  />
+                  <span className="text-base font-medium">{ti(labelKey)}</span>
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
+      </div>
+
+      <div className={step === 4 ? '' : 'hidden'}>
+        <fieldset>
           <legend className="block text-sm font-semibold mb-3">{t('equipmentQuestion')}</legend>
           <div className="grid gap-3 sm:grid-cols-2">
             {EQUIPMENT.map((eq) => {
@@ -187,7 +225,7 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
         </fieldset>
       </div>
 
-      <div className={step === 4 ? '' : 'hidden'}>
+      <div className={step === 5 ? '' : 'hidden'}>
         <fieldset>
           <legend className="block text-sm font-semibold mb-3">{t('goalQuestion')}</legend>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -220,7 +258,7 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
         </fieldset>
       </div>
 
-      <div className={step === 5 ? '' : 'hidden'}>
+      <div className={step === 6 ? '' : 'hidden'}>
         <Label htmlFor="city">{t('locationQuestion')}</Label>
         <Input
           id="city"
@@ -232,7 +270,7 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
         />
       </div>
 
-      <div className={step === 6 ? '' : 'hidden'}>
+      <div className={step === 7 ? '' : 'hidden'}>
         <fieldset>
           <legend className="block text-sm font-semibold mb-3">
             {t('partnerQuestion')}
