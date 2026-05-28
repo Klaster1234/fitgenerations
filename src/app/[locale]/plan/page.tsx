@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppHeader } from '@/components/app-header';
+import { CoachingSection } from '@/components/coaching-section';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { redirect } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
@@ -8,6 +9,24 @@ import { getStreak } from '@/lib/db/streak';
 import { ensureTodayPlan, type DailyPlan } from '@/lib/ai/plan-service';
 import { RegenerateButton } from './regenerate-button';
 import { DoneButton } from './done-button';
+
+// Coaching fields (why_matters / pro_tip / key_focus) ship as JSONB with the
+// same {en,pl,it,uk} shape as exercises.name. These helpers pull the
+// profile-locale string (falling back to en) so CoachingSection receives
+// plain strings instead of having to know about the JSONB envelope.
+function pickLocaleText(jsonb: unknown, locale: string): string | null {
+  if (!jsonb || typeof jsonb !== 'object') return null;
+  const obj = jsonb as Record<string, unknown>;
+  const val = obj[locale] ?? obj.en;
+  return typeof val === 'string' ? val : null;
+}
+
+function pickLocaleArr(jsonb: unknown, locale: string): string[] | null {
+  if (!jsonb || typeof jsonb !== 'object') return null;
+  const obj = jsonb as Record<string, unknown>;
+  const val = obj[locale] ?? obj.en;
+  return Array.isArray(val) && val.every((v) => typeof v === 'string') ? val : null;
+}
 
 export default async function PlanPage({
   params,
@@ -37,13 +56,15 @@ export default async function PlanPage({
   // 6-step form. Returning, fully-onboarded users skip both.
   const { data: onboardingState } = await supabase
     .from('profiles')
-    .select('onboarded_at, trains_with_partner')
+    .select('onboarded_at, trains_with_partner, interests')
     .eq('id', userId)
     .maybeSingle();
   if (!onboardingState?.onboarded_at) {
     redirect({ href: '/tutorial', locale });
   }
   const trainsWithPartner = onboardingState?.trains_with_partner === true;
+  const interests = (onboardingState?.interests as string[] | null) ?? [];
+  const isFootball = interests.includes('football');
 
   const today = new Date().toISOString().slice(0, 10);
 
@@ -84,12 +105,21 @@ export default async function PlanPage({
   // Used to render the "see you tomorrow" retention banner - cheaper than
   // shipping push notifications for the MVP, addresses persona-audit P1 #12.
   const allDone = items.length > 0 && items.every((it) => doneSlugs.has(it.exercise_slug));
+  type ExerciseRow = {
+    slug: string;
+    name: Record<string, string>;
+    category: string;
+    video_url: string | null;
+    why_matters: unknown;
+    key_focus: unknown;
+    pro_tip: unknown;
+  };
   const { data: exercises } =
     slugs.length === 0
-      ? { data: [] as { slug: string; name: Record<string, string>; category: string; video_url: string | null }[] }
+      ? { data: [] as ExerciseRow[] }
       : await supabase
           .from('exercises')
-          .select('slug, name, category, video_url')
+          .select('slug, name, category, video_url, why_matters, key_focus, pro_tip')
           .in('slug', slugs);
 
   const byslug = new Map((exercises ?? []).map((e) => [e.slug, e]));
@@ -102,6 +132,15 @@ export default async function PlanPage({
         <header className="mb-8 flex items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">{t('todayTitle')}</h1>
+            {isFootball && (
+              <span
+                className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-orange-900 text-sm font-medium"
+                aria-label={t('footballMode')}
+              >
+                <span aria-hidden>⚽</span>
+                {t('footballMode')}
+              </span>
+            )}
             {weather && (
               <p className="mt-2 text-muted">
                 {t('weatherFor', { city: weather.city })}: {weather.temperatureC}°C - {weather.description}
@@ -196,6 +235,12 @@ export default async function PlanPage({
                           </a>
                         )}
                       </div>
+                      <CoachingSection
+                        whyMatters={pickLocaleText(ex?.why_matters, locale)}
+                        keyFocus={pickLocaleArr(ex?.key_focus, locale)}
+                        proTip={pickLocaleText(ex?.pro_tip, locale)}
+                        defaultOpen={isFootball}
+                      />
                     </CardContent>
                   </Card>
                 </li>

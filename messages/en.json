@@ -186,7 +186,8 @@
     "allDoneBody": "Come back tomorrow to keep your {count}-day streak alive. Tomorrow's plan is already on its way.",
     "partnerBannerTitle": "Train with your partner today",
     "partnerBannerBody": "You said you train with someone - the AI mixes in pair exercises (think grandparent + grandchild) so you can move together.",
-    "partnerBadge": "Partner"
+    "partnerBadge": "Partner",
+    "footballMode": "Football mode"
   },
   "Coaching": {
     "expand": "What's important",

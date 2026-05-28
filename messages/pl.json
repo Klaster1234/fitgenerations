@@ -186,7 +186,8 @@
     "allDoneBody": "Wróć jutro, żeby utrzymać serię {count} dni z rzędu. Jutrzejszy plan już się szykuje.",
     "partnerBannerTitle": "Trenujcie dziś w parze",
     "partnerBannerBody": "Powiedział(a)ś, że trenujesz z kimś - AI dorzuca ćwiczenia w parach (np. dziadek + wnuczek), żebyście mogli się ruszać razem.",
-    "partnerBadge": "Para"
+    "partnerBadge": "Para",
+    "footballMode": "Tryb football"
   },
   "Coaching": {
     "expand": "Co jest istotne",

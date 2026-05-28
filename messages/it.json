@@ -186,7 +186,8 @@
     "allDoneBody": "Torna domani per mantenere la serie di {count} giorni. Il piano di domani è già in arrivo.",
     "partnerBannerTitle": "Allenati oggi con il tuo partner",
     "partnerBannerBody": "Hai detto che ti alleni con qualcuno - l'IA include esercizi in coppia (es. nonno + nipote) per muovervi insieme.",
-    "partnerBadge": "Coppia"
+    "partnerBadge": "Coppia",
+    "footballMode": "Modalità calcio"
   },
   "Coaching": {
     "expand": "Cosa è importante",
