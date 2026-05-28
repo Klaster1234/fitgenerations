@@ -391,5 +391,14 @@
     "accept": "Accept all",
     "reject": "Essential only",
     "privacyLink": "Privacy policy"
+  },
+  "Football": {
+    "title": "Football Skills Library",
+    "summary": "{total} exercises · {tricks} tricks · from amateur to pro",
+    "sectionTricks": "Tricks and feints",
+    "sectionDrills": "Technical drills",
+    "sectionWarmups": "Warmups",
+    "sectionGames": "Small-sided games",
+    "empty": "Football library is being prepared. Check back soon."
   }
 }

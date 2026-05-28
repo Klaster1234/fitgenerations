@@ -391,5 +391,14 @@
     "accept": "Accetta tutto",
     "reject": "Solo essenziali",
     "privacyLink": "Informativa sulla privacy"
+  },
+  "Football": {
+    "title": "Libreria di calcio",
+    "summary": "{total} esercizi · {tricks} trick · da amatori a pro",
+    "sectionTricks": "Trick e finte",
+    "sectionDrills": "Drill tecnici",
+    "sectionWarmups": "Riscaldamenti",
+    "sectionGames": "Partite a campo ridotto",
+    "empty": "Libreria di calcio in preparazione. Torna a trovarci presto."
   }
 }

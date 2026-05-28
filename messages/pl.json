@@ -391,5 +391,14 @@
     "accept": "Akceptuję wszystko",
     "reject": "Tylko niezbędne",
     "privacyLink": "Polityka prywatności"
+  },
+  "Football": {
+    "title": "Biblioteka piłkarska",
+    "summary": "{total} ćwiczeń · {tricks} trików · od amatorów po pro",
+    "sectionTricks": "Triki i kiwki",
+    "sectionDrills": "Drille techniczne",
+    "sectionWarmups": "Rozgrzewki",
+    "sectionGames": "Gry małoobszarowe",
+    "empty": "Biblioteka piłkarska w przygotowaniu. Zajrzyj wkrótce."
   }
 }
