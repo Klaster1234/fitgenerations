@@ -231,6 +231,10 @@
     "formCityLabel": "Città (opzionale)",
     "formCityPlaceholder": "es. Potenza, Gliwice",
     "formCityHint": "Dove si incontra il gruppo. Aiuta l'AI ad adattare gli esercizi al meteo locale.",
+    "formSportLabel": "Sport del gruppo",
+    "formSportHint": "Scegli Calcio per attivare automaticamente il football-track per i membri che si uniscono.",
+    "formSportGeneral": "Generale",
+    "formSportFootball": "Calcio",
     "formSubmit": "Crea gruppo",
     "errors": {
       "invalidCode": "Il codice deve avere 4-12 lettere maiuscole e numeri (es. POTENZA1).",

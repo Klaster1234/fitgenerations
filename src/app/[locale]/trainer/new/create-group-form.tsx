@@ -91,6 +91,20 @@ export function CreateGroupForm() {
         <p className="mt-1 text-sm text-muted">{t('formCityHint')}</p>
       </div>
 
+      <div className="space-y-2">
+        <Label htmlFor="sport">{t('formSportLabel')}</Label>
+        <select
+          id="sport"
+          name="sport"
+          defaultValue="general"
+          className="w-full min-h-12 px-3 rounded-md border-2 border-border text-base bg-surface"
+        >
+          <option value="general">{t('formSportGeneral')}</option>
+          <option value="football">{t('formSportFootball')}</option>
+        </select>
+        <p className="mt-1 text-sm text-muted">{t('formSportHint')}</p>
+      </div>
+
       {state.error && (
         <p role="alert" className="text-base font-semibold text-danger" aria-live="polite">
           {t(`errors.${state.error}` as 'errors.invalidCode')}

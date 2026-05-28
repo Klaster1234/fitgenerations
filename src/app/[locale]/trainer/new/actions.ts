@@ -19,6 +19,7 @@ const createGroupSchema = z.object({
     .max(80)
     .optional()
     .transform((v) => (v && v.length > 0 ? v : null)),
+  sport: z.enum(['general', 'football']).default('general'),
 });
 
 export type CreateGroupState = {
@@ -39,10 +40,17 @@ export async function createGroupAction(
 ): Promise<CreateGroupState> {
   const locale = pickLocale(formData.get('locale'));
 
+  const sportRaw = formData.get('sport');
+  const sport =
+    typeof sportRaw === 'string' && ['general', 'football'].includes(sportRaw)
+      ? sportRaw
+      : 'general';
+
   const parsed = createGroupSchema.safeParse({
     code: formData.get('code'),
     name: formData.get('name'),
     city: formData.get('city') ?? undefined,
+    sport,
   });
   if (!parsed.success) {
     return { ok: false, error: 'invalidCode' };
@@ -68,6 +76,7 @@ export async function createGroupAction(
     code: parsed.data.code,
     name: parsed.data.name,
     city: parsed.data.city,
+    sport: parsed.data.sport,
     owner_id: userData.user.id,
   });
 

@@ -231,6 +231,10 @@
     "formCityLabel": "City (optional)",
     "formCityPlaceholder": "e.g. Gliwice, Potenza",
     "formCityHint": "Where the group meets. Helps the AI tailor outdoor exercises to local weather.",
+    "formSportLabel": "Group sport",
+    "formSportHint": "Pick Football to auto-flag joining members as football-track users.",
+    "formSportGeneral": "General",
+    "formSportFootball": "Football",
     "formSubmit": "Create group",
     "errors": {
       "invalidCode": "Code must be 4-12 uppercase letters and numbers (e.g. GLIWICE1).",

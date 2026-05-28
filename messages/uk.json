@@ -231,6 +231,10 @@
     "formCityLabel": "Місто (необов'язково)",
     "formCityPlaceholder": "напр. Gliwice, Potenza",
     "formCityHint": "Де збирається група. Допомагає AI підлаштувати вправи під місцеву погоду.",
+    "formSportLabel": "Спорт групи",
+    "formSportHint": "Виберіть Футбол щоб автоматично позначати приєднуючихся членів як football-track.",
+    "formSportGeneral": "Загальний",
+    "formSportFootball": "Футбол",
     "formSubmit": "Створити групу",
     "errors": {
       "invalidCode": "Код має містити 4-12 великих літер і цифр (напр. GLIWICE1).",
