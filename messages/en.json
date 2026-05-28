@@ -399,6 +399,11 @@
     "sectionDrills": "Technical drills",
     "sectionWarmups": "Warmups",
     "sectionGames": "Small-sided games",
-    "empty": "Football library is being prepared. Check back soon."
+    "empty": "Football library is being prepared. Check back soon.",
+    "categoryWarmup": "warmup",
+    "categoryDrill": "drill",
+    "categoryTrick": "trick",
+    "categoryGame": "game",
+    "minutesShort": "min"
   }
 }

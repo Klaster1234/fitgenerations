@@ -399,6 +399,11 @@
     "sectionDrills": "Drill tecnici",
     "sectionWarmups": "Riscaldamenti",
     "sectionGames": "Partite a campo ridotto",
-    "empty": "Libreria di calcio in preparazione. Torna a trovarci presto."
+    "empty": "Libreria di calcio in preparazione. Torna a trovarci presto.",
+    "categoryWarmup": "riscaldamento",
+    "categoryDrill": "drill",
+    "categoryTrick": "trick",
+    "categoryGame": "partita",
+    "minutesShort": "min"
   }
 }

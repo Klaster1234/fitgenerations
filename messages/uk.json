@@ -399,6 +399,11 @@
     "sectionDrills": "Технічні дрилі",
     "sectionWarmups": "Розминки",
     "sectionGames": "Ігри на малому полі",
-    "empty": "Бібліотека футболу готується. Завітайте незабаром."
+    "empty": "Бібліотека футболу готується. Завітайте незабаром.",
+    "categoryWarmup": "розминка",
+    "categoryDrill": "дриль",
+    "categoryTrick": "трик",
+    "categoryGame": "гра",
+    "minutesShort": "хв"
   }
 }

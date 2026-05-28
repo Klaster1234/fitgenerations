@@ -1,13 +1,11 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { AppHeader } from '@/components/app-header';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { SkillCard } from './skill-card';
 
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
-
-export const dynamic = 'force-static';
-export const revalidate = 3600; // refresh hourly; football catalogue rarely changes
 
 function pickLocaleText(jsonb: unknown, locale: string): string | null {
   if (!jsonb || typeof jsonb !== 'object') return null;
@@ -56,57 +54,96 @@ export default async function FootballLibrary({ params }: PageProps) {
   const total = exercises.length;
   const tricks = byCategory.football_trick.length;
 
+  const minutesShort = t('minutesShort');
+  const categoryLabels: Record<string, string> = {
+    football_warmup: t('categoryWarmup'),
+    football_drill: t('categoryDrill'),
+    football_trick: t('categoryTrick'),
+    football_game: t('categoryGame'),
+  };
+
   return (
-    <main className="max-w-6xl mx-auto px-4 py-12 space-y-12">
-      <header>
-        <h1 className="text-4xl font-display flex items-center gap-3">
-          <span aria-hidden="true">⚽</span> {t('title')}
-        </h1>
-        <p className="mt-2 text-lg text-muted">{t('summary', { total, tricks })}</p>
-      </header>
+    <>
+      <AppHeader />
+      <main className="max-w-6xl mx-auto px-4 py-12 space-y-12">
+        <header>
+          <h1 className="text-4xl font-display flex items-center gap-3">
+            <span aria-hidden="true">⚽</span> {t('title')}
+          </h1>
+          <p className="mt-2 text-lg text-muted">{t('summary', { total, tricks })}</p>
+        </header>
 
-      {byCategory.football_trick.length > 0 && (
-        <section aria-labelledby="section-tricks">
-          <h2 id="section-tricks" className="text-2xl font-display mb-4">{t('sectionTricks')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {byCategory.football_trick.map((ex) => <SkillCard key={ex.slug} exercise={ex} />)}
-          </div>
-        </section>
-      )}
+        {byCategory.football_trick.length > 0 && (
+          <section aria-labelledby="section-tricks">
+            <h2 id="section-tricks" className="text-2xl font-display mb-4">{t('sectionTricks')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {byCategory.football_trick.map((ex) => (
+                <SkillCard
+                  key={ex.slug}
+                  exercise={ex}
+                  categoryLabel={categoryLabels[ex.category] ?? ex.category}
+                  minutesShort={minutesShort}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {byCategory.football_drill.length > 0 && (
-        <section aria-labelledby="section-drills">
-          <h2 id="section-drills" className="text-2xl font-display mb-4">{t('sectionDrills')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {byCategory.football_drill.map((ex) => <SkillCard key={ex.slug} exercise={ex} />)}
-          </div>
-        </section>
-      )}
+        {byCategory.football_drill.length > 0 && (
+          <section aria-labelledby="section-drills">
+            <h2 id="section-drills" className="text-2xl font-display mb-4">{t('sectionDrills')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {byCategory.football_drill.map((ex) => (
+                <SkillCard
+                  key={ex.slug}
+                  exercise={ex}
+                  categoryLabel={categoryLabels[ex.category] ?? ex.category}
+                  minutesShort={minutesShort}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {byCategory.football_warmup.length > 0 && (
-        <section aria-labelledby="section-warmups">
-          <h2 id="section-warmups" className="text-2xl font-display mb-4">{t('sectionWarmups')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {byCategory.football_warmup.map((ex) => <SkillCard key={ex.slug} exercise={ex} />)}
-          </div>
-        </section>
-      )}
+        {byCategory.football_warmup.length > 0 && (
+          <section aria-labelledby="section-warmups">
+            <h2 id="section-warmups" className="text-2xl font-display mb-4">{t('sectionWarmups')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {byCategory.football_warmup.map((ex) => (
+                <SkillCard
+                  key={ex.slug}
+                  exercise={ex}
+                  categoryLabel={categoryLabels[ex.category] ?? ex.category}
+                  minutesShort={minutesShort}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {byCategory.football_game.length > 0 && (
-        <section aria-labelledby="section-games">
-          <h2 id="section-games" className="text-2xl font-display mb-4">{t('sectionGames')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {byCategory.football_game.map((ex) => <SkillCard key={ex.slug} exercise={ex} />)}
-          </div>
-        </section>
-      )}
+        {byCategory.football_game.length > 0 && (
+          <section aria-labelledby="section-games">
+            <h2 id="section-games" className="text-2xl font-display mb-4">{t('sectionGames')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {byCategory.football_game.map((ex) => (
+                <SkillCard
+                  key={ex.slug}
+                  exercise={ex}
+                  categoryLabel={categoryLabels[ex.category] ?? ex.category}
+                  minutesShort={minutesShort}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-      {total === 0 && (
-        <section className="text-center py-12">
-          <p className="text-lg text-muted">{t('empty')}</p>
-        </section>
-      )}
-    </main>
+        {total === 0 && (
+          <section className="text-center py-12">
+            <p className="text-lg text-muted">{t('empty')}</p>
+          </section>
+        )}
+      </main>
+    </>
   );
 }
 

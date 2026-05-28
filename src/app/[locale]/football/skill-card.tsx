@@ -12,14 +12,13 @@ type Exercise = {
   pro_tip: string | null;
 };
 
-const CATEGORY_LABEL: Record<string, string> = {
-  football_warmup: 'warmup',
-  football_drill: 'drill',
-  football_trick: 'trick',
-  football_game: 'game',
+type Props = {
+  exercise: Exercise;
+  categoryLabel: string;
+  minutesShort: string;
 };
 
-export function SkillCard({ exercise }: { exercise: Exercise }) {
+export function SkillCard({ exercise, categoryLabel, minutesShort }: Props) {
   const youtubeId = exercise.video_url?.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1] ?? null;
 
   return (
@@ -39,7 +38,7 @@ export function SkillCard({ exercise }: { exercise: Exercise }) {
       <div className="p-4 space-y-2">
         <h3 className="text-lg font-medium">{exercise.name}</h3>
         <p className="text-sm text-muted">
-          {exercise.duration_minutes} min · {CATEGORY_LABEL[exercise.category] ?? exercise.category}
+          {exercise.duration_minutes} {minutesShort} · {categoryLabel}
         </p>
         <p className="text-base">{exercise.description}</p>
         <CoachingSection

@@ -399,6 +399,11 @@
     "sectionDrills": "Drille techniczne",
     "sectionWarmups": "Rozgrzewki",
     "sectionGames": "Gry małoobszarowe",
-    "empty": "Biblioteka piłkarska w przygotowaniu. Zajrzyj wkrótce."
+    "empty": "Biblioteka piłkarska w przygotowaniu. Zajrzyj wkrótce.",
+    "categoryWarmup": "rozgrzewka",
+    "categoryDrill": "drill",
+    "categoryTrick": "trik",
+    "categoryGame": "gra",
+    "minutesShort": "min"
   }
 }
