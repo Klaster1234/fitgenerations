@@ -24,15 +24,19 @@ export async function AppHeader() {
   const isAnonymous = !userData.user?.email;
 
   // Trainer-only links surface only when profile.role === 'trainer'.
+  // Football link surfaces only when profile.interests includes 'football'.
   // Single round-trip — we already have a session, this is one row by PK.
   let isTrainer = false;
+  let isFootball = false;
   if (userData.user) {
     const { data: profile } = await supabase
       .from('profiles')
-      .select('role')
+      .select('role, interests')
       .eq('id', userData.user.id)
       .maybeSingle();
     isTrainer = profile?.role === 'trainer';
+    const interests = (profile?.interests as string[] | null) ?? [];
+    isFootball = interests.includes('football');
   }
 
   return (
@@ -73,6 +77,15 @@ export async function AppHeader() {
             >
               {t('challenge')}
             </Link>
+            {isFootball && (
+              <Link
+                href="/football"
+                className="inline-flex items-center gap-1.5 min-h-12 px-4 py-2 rounded-pill font-semibold hover:bg-surface-2 transition-colors"
+              >
+                <span aria-hidden>⚽</span>
+                <span>{t('football')}</span>
+              </Link>
+            )}
             {isTrainer && (
               <Link
                 href="/trainer"
