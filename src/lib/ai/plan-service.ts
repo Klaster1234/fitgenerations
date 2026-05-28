@@ -20,6 +20,7 @@ const profileRowSchema = z.object({
   city: z.string().nullable().optional(),
   trains_with_partner: z.boolean().nullable().optional(),
   role: z.enum(['participant', 'trainer']).nullable().optional(),
+  interests: z.array(z.string()).nullable().optional(),
 });
 
 const exerciseRowSchema = z.object({
@@ -87,7 +88,7 @@ export async function ensureTodayPlan(
   // anonymous user landing on /uk doesn't get an English plan.
   const { data: rawProfileRow } = await supabase
     .from('profiles')
-    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role')
+    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role, interests')
     .eq('id', userId)
     .single();
 
@@ -108,6 +109,7 @@ export async function ensureTodayPlan(
     city: profileRow?.city ?? null,
     trains_with_partner: profileRow?.trains_with_partner ?? false,
     role: profileRow?.role ?? 'participant',
+    interests: profileRow?.interests ?? [],
   };
 
   // 2. Reuse today's plan unless we're forced to regenerate OR the cached

@@ -19,6 +19,7 @@ export type Profile = {
   // Self-declared role. Trainers see the /trainer dashboard and can create
   // owned groups; participants just join via group_code.
   role: 'participant' | 'trainer';
+  interests: string[];
 };
 
 export type ExerciseCandidate = {
