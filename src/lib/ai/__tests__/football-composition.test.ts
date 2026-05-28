@@ -49,4 +49,20 @@ describe('composeFootballPlan', () => {
     expect(plan[0].category).toMatch(/warmup/);
     expect(plan[plan.length - 1].category).toBe('cooldown');
   });
+
+  it('picks football_trick when seed is odd', () => {
+    const plan = composeFootballPlan(catalog, { budgetMinutes: 60, seed: 3 });
+    expect(plan[2].category).toBe('football_trick');
+    expect(plan[2].slug).toBe('ft1');
+  });
+
+  it('picks a distinct second drill when seed is even (no duplicate slug)', () => {
+    const plan = composeFootballPlan(catalog, { budgetMinutes: 60, seed: 2 });
+    expect(plan).toHaveLength(5);
+    expect(plan[1].category).toBe('football_drill');
+    expect(plan[2].category).toBe('football_drill');
+    expect(plan[1].slug).not.toBe(plan[2].slug);
+    const slugs = plan.map(p => p.slug);
+    expect(new Set(slugs).size).toBe(5);
+  });
 });
