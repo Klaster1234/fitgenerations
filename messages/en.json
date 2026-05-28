@@ -10,6 +10,15 @@
     "error": "Something went wrong",
     "retry": "Try again"
   },
+  "Interests": {
+    "question": "What interests you most?",
+    "hint": "Pick one or more, we'll tailor your plans accordingly.",
+    "fitness": "General fitness",
+    "football": "Football (soccer)",
+    "green": "Green sports (Nordic walking, plogging)",
+    "settingsTitle": "Your interests",
+    "settingsHint": "Change anytime. Affects what exercises the AI suggests."
+  },
   "Landing": {
     "eyebrow": "Erasmus+ Sport · 2026",
     "heroPart1": "Sport for every",

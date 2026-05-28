@@ -10,6 +10,15 @@
     "error": "Coś poszło nie tak",
     "retry": "Spróbuj ponownie"
   },
+  "Interests": {
+    "question": "Co interesuje Cię najbardziej?",
+    "hint": "Wybierz jedno lub więcej - dopasujemy plany.",
+    "fitness": "Ogólny fitness",
+    "football": "Piłka nożna",
+    "green": "Sport w naturze (Nordic walking, plogging)",
+    "settingsTitle": "Twoje zainteresowania",
+    "settingsHint": "Zmień kiedy chcesz. Wpływa na ćwiczenia które proponuje AI."
+  },
   "Landing": {
     "eyebrow": "Erasmus+ Sport · 2026",
     "heroPart1": "Sport dla każdego",
