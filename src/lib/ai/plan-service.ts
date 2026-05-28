@@ -3,6 +3,7 @@ import { z } from 'zod';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { generatePlan, type Profile, type ExerciseCandidate } from './plan-generator';
 import { buildBaselinePlan } from './baseline-plan';
+import { composeFootballPlan } from './football-composition';
 import { getWeather, type WeatherSnapshot } from '@/lib/weather';
 
 // Runtime schemas for what we read from Supabase. Until we move to
@@ -187,19 +188,37 @@ export async function ensureTodayPlan(
     return { ok: false, error: 'catalogue_unavailable' };
   }
 
-  // 5. Try AI; fall back to deterministic baseline on any failure (or no key)
+  // 5a. Football short-circuit: if user opted into football, use deterministic
+  // football composition (warmup -> drill -> drill/trick -> game -> cooldown).
+  // The AI/baseline path then writes greeting + ai_note around the pre-picked
+  // items, guaranteeing football users always get a football-flavored plan
+  // regardless of model behavior.
+  let prePickedItems: ExerciseCandidate[] | null = null;
+  if (profile.interests.includes('football')) {
+    prePickedItems = composeFootballPlan(catalogue, {
+      budgetMinutes: 60,
+      seed: Date.parse(today),
+    });
+  }
+
+  // 5b. Try AI; fall back to deterministic baseline on any failure (or no key)
   let aiPlan;
   let source: 'ai' | 'baseline' = 'baseline';
   if (process.env.GROQ_API_KEY) {
     try {
-      aiPlan = await generatePlan({ profile, weather, date: today, catalogue });
+      aiPlan = await generatePlan({
+        profile,
+        weather,
+        date: today,
+        catalogue: prePickedItems ?? catalogue,
+      });
       source = 'ai';
     } catch (err) {
       console.error('[plan-service] AI generation failed, using baseline', err);
-      aiPlan = buildBaselinePlan(catalogue, profile);
+      aiPlan = buildBaselinePlan(prePickedItems ?? catalogue, profile);
     }
   } else {
-    aiPlan = buildBaselinePlan(catalogue, profile);
+    aiPlan = buildBaselinePlan(prePickedItems ?? catalogue, profile);
   }
 
   // 6. Persist (one row per user per day). The `locale` stamp lets us
