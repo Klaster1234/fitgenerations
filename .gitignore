@@ -44,3 +44,6 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# generator caches (one-shot scripts)
+scripts/football-seed-cache.json
