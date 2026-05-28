@@ -41,7 +41,7 @@ export function CoachingSection({ whyMatters, keyFocus, proTip, defaultOpen = fa
             <div>
               <strong className="block">{t('keyFocus')}</strong>
               <ol className="list-decimal list-inside space-y-1 mt-1">
-                {keyFocus!.map((f, i) => <li key={i}>{f}</li>)}
+                {keyFocus?.map((f, i) => <li key={i}>{f}</li>)}
               </ol>
             </div>
           </div>

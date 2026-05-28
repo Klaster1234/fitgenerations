@@ -133,12 +133,8 @@ export default async function PlanPage({
           <div>
             <h1 className="text-3xl font-bold tracking-tight">{t('todayTitle')}</h1>
             {isFootball && (
-              <span
-                className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-orange-900 text-sm font-medium"
-                aria-label={t('footballMode')}
-              >
-                <span aria-hidden>⚽</span>
-                {t('footballMode')}
+              <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-warm/30 text-accent text-sm font-medium">
+                <span aria-hidden="true">⚽</span> {t('footballMode')}
               </span>
             )}
             {weather && (
