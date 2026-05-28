@@ -17,7 +17,15 @@ export async function updateInterests(formData: FormData) {
         typeof v === 'string' && (VALID_INTERESTS as readonly string[]).includes(v),
     );
 
-  await supabase.from('profiles').update({ interests }).eq('id', userData.user.id);
+  const { error } = await supabase
+    .from('profiles')
+    .update({ interests })
+    .eq('id', userData.user.id);
+
+  if (error) {
+    console.error('[settings/updateInterests] failed', error);
+    return;
+  }
 
   revalidatePath('/[locale]/settings', 'page');
   revalidatePath('/[locale]/plan', 'page');
