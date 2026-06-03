@@ -6,6 +6,12 @@ import { buildBaselinePlan } from './baseline-plan';
 import { composeFootballPlan } from './football-composition';
 import { getWeather, type WeatherSnapshot } from '@/lib/weather';
 
+// exported for tests
+export function normalizeDashes(s: string | null | undefined): string {
+  if (!s) return '';
+  return s.replace(/[–—]/g, '-');
+}
+
 // Runtime schemas for what we read from Supabase. Until we move to
 // `supabase gen types typescript`, these protect the AI pipeline from
 // surprises like a `fitness_level = 'foo'` row sneaking past the type
@@ -220,6 +226,40 @@ export async function ensureTodayPlan(
   } else {
     aiPlan = buildBaselinePlan(prePickedItems ?? catalogue, profile);
   }
+
+  // Football post-processing: AI is given the pre-picked items as its catalogue,
+  // but it can still pick a subset, duplicate, or reorder them. Force the items
+  // array to match composeFootballPlan output exactly, preserving the AI's
+  // per-slug notes where it wrote them, generic fallback otherwise.
+  if (prePickedItems && aiPlan) {
+    const aiNotesBySlug = new Map<string, string>();
+    for (const item of aiPlan.items) {
+      aiNotesBySlug.set(item.exercise_slug, item.ai_note);
+    }
+    aiPlan = {
+      ...aiPlan,
+      items: prePickedItems.map((ex, i) => ({
+        exercise_slug: ex.slug,
+        duration_minutes: ex.duration_minutes,
+        ai_note: aiNotesBySlug.get(ex.slug) ?? '',
+        order: i + 1,
+      })),
+      total_minutes: prePickedItems.reduce((sum, ex) => sum + ex.duration_minutes, 0),
+    };
+  }
+
+  // Normalize dashes in all AI-generated copy. AI sometimes inserts en-dashes
+  // or em-dashes in PL/IT/UK output even when the system prompt asks for
+  // hyphens; this is a belt-and-braces post-process.
+  aiPlan = {
+    ...aiPlan,
+    greeting: normalizeDashes(aiPlan.greeting),
+    motivation: normalizeDashes(aiPlan.motivation),
+    items: aiPlan.items.map((item) => ({
+      ...item,
+      ai_note: normalizeDashes(item.ai_note),
+    })),
+  };
 
   // 6. Persist (one row per user per day). The `locale` stamp lets us
   // invalidate the cache when the user switches languages.
