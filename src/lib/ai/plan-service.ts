@@ -153,8 +153,14 @@ export async function ensureTodayPlan(
     return { ok: false, error: 'catalogue_unavailable' };
   }
 
-  // 4. Filter catalogue to what fits the user's equipment / age / level
+  // 4. Filter catalogue to what fits the user's equipment / age / level.
+  // Football players have a ball by definition, so treat 'ball' as available
+  // equipment when the user opted into football. There is no 'ball' option in
+  // onboarding, so requiring it as filterable equipment would otherwise hide
+  // 35/40 football exercises and gut the football plan.
+  const isFootballUser = profile.interests.includes('football');
   const userEquip = new Set(profile.equipment.length ? profile.equipment : ['none']);
+  if (isFootballUser) userEquip.add('ball');
   const allowedDifficulty: Record<Profile['fitness_level'], Set<string>> = {
     low: new Set(['low']),
     mid: new Set(['low', 'mid']),
@@ -173,6 +179,10 @@ export async function ensureTodayPlan(
 
   const catalogue: ExerciseCandidate[] = validatedRows
     .filter((ex) => {
+      // Football exercises belong only in a football user's catalogue. Keep
+      // them out of general plans so a non-football user never gets a
+      // "shooting accuracy" drill as filler.
+      if (ex.category.startsWith('football_') && !isFootballUser) return false;
       const equipOk =
         ex.equipment.length === 0 || ex.equipment.every((e) => userEquip.has(e));
       const ageOk = profile.age >= ex.min_age && profile.age <= ex.max_age;
