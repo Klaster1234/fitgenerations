@@ -17,9 +17,14 @@ export async function updateInterests(formData: FormData) {
         typeof v === 'string' && (VALID_INTERESTS as readonly string[]).includes(v),
     );
 
+  // Unchecked checkboxes are absent from FormData, so a missing value means
+  // false. composeGoalkeeperPlan only acts on this for football users.
+  const isGoalkeeper =
+    formData.get('is_goalkeeper') === 'on' || formData.get('is_goalkeeper') === 'true';
+
   const { error } = await supabase
     .from('profiles')
-    .update({ interests })
+    .update({ interests, is_goalkeeper: isGoalkeeper })
     .eq('id', userData.user.id);
 
   if (error) {

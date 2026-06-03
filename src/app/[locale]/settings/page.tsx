@@ -26,7 +26,7 @@ export default async function SettingsPage({
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('age, fitness_level, interests, equipment, goals, city, trains_with_partner, group_code')
+    .select('age, fitness_level, interests, equipment, goals, city, trains_with_partner, group_code, is_goalkeeper')
     .eq('id', userData.user!.id)
     .maybeSingle();
 
@@ -39,6 +39,7 @@ export default async function SettingsPage({
     city: profile?.city ?? null,
     trains_with_partner: profile?.trains_with_partner ?? null,
     group_code: profile?.group_code ?? null,
+    is_goalkeeper: profile?.is_goalkeeper ?? null,
   };
 
   const t = await getTranslations('Settings');
@@ -46,6 +47,7 @@ export default async function SettingsPage({
   const tc = await getTranslations('Common');
 
   const savedInterests = (profile?.interests as string[] | null) ?? [];
+  const savedGoalkeeper = profile?.is_goalkeeper === true;
 
   return (
     <>
@@ -81,6 +83,15 @@ export default async function SettingsPage({
                     <span className="text-base">{ti(key)}</span>
                   </label>
                 ))}
+                <label className="flex items-center gap-3 min-h-12 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="is_goalkeeper"
+                    defaultChecked={savedGoalkeeper}
+                    className="w-5 h-5 accent-brand"
+                  />
+                  <span className="text-base">{ti('goalkeeper')}</span>
+                </label>
                 <button
                   type="submit"
                   className="mt-4 px-6 py-3 bg-brand text-white rounded-md min-h-12 text-base font-medium"
