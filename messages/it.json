@@ -17,7 +17,8 @@
     "football": "Calcio",
     "green": "Sport in natura (Nordic walking, plogging)",
     "settingsTitle": "I tuoi interessi",
-    "settingsHint": "Cambia in qualsiasi momento. Influenza gli esercizi che propone l'AI."
+    "settingsHint": "Cambia in qualsiasi momento. Influenza gli esercizi che propone l'AI.",
+    "goalkeeper": "Sono un portiere"
   },
   "Landing": {
     "eyebrow": "Erasmus+ Sport · 2026",
@@ -187,7 +188,8 @@
     "partnerBannerTitle": "Allenati oggi con il tuo partner",
     "partnerBannerBody": "Hai detto che ti alleni con qualcuno - l'IA include esercizi in coppia (es. nonno + nipote) per muovervi insieme.",
     "partnerBadge": "Coppia",
-    "footballMode": "Modalità calcio"
+    "footballMode": "Modalità calcio",
+    "goalkeeperMode": "Portiere"
   },
   "Coaching": {
     "expand": "Cosa è importante",
@@ -399,6 +401,7 @@
     "sectionDrills": "Drill tecnici",
     "sectionWarmups": "Riscaldamenti",
     "sectionGames": "Partite a campo ridotto",
+    "sectionGoalkeeper": "Allenamento portiere",
     "empty": "Libreria di calcio in preparazione. Torna a trovarci presto.",
     "categoryWarmup": "riscaldamento",
     "categoryDrill": "drill",

@@ -17,7 +17,8 @@
     "football": "Football (soccer)",
     "green": "Green sports (Nordic walking, plogging)",
     "settingsTitle": "Your interests",
-    "settingsHint": "Change anytime. Affects what exercises the AI suggests."
+    "settingsHint": "Change anytime. Affects what exercises the AI suggests.",
+    "goalkeeper": "I'm a goalkeeper"
   },
   "Landing": {
     "eyebrow": "Erasmus+ Sport · 2026",
@@ -187,7 +188,8 @@
     "partnerBannerTitle": "Train with your partner today",
     "partnerBannerBody": "You said you train with someone - the AI mixes in pair exercises (think grandparent + grandchild) so you can move together.",
     "partnerBadge": "Partner",
-    "footballMode": "Football mode"
+    "footballMode": "Football mode",
+    "goalkeeperMode": "Goalkeeper"
   },
   "Coaching": {
     "expand": "What's important",
@@ -399,6 +401,7 @@
     "sectionDrills": "Technical drills",
     "sectionWarmups": "Warmups",
     "sectionGames": "Small-sided games",
+    "sectionGoalkeeper": "Goalkeeper training",
     "empty": "Football library is being prepared. Check back soon.",
     "categoryWarmup": "warmup",
     "categoryDrill": "drill",

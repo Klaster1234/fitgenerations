@@ -28,6 +28,13 @@ const profileSchema = z.object({
     .transform((v) => v.toUpperCase())
     .refine((v) => v === '' || /^[A-Z0-9]{4,12}$/.test(v), 'invalid_group_code')
     .transform((v) => (v === '' ? null : v)),
+  // Goalkeeper opt-in. The wizard submits a hidden input with 'true'/'false'
+  // (forced to 'false' when football is not among interests). Same
+  // default-before-transform shape as trains_with_partner.
+  is_goalkeeper: z
+    .union([z.literal('on'), z.literal('true'), z.literal('false')])
+    .default('false')
+    .transform((v) => v === 'on' || v === 'true'),
 });
 
 type SaveState = { ok: boolean; error?: string };
@@ -54,6 +61,7 @@ export async function saveOnboarding(
     city: formData.get('city'),
     trains_with_partner: formData.get('trains_with_partner') ?? undefined,
     group_code: formData.get('group_code') ?? '',
+    is_goalkeeper: formData.get('is_goalkeeper') ?? undefined,
   });
   if (!parsed.success) {
     console.error('[onboarding] zod validation failed', parsed.error.flatten());

@@ -17,7 +17,8 @@
     "football": "Футбол",
     "green": "Спорт на природі (Nordic walking, плогінг)",
     "settingsTitle": "Ваші зацікавлення",
-    "settingsHint": "Змініть будь-коли. Впливає на вправи, які пропонує AI."
+    "settingsHint": "Змініть будь-коли. Впливає на вправи, які пропонує AI.",
+    "goalkeeper": "Я воротар"
   },
   "Landing": {
     "eyebrow": "Erasmus+ Sport · 2026",
@@ -187,7 +188,8 @@
     "partnerBannerTitle": "Тренуйтеся сьогодні разом",
     "partnerBannerBody": "Ви сказали, що тренуєтеся з кимось - ШІ додає вправи для пари (наприклад, дідусь + онук), щоб рухатися разом.",
     "partnerBadge": "Пара",
-    "footballMode": "Режим футболу"
+    "footballMode": "Режим футболу",
+    "goalkeeperMode": "Воротар"
   },
   "Coaching": {
     "expand": "Що важливе",
@@ -399,6 +401,7 @@
     "sectionDrills": "Технічні дрилі",
     "sectionWarmups": "Розминки",
     "sectionGames": "Ігри на малому полі",
+    "sectionGoalkeeper": "Тренування воротаря",
     "empty": "Бібліотека футболу готується. Завітайте незабаром.",
     "categoryWarmup": "розминка",
     "categoryDrill": "дриль",

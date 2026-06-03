@@ -29,6 +29,7 @@ export type OnboardingDefaults = {
   city?: string | null;
   trains_with_partner?: boolean | null;
   group_code?: string | null;
+  is_goalkeeper?: boolean | null;
 };
 
 export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults } = {}) {
@@ -44,6 +45,7 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
   const [interests, setInterests] = useState<Set<Interest>>(
     new Set((defaults?.interests ?? []) as Interest[]),
   );
+  const [isGoalkeeper, setIsGoalkeeper] = useState<boolean>(defaults?.is_goalkeeper === true);
   const [equipment, setEquipment] = useState<Set<Equipment>>(
     new Set((defaults?.equipment ?? []) as Equipment[]),
   );
@@ -60,6 +62,12 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
 
   const [state, formAction, pending] = useActionState(saveOnboarding, { ok: false });
   const liveRegionId = useId();
+
+  // The goalkeeper opt-in only applies to football players. When football is
+  // not selected we hide the checkbox and never submit `is_goalkeeper=true`
+  // (composeGoalkeeperPlan only runs for football users anyway).
+  const hasFootball = interests.has('football');
+  const goalkeeperValue = hasFootball && isGoalkeeper;
 
   const canProceed = (() => {
     if (step === 1) return /^\d+$/.test(age) && Number(age) >= 6 && Number(age) <= 120;
@@ -91,6 +99,7 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
   return (
     <form action={formAction} className="space-y-8">
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="is_goalkeeper" value={goalkeeperValue ? 'true' : 'false'} />
 
       <div>
         <p
@@ -187,6 +196,18 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
               );
             })}
           </div>
+
+          {hasFootball && (
+            <label className="mt-4 flex items-center gap-3 min-h-12 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isGoalkeeper}
+                onChange={(e) => setIsGoalkeeper(e.target.checked)}
+                className="h-5 w-5 accent-brand"
+              />
+              <span className="text-base font-medium">{ti('goalkeeper')}</span>
+            </label>
+          )}
         </fieldset>
       </div>
 

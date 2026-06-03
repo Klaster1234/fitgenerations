@@ -17,7 +17,8 @@
     "football": "Piłka nożna",
     "green": "Sport w naturze (Nordic walking, plogging)",
     "settingsTitle": "Twoje zainteresowania",
-    "settingsHint": "Zmień kiedy chcesz. Wpływa na ćwiczenia które proponuje AI."
+    "settingsHint": "Zmień kiedy chcesz. Wpływa na ćwiczenia które proponuje AI.",
+    "goalkeeper": "Jestem bramkarzem"
   },
   "Landing": {
     "eyebrow": "Erasmus+ Sport · 2026",
@@ -187,7 +188,8 @@
     "partnerBannerTitle": "Trenujcie dziś w parze",
     "partnerBannerBody": "Powiedział(a)ś, że trenujesz z kimś - AI dorzuca ćwiczenia w parach (np. dziadek + wnuczek), żebyście mogli się ruszać razem.",
     "partnerBadge": "Para",
-    "footballMode": "Tryb football"
+    "footballMode": "Tryb football",
+    "goalkeeperMode": "Bramkarz"
   },
   "Coaching": {
     "expand": "Co jest istotne",
@@ -399,6 +401,7 @@
     "sectionDrills": "Drille techniczne",
     "sectionWarmups": "Rozgrzewki",
     "sectionGames": "Gry małoobszarowe",
+    "sectionGoalkeeper": "Trening bramkarski",
     "empty": "Biblioteka piłkarska w przygotowaniu. Zajrzyj wkrótce.",
     "categoryWarmup": "rozgrzewka",
     "categoryDrill": "drill",
