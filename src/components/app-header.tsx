@@ -121,8 +121,9 @@ export async function AppHeader() {
         </div>
       </header>
 
-      {/* Mobile bottom tab bar - only renders on < sm */}
-      <MobileTabBar />
+      {/* Mobile bottom tab bar - only renders on < sm. Football users get a
+          5th tab for the Skills Library (the top-nav link is hidden on mobile). */}
+      <MobileTabBar showFootball={isFootball} />
     </>
   );
 }

@@ -67,12 +67,14 @@ export default async function FootballLibrary({ params }: PageProps) {
   return (
     <>
       <AppHeader />
-      <main className="max-w-6xl mx-auto px-4 py-12 space-y-12">
+      {/* pb-28 on mobile clears the fixed bottom tab bar so the last cards and
+          footer are not hidden behind it; normal padding restored at sm+. */}
+      <main className="max-w-6xl mx-auto px-4 py-8 pb-28 sm:py-12 sm:pb-12 space-y-10 sm:space-y-12">
         <header>
-          <h1 className="text-4xl font-display flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display flex items-center gap-3">
             <span aria-hidden="true">⚽</span> {t('title')}
           </h1>
-          <p className="mt-2 text-lg text-muted">{t('summary', { total, tricks })}</p>
+          <p className="mt-2 text-base sm:text-lg text-muted">{t('summary', { total, tricks })}</p>
         </header>
 
         {byCategory.football_trick.length > 0 && (
