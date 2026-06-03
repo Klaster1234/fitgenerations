@@ -85,6 +85,19 @@ export async function saveOnboarding(
     return { ok: false, error: 'db' };
   }
 
+  // When this form is used to EDIT an existing profile (the wizard also lives
+  // on the settings page), today's cached plan would otherwise survive the
+  // change - ensureTodayPlan only regenerates on a locale mismatch or explicit
+  // regenerate. Drop today's plan so it rebuilds with the new age / fitness /
+  // equipment / city / interests on the next /plan load. No-op for first-time
+  // onboarding (no plan exists yet).
+  const today = new Date().toISOString().slice(0, 10);
+  await supabase
+    .from('daily_plans')
+    .delete()
+    .eq('user_id', userData.user.id)
+    .eq('plan_date', today);
+
   revalidatePath('/', 'layout');
   redirect({ href: '/plan', locale });
   // Unreachable - `redirect` throws. Satisfies the explicit return type.
