@@ -4,6 +4,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { generatePlan, type Profile, type ExerciseCandidate } from './plan-generator';
 import { buildBaselinePlan } from './baseline-plan';
 import { composeFootballPlan } from './football-composition';
+import { composeGoalkeeperPlan } from './goalkeeper-composition';
 import { getWeather, type WeatherSnapshot } from '@/lib/weather';
 
 // exported for tests
@@ -28,6 +29,7 @@ const profileRowSchema = z.object({
   trains_with_partner: z.boolean().nullable().optional(),
   role: z.enum(['participant', 'trainer']).nullable().optional(),
   interests: z.array(z.string()).nullable().optional(),
+  is_goalkeeper: z.boolean().nullable().optional(),
 });
 
 const exerciseRowSchema = z.object({
@@ -95,7 +97,7 @@ export async function ensureTodayPlan(
   // anonymous user landing on /uk doesn't get an English plan.
   const { data: rawProfileRow } = await supabase
     .from('profiles')
-    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role, interests')
+    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role, interests, is_goalkeeper')
     .eq('id', userId)
     .single();
 
@@ -117,6 +119,7 @@ export async function ensureTodayPlan(
     trains_with_partner: profileRow?.trains_with_partner ?? false,
     role: profileRow?.role ?? 'participant',
     interests: profileRow?.interests ?? [],
+    is_goalkeeper: profileRow?.is_goalkeeper ?? false,
   };
 
   // 2. Reuse today's plan unless we're forced to regenerate OR the cached
@@ -211,10 +214,12 @@ export async function ensureTodayPlan(
   // regardless of model behavior.
   let prePickedItems: ExerciseCandidate[] | null = null;
   if (profile.interests.includes('football')) {
-    prePickedItems = composeFootballPlan(catalogue, {
-      budgetMinutes: 60,
-      seed: Date.parse(today),
-    });
+    // Goalkeepers get a keeper-centric composition (handling -> diving ->
+    // shot-stopping -> distribution); other football users get the outfield
+    // composition (warmup -> drill -> drill/trick -> game).
+    prePickedItems = profile.is_goalkeeper
+      ? composeGoalkeeperPlan(catalogue, { budgetMinutes: 60, seed: Date.parse(today) })
+      : composeFootballPlan(catalogue, { budgetMinutes: 60, seed: Date.parse(today) });
   }
 
   // 5b. Try AI; fall back to deterministic baseline on any failure (or no key)

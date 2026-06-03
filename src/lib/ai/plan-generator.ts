@@ -20,6 +20,9 @@ export type Profile = {
   // owned groups; participants just join via group_code.
   role: 'participant' | 'trainer';
   interests: string[];
+  // Football goalkeepers get a keeper-centric plan (handling, diving,
+  // shot-stopping, distribution) instead of the outfield composition.
+  is_goalkeeper: boolean;
 };
 
 export type ExerciseCandidate = {
