@@ -408,6 +408,15 @@
     "categoryTrick": "trick",
     "categoryGame": "game",
     "minutesShort": "min",
-    "playVideo": "Play video"
+    "playVideo": "Play video",
+    "levelLow": "Easy",
+    "levelMid": "Medium",
+    "levelHigh": "Pro",
+    "filterAll": "All",
+    "filterAria": "Filter by level",
+    "filterEmpty": "No exercises at this level yet.",
+    "heroExercises": "exercises",
+    "heroTricks": "tricks",
+    "heroKeeper": "for keepers"
   }
 }

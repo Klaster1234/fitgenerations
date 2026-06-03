@@ -408,6 +408,15 @@
     "categoryTrick": "trick",
     "categoryGame": "partita",
     "minutesShort": "min",
-    "playVideo": "Riproduci video"
+    "playVideo": "Riproduci video",
+    "levelLow": "Facile",
+    "levelMid": "Medio",
+    "levelHigh": "Pro",
+    "filterAll": "Tutti",
+    "filterAria": "Filtra per livello",
+    "filterEmpty": "Nessun esercizio a questo livello.",
+    "heroExercises": "esercizi",
+    "heroTricks": "trick",
+    "heroKeeper": "per portieri"
   }
 }

@@ -408,6 +408,15 @@
     "categoryTrick": "трик",
     "categoryGame": "гра",
     "minutesShort": "хв",
-    "playVideo": "Відтворити відео"
+    "playVideo": "Відтворити відео",
+    "levelLow": "Легкий",
+    "levelMid": "Середній",
+    "levelHigh": "Про",
+    "filterAll": "Всі",
+    "filterAria": "Фільтрувати за рівнем",
+    "filterEmpty": "Немає вправ цього рівня.",
+    "heroExercises": "вправ",
+    "heroTricks": "триків",
+    "heroKeeper": "для воротарів"
   }
 }

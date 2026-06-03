@@ -408,6 +408,15 @@
     "categoryTrick": "trik",
     "categoryGame": "gra",
     "minutesShort": "min",
-    "playVideo": "Odtwórz wideo"
+    "playVideo": "Odtwórz wideo",
+    "levelLow": "Łatwy",
+    "levelMid": "Średni",
+    "levelHigh": "Pro",
+    "filterAll": "Wszystkie",
+    "filterAria": "Filtruj według poziomu",
+    "filterEmpty": "Brak ćwiczeń na tym poziomie.",
+    "heroExercises": "ćwiczeń",
+    "heroTricks": "trików",
+    "heroKeeper": "dla bramkarzy"
   }
 }
