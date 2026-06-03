@@ -47,3 +47,4 @@ next-env.d.ts
 
 # generator caches (one-shot scripts)
 scripts/football-seed-cache.json
+scripts/goalkeeper-seed-cache.json
