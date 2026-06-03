@@ -407,6 +407,7 @@
     "categoryDrill": "drill",
     "categoryTrick": "trick",
     "categoryGame": "partita",
-    "minutesShort": "min"
+    "minutesShort": "min",
+    "playVideo": "Riproduci video"
   }
 }
