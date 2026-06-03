@@ -8,7 +8,7 @@ export async function AuthHeader() {
   const tc = await getTranslations('Common');
 
   return (
-    <header className="relative z-20 max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <header className="relative z-20 w-full max-w-6xl mx-auto px-6 py-5 flex items-center justify-between gap-4">
       <Link href="/" className="hover:opacity-80 transition-opacity" aria-label={tc('appName')}>
         <Logo size="md" />
       </Link>
