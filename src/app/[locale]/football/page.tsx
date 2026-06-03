@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { AppHeader } from '@/components/app-header';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { normDifficulty } from '@/lib/difficulty';
 import { FootballLibraryView, type LibExercise } from './football-library-view';
 
 type PageProps = {
@@ -19,10 +20,6 @@ function pickLocaleArr(jsonb: unknown, locale: string): string[] | null {
   const obj = jsonb as Record<string, unknown>;
   const val = obj[locale] ?? obj.en;
   return Array.isArray(val) && val.every((v) => typeof v === 'string') ? val : null;
-}
-
-function normDifficulty(v: unknown): LibExercise['difficulty'] {
-  return v === 'low' || v === 'high' ? v : 'mid';
 }
 
 export default async function FootballPage({ params }: PageProps) {

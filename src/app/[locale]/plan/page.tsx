@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppHeader } from '@/components/app-header';
 import { CoachingSection } from '@/components/coaching-section';
+import { DIFF_STYLE, DIFF_LABEL, normDifficulty } from '@/lib/difficulty';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { redirect } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
@@ -88,6 +89,9 @@ export default async function PlanPage({
   const plan: DailyPlan | null = ensured.ok ? ensured.plan : null;
 
   const t = await getTranslations('Plan');
+  // Difficulty chip labels (Easy/Medium/Pro) live in the Football namespace -
+  // generic difficulty words reused here so /plan cards match /football.
+  const tf = await getTranslations('Football');
 
   // Build set of exercise slugs done today.
   type DoneRow = { exercises: { slug: string } | { slug: string }[] | null };
@@ -110,6 +114,7 @@ export default async function PlanPage({
     slug: string;
     name: Record<string, string>;
     category: string;
+    difficulty: string;
     video_url: string | null;
     why_matters: unknown;
     key_focus: unknown;
@@ -120,7 +125,7 @@ export default async function PlanPage({
       ? { data: [] as ExerciseRow[] }
       : await supabase
           .from('exercises')
-          .select('slug, name, category, video_url, why_matters, key_focus, pro_tip')
+          .select('slug, name, category, difficulty, video_url, why_matters, key_focus, pro_tip')
           .in('slug', slugs);
 
   const byslug = new Map((exercises ?? []).map((e) => [e.slug, e]));
@@ -198,11 +203,12 @@ export default async function PlanPage({
                   : it.exercise_slug;
               const done = doneSlugs.has(it.exercise_slug);
               const isPair = ex?.category === 'pair';
+              const diff = ex ? normDifficulty(ex.difficulty) : null;
               return (
                 <li key={it.order}>
                   <Card className={done ? 'border-success/40 bg-brand-light/30' : ''}>
                     <CardHeader>
-                      <div className="flex items-baseline gap-3 justify-between">
+                      <div className="flex items-start gap-3 justify-between">
                         <CardTitle className="text-lg">
                           {it.order}. {name}
                           {isPair && (
@@ -211,8 +217,17 @@ export default async function PlanPage({
                             </span>
                           )}
                         </CardTitle>
-                        <span className="text-sm text-muted shrink-0">
-                          {t('minutes', { count: it.duration_minutes })}
+                        <span className="flex items-center gap-2 shrink-0">
+                          {diff && (
+                            <span
+                              className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ${DIFF_STYLE[diff]}`}
+                            >
+                              {tf(DIFF_LABEL[diff])}
+                            </span>
+                          )}
+                          <span className="text-sm text-muted">
+                            {t('minutes', { count: it.duration_minutes })}
+                          </span>
                         </span>
                       </div>
                     </CardHeader>

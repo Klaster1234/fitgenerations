@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { CoachingSection } from '@/components/coaching-section';
+import { DIFF_STYLE, DIFF_LABEL, type Difficulty } from '@/lib/difficulty';
 
 type Exercise = {
   slug: string;
   category: string;
-  difficulty: 'low' | 'mid' | 'high';
+  difficulty: Difficulty;
   name: string;
   description: string;
   video_url: string | null;
@@ -24,17 +25,6 @@ type Props = {
   featured?: boolean;
 };
 
-const DIFF_STYLE: Record<Exercise['difficulty'], string> = {
-  low: 'bg-emerald-500/15 text-emerald-400 ring-emerald-500/30',
-  mid: 'bg-amber-500/15 text-amber-400 ring-amber-500/30',
-  high: 'bg-rose-500/15 text-rose-400 ring-rose-500/30',
-};
-const DIFF_LABEL: Record<Exercise['difficulty'], 'levelLow' | 'levelMid' | 'levelHigh'> = {
-  low: 'levelLow',
-  mid: 'levelMid',
-  high: 'levelHigh',
-};
-
 export function SkillCard({ exercise, categoryLabel, minutesShort, featured = false }: Props) {
   const t = useTranslations('Football');
   const youtubeId =
@@ -48,7 +38,7 @@ export function SkillCard({ exercise, categoryLabel, minutesShort, featured = fa
       }`}
     >
       {youtubeId && (
-        <div className="aspect-video bg-black">
+        <div className="relative aspect-video bg-black">
           {playing ? (
             <iframe
               src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
@@ -59,35 +49,45 @@ export function SkillCard({ exercise, categoryLabel, minutesShort, featured = fa
               allowFullScreen
             />
           ) : (
-            // Click-to-play poster: keeps the page light (no live iframe until
-            // asked) and gives every card a uniform thumbnail.
-            <button
-              type="button"
-              onClick={() => setPlaying(true)}
-              aria-label={`${t('playVideo')}: ${exercise.name}`}
-              className="group relative block w-full h-full"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
-                alt=""
-                loading="lazy"
-                className="w-full h-full object-cover"
-              />
-              <span className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/0 transition-colors">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-black/70 group-hover:bg-red-600 transition-colors">
-                  <svg viewBox="0 0 24 24" className="h-7 w-7 text-white" fill="currentColor" aria-hidden="true">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+            <>
+              {/* Click-to-play poster: keeps the page light (no live iframe
+                  until asked) and gives every card a uniform thumbnail. */}
+              <button
+                type="button"
+                onClick={() => setPlaying(true)}
+                aria-label={`${t('playVideo')}: ${exercise.name}`}
+                className="group relative block w-full h-full"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+                  alt=""
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/0 transition-colors">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-black/70 group-hover:bg-red-600 transition-colors">
+                    <svg viewBox="0 0 24 24" className="h-7 w-7 text-white" fill="currentColor" aria-hidden="true">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+              {/* Localised name overlaid on the poster (scrim) so the card
+                  reads as a branded FGST tile, not a raw English YouTube grab.
+                  pointer-events-none keeps the play button clickable. */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent px-3 pb-2.5 pt-10">
+                <h3 className="text-left text-base font-semibold leading-snug text-white line-clamp-2 [text-shadow:0_1px_3px_rgb(0_0_0/0.6)]">
+                  {exercise.name}
+                </h3>
+              </div>
+            </>
           )}
         </div>
       )}
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-lg font-medium">{exercise.name}</h3>
-        <div className="mt-1.5 flex flex-wrap items-center gap-2 text-sm text-muted">
+        {!youtubeId && <h3 className="text-lg font-medium">{exercise.name}</h3>}
+        <div className="flex flex-wrap items-center gap-2 text-sm text-muted">
           <span
             className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ${DIFF_STYLE[exercise.difficulty]}`}
           >
