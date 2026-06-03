@@ -30,7 +30,7 @@ export default async function FootballLibrary({ params }: PageProps) {
   const { data: rows } = await supabase
     .from('exercises')
     .select('slug, category, name, description, video_url, duration_minutes, why_matters, key_focus, pro_tip')
-    .in('category', ['football_warmup', 'football_drill', 'football_trick', 'football_game']);
+    .in('category', ['football_warmup', 'football_drill', 'football_trick', 'football_game', 'football_goalkeeper']);
 
   const exercises = (rows ?? []).map((row) => ({
     slug: row.slug as string,
@@ -49,6 +49,7 @@ export default async function FootballLibrary({ params }: PageProps) {
     football_drill: exercises.filter((e) => e.category === 'football_drill'),
     football_warmup: exercises.filter((e) => e.category === 'football_warmup'),
     football_game: exercises.filter((e) => e.category === 'football_game'),
+    football_goalkeeper: exercises.filter((e) => e.category === 'football_goalkeeper'),
   };
 
   const total = exercises.length;
@@ -60,6 +61,7 @@ export default async function FootballLibrary({ params }: PageProps) {
     football_drill: t('categoryDrill'),
     football_trick: t('categoryTrick'),
     football_game: t('categoryGame'),
+    football_goalkeeper: t('sectionGoalkeeper'),
   };
 
   return (
@@ -126,6 +128,22 @@ export default async function FootballLibrary({ params }: PageProps) {
             <h2 id="section-games" className="text-2xl font-display mb-4">{t('sectionGames')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {byCategory.football_game.map((ex) => (
+                <SkillCard
+                  key={ex.slug}
+                  exercise={ex}
+                  categoryLabel={categoryLabels[ex.category] ?? ex.category}
+                  minutesShort={minutesShort}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {byCategory.football_goalkeeper.length > 0 && (
+          <section aria-labelledby="section-goalkeeper">
+            <h2 id="section-goalkeeper" className="text-2xl font-display mb-4">{t('sectionGoalkeeper')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {byCategory.football_goalkeeper.map((ex) => (
                 <SkillCard
                   key={ex.slug}
                   exercise={ex}

@@ -56,7 +56,7 @@ export default async function PlanPage({
   // 6-step form. Returning, fully-onboarded users skip both.
   const { data: onboardingState } = await supabase
     .from('profiles')
-    .select('onboarded_at, trains_with_partner, interests')
+    .select('onboarded_at, trains_with_partner, interests, is_goalkeeper')
     .eq('id', userId)
     .maybeSingle();
   if (!onboardingState?.onboarded_at) {
@@ -65,6 +65,7 @@ export default async function PlanPage({
   const trainsWithPartner = onboardingState?.trains_with_partner === true;
   const interests = (onboardingState?.interests as string[] | null) ?? [];
   const isFootball = interests.includes('football');
+  const isGoalkeeper = isFootball && onboardingState?.is_goalkeeper === true;
 
   const today = new Date().toISOString().slice(0, 10);
 
@@ -135,6 +136,11 @@ export default async function PlanPage({
             {isFootball && (
               <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-warm/30 text-accent text-sm font-medium">
                 <span aria-hidden="true">⚽</span> {t('footballMode')}
+              </span>
+            )}
+            {isGoalkeeper && (
+              <span className="mt-2 ml-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-warm/30 text-accent text-sm font-medium">
+                <span aria-hidden="true">🧤</span> {t('goalkeeperMode')}
               </span>
             )}
             {weather && (
