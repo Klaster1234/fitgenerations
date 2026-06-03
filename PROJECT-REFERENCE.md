@@ -33,8 +33,10 @@
 
 ```bash
 # 1. Sklonuj repo (ma WSZYSTKO: kod, migracje, dokumenty)
+#    UWAGA: root repo = sama aplikacja (package.json jest w korzeniu,
+#    NIE ma podfolderu fgst-app po sklonowaniu).
 git clone https://github.com/Klaster1234/fitgenerations.git
-cd fitgenerations/fgst-app
+cd fitgenerations
 
 # 2. Zależności
 npm install
