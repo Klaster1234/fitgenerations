@@ -145,6 +145,7 @@
     "subtitle": "Useremo queste informazioni per creare un piano adatto alla tua giornata.",
     "stepOf": "Passo {step} di {total}",
     "ageQuestion": "Quanti anni hai?",
+    "agePlaceholder": "es. 35",
     "fitnessQuestion": "Come descriveresti la tua forma fisica?",
     "fitnessLow": "Sto iniziando",
     "fitnessMid": "Abbastanza attivo/a",

@@ -145,6 +145,7 @@
     "subtitle": "We'll use this to build a plan that fits your day.",
     "stepOf": "Step {step} of {total}",
     "ageQuestion": "How old are you?",
+    "agePlaceholder": "e.g. 35",
     "fitnessQuestion": "How would you describe your fitness?",
     "fitnessLow": "Just starting",
     "fitnessMid": "Fairly active",

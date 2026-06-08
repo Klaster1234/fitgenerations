@@ -145,6 +145,7 @@
     "subtitle": "Na tej podstawie ułożymy plan, który pasuje do Twojego dnia.",
     "stepOf": "Krok {step} z {total}",
     "ageQuestion": "Ile masz lat?",
+    "agePlaceholder": "np. 35",
     "fitnessQuestion": "Jak oceniasz swoją kondycję?",
     "fitnessLow": "Dopiero zaczynam",
     "fitnessMid": "Jestem dość aktywny/aktywna",

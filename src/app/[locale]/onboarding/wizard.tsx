@@ -136,7 +136,7 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
           pattern="[0-9]*"
           value={age}
           onChange={(e) => setAge(e.target.value.replace(/\D/g, ''))}
-          placeholder="35"
+          placeholder={t('agePlaceholder')}
           autoFocus
         />
       </div>
