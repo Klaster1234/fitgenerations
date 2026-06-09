@@ -1,13 +1,17 @@
 import { test, expect } from '@playwright/test';
 
-test('football library page renders 4 sections with content (PL)', async ({ page }) => {
+test('football library page renders all sections with content (PL)', async ({ page }) => {
   await page.goto('/pl/football');
-  await expect(page.getByRole('heading', { name: /Biblioteka piłkarska/i })).toBeVisible();
-  await expect(page.getByRole('heading', { name: /Triki i kiwki/i })).toBeVisible();
-  await expect(page.getByRole('heading', { name: /Drille techniczne/i })).toBeVisible();
-  await expect(page.getByRole('heading', { name: /Rozgrzewki/i })).toBeVisible();
-  await expect(page.getByRole('heading', { name: /Gry małoobszarowe/i })).toBeVisible();
-  // At least one trick visible (Cruyff or Elastico from seed)
+  // Page title is an h1; section titles are h2. Scope the section assertions to
+  // level 2 so they don't collide with exercise-name overlays (h3 on each video
+  // poster, e.g. "Program do rozgrzewki FIFA 11+" also contains "rozgrzewki").
+  await expect(page.getByRole('heading', { name: /Biblioteka piłkarska/i, level: 1 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Triki i kiwki', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Drille techniczne', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Rozgrzewki', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Gry małoobszarowe', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Trening bramkarski', level: 2 })).toBeVisible();
+  // At least one trick visible (Cruyff from seed)
   const tricksSection = page.getByRole('region', { name: /Triki i kiwki/i });
   await expect(tricksSection.getByText(/Cruyff/i).first()).toBeVisible();
 });
@@ -35,7 +39,8 @@ test('football library renders in all 4 locales', async ({ page }) => {
 
 test('summary shows non-zero exercise count', async ({ page }) => {
   await page.goto('/pl/football');
-  // Summary in PL: "40 ćwiczeń · 12 trików · od amatorów po pro"
-  await expect(page.getByText(/40 ćwiczeń/i)).toBeVisible();
-  await expect(page.getByText(/12 trików/i)).toBeVisible();
+  // Summary in PL: "<N> ćwiczeń · <M> trików · od amatorów po pro".
+  // Match the count pattern, not a hard-coded number, so adding exercises
+  // (e.g. the goalkeeper track: 40 -> 54) doesn't break the smoke test.
+  await expect(page.getByText(/\d+ ćwiczeń.*\d+ trików/)).toBeVisible();
 });
