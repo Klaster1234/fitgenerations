@@ -4,8 +4,11 @@ import { AppHeader } from '@/components/app-header';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { redirect } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { OnboardingWizard, type OnboardingDefaults } from '../onboarding/wizard';
-import { updateInterests } from './actions';
+import { updateGroupCode, updateInterests } from './actions';
 
 const INTEREST_KEYS = ['fitness', 'football', 'green'] as const;
 
@@ -45,9 +48,11 @@ export default async function SettingsPage({
   const t = await getTranslations('Settings');
   const ti = await getTranslations('Interests');
   const tc = await getTranslations('Common');
+  const to = await getTranslations('Onboarding');
 
   const savedInterests = (profile?.interests as string[] | null) ?? [];
   const savedGoalkeeper = profile?.is_goalkeeper === true;
+  const savedGroupCode = profile?.group_code ?? '';
 
   return (
     <>
@@ -95,6 +100,49 @@ export default async function SettingsPage({
                 <button
                   type="submit"
                   className="mt-4 px-6 py-3 bg-brand text-white rounded-md min-h-12 text-base font-medium"
+                >
+                  {tc('save')}
+                </button>
+              </form>
+            </section>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-card border-border/60 mb-6">
+          <CardContent className="p-7 sm:p-8">
+            <section className="space-y-3" aria-labelledby="group-code-heading">
+              <h2 id="group-code-heading" className="text-xl font-medium">
+                {t('groupTitle')}
+              </h2>
+              <p className="text-base text-muted">{t('groupHint')}</p>
+              <form action={updateGroupCode} className="space-y-3">
+                <Label htmlFor="settings-group-code" className="sr-only">
+                  {t('groupTitle')}
+                </Label>
+                <Input
+                  id="settings-group-code"
+                  name="group_code"
+                  defaultValue={savedGroupCode}
+                  placeholder={to('groupCodePlaceholder')}
+                  maxLength={12}
+                  pattern="[A-Za-z0-9]{4,12}"
+                  autoComplete="off"
+                  className="uppercase"
+                />
+                {savedGroupCode !== '' && (
+                  <p className="text-base">
+                    {t('groupCurrent', { code: savedGroupCode })}{' '}
+                    <Link
+                      href={`/group/${savedGroupCode}`}
+                      className="text-brand underline underline-offset-4"
+                    >
+                      {t('groupView')}
+                    </Link>
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  className="px-6 py-3 bg-brand text-white rounded-md min-h-12 text-base font-medium"
                 >
                   {tc('save')}
                 </button>

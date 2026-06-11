@@ -47,3 +47,31 @@ export async function updateInterests(formData: FormData) {
   revalidatePath('/[locale]/settings', 'page');
   revalidatePath('/[locale]/plan', 'page');
 }
+
+export async function updateGroupCode(formData: FormData) {
+  const supabase = await createSupabaseServerClient();
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user) return;
+
+  const raw = String(formData.get('group_code') ?? '')
+    .trim()
+    .toUpperCase();
+
+  // Same schema as onboarding: 4-12 uppercased alphanumerics, empty clears
+  // the group. Invalid input is ignored (the input's pattern/maxLength guard
+  // this client-side; seniors get no scary error for a stray character).
+  if (raw !== '' && !/^[A-Z0-9]{4,12}$/.test(raw)) return;
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ group_code: raw === '' ? null : raw })
+    .eq('id', userData.user.id);
+
+  if (error) {
+    console.error('[settings/updateGroupCode] failed', error);
+    return;
+  }
+
+  revalidatePath('/[locale]/settings', 'page');
+  revalidatePath('/[locale]/group/[code]', 'page');
+}

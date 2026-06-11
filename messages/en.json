@@ -257,7 +257,11 @@
   },
   "Settings": {
     "title": "Your settings",
-    "subtitle": "Update your profile - we'll adjust tomorrow's plan to match."
+    "subtitle": "Update your profile - we'll adjust tomorrow's plan to match.",
+    "groupTitle": "Group code",
+    "groupHint": "Got a code from your trainer or a Move & Improve Day? Enter it here to join the group dashboard. Leave the field empty and save to leave the group.",
+    "groupCurrent": "Your group: {code}.",
+    "groupView": "View group dashboard"
   },
   "Tutorial": {
     "slide1Title": "Personalized fitness, every day",

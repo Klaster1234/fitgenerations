@@ -257,7 +257,11 @@
   },
   "Settings": {
     "title": "Twoje ustawienia",
-    "subtitle": "Zaktualizuj profil - jutrzejszy plan dopasuje się do zmian."
+    "subtitle": "Zaktualizuj profil - jutrzejszy plan dopasuje się do zmian.",
+    "groupTitle": "Kod grupy",
+    "groupHint": "Masz kod od trenera albo z Move & Improve Day? Wpisz go tutaj, żeby dołączyć do panelu grupy. Zostaw puste pole i zapisz, żeby opuścić grupę.",
+    "groupCurrent": "Twoja grupa: {code}.",
+    "groupView": "Zobacz panel grupy"
   },
   "Tutorial": {
     "slide1Title": "Trening dopasowany do Ciebie - codziennie",

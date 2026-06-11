@@ -257,7 +257,11 @@
   },
   "Settings": {
     "title": "Le tue impostazioni",
-    "subtitle": "Aggiorna il profilo - il piano di domani si adatterà alle modifiche."
+    "subtitle": "Aggiorna il profilo - il piano di domani si adatterà alle modifiche.",
+    "groupTitle": "Codice gruppo",
+    "groupHint": "Hai un codice dall'allenatore o da un Move & Improve Day? Inseriscilo qui per unirti al pannello del gruppo. Lascia il campo vuoto e salva per uscire dal gruppo.",
+    "groupCurrent": "Il tuo gruppo: {code}.",
+    "groupView": "Vedi il pannello del gruppo"
   },
   "Tutorial": {
     "slide1Title": "Allenamento su misura, ogni giorno",

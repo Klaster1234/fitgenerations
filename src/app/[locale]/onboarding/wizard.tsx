@@ -97,7 +97,18 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
   };
 
   return (
-    <form action={formAction} className="space-y-8">
+    <form
+      action={formAction}
+      onSubmit={(e) => {
+        // Guard against the "ghost submit" React pitfall: when moving from the
+        // penultimate step the same DOM button flips type="button" →
+        // type="submit" mid-click, and the browser fires a submit before the
+        // user ever sees the last step. Block any submit that is not from the
+        // final step.
+        if (step !== TOTAL_STEPS) e.preventDefault();
+      }}
+      className="space-y-8"
+    >
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="is_goalkeeper" value={goalkeeperValue ? 'true' : 'false'} />
 
@@ -356,11 +367,14 @@ export function OnboardingWizard({ defaults }: { defaults?: OnboardingDefaults }
         </Button>
 
         {step < TOTAL_STEPS ? (
-          <Button type="button" onClick={next} disabled={!canProceed}>
+          // Distinct keys force React to swap the DOM node instead of mutating
+          // type="button" into type="submit" on the element mid-click (see the
+          // onSubmit guard above).
+          <Button key="continue" type="button" onClick={next} disabled={!canProceed}>
             {tc('continue')}
           </Button>
         ) : (
-          <Button type="submit" disabled={!canProceed || pending}>
+          <Button key="finish" type="submit" disabled={!canProceed || pending}>
             {pending ? tc('loading') : t('finish')}
           </Button>
         )}
