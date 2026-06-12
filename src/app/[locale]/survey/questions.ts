@@ -9,7 +9,6 @@ export const SURVEY_TYPES = ['baseline', 'final', 'trainer'] as const;
 export type SurveyType = (typeof SURVEY_TYPES)[number];
 
 export const YES_NO = ['yes', 'no'] as const;
-export const YES_NO_NOT_SURE = ['yes', 'no', 'notSure'] as const;
 
 export type Question =
   | {
@@ -38,7 +37,6 @@ export const SURVEYS: Record<SurveyType, readonly Question[]> = {
     { id: 'a7', kind: 'choice', options: YES_NO },
     { id: 'a8', kind: 'choice', options: YES_NO },
     { id: 'a9', kind: 'days' },
-    { id: 'a10', kind: 'choice', options: YES_NO_NOT_SURE },
     { id: 'a11', kind: 'open', long: true },
   ],
   trainer: [
@@ -46,6 +44,5 @@ export const SURVEYS: Record<SurveyType, readonly Question[]> = {
     { id: 'b2', kind: 'scale', hint: 'hintFit', comment: true },
     { id: 'b3', kind: 'open', long: true },
     { id: 'b4', kind: 'open', long: true },
-    { id: 'b5', kind: 'choice', options: YES_NO_NOT_SURE },
   ],
 };

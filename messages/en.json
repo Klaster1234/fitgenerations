@@ -441,13 +441,11 @@
       "a7": "Did you take part in at least one in-app sports challenge?",
       "a8": "Did you use the app together with a person from another generation (pair mode, group sessions)?",
       "a9": "During the 30-day test, on how many days per week were you physically active for at least 30 minutes?",
-      "a10": "Will you keep using the app after the test?",
       "a11": "What should we improve?",
       "b1": "How useful was the app for organising and running your sessions?",
       "b2": "How well do the ready-made scenarios fit different age groups and fitness levels?",
       "b3": "Which features helped you most in your work?",
-      "b4": "What is missing or should be changed before wider use?",
-      "b5": "Will you use the app in your work after the project?"
+      "b4": "What is missing or should be changed before wider use?"
     }
   },
   "Football": {
