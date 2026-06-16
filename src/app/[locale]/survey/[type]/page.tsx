@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ const DAYS = [0, 1, 2, 3, 4, 5, 6, 7] as const;
 
 // Pill-style radio group. Pure CSS (peer-checked) so the server-rendered
 // form needs no client JS; `required` on radios makes the group mandatory.
+// Tactile :active feedback, disabled under prefers-reduced-motion.
 function PillGroup({
   name,
   values,
@@ -22,11 +24,11 @@ function PillGroup({
   labels?: Record<string, string>;
 }) {
   return (
-    <div className="mt-4 flex flex-wrap gap-2">
+    <div className="mt-4 flex flex-wrap gap-2.5">
       {values.map((value) => (
         <label key={value} className="cursor-pointer">
           <input type="radio" name={name} value={value} required className="peer sr-only" />
-          <span className="flex h-12 min-w-12 items-center justify-center rounded-full border-2 border-foreground/20 px-4 text-base font-bold transition-colors hover:border-brand peer-checked:border-emerald-500 peer-checked:bg-emerald-500 peer-checked:text-emerald-950 peer-focus-visible:ring-2 peer-focus-visible:ring-brand peer-focus-visible:ring-offset-2">
+          <span className="flex h-12 min-w-12 items-center justify-center rounded-full border-2 border-foreground/20 px-4 text-base font-bold transition-[transform,colors,box-shadow] hover:border-brand active:scale-95 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 peer-checked:text-emerald-950 peer-checked:shadow-sm peer-checked:shadow-emerald-500/30 peer-focus-visible:ring-2 peer-focus-visible:ring-brand peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface motion-reduce:transition-none motion-reduce:active:scale-100">
             {labels ? labels[String(value)] : value}
           </span>
         </label>
@@ -36,7 +38,7 @@ function PillGroup({
 }
 
 const textareaClasses =
-  'mt-2 flex w-full rounded-xl border-2 border-foreground/20 dark:border-foreground/35 bg-surface-2 px-4 py-3 text-base text-foreground shadow-sm placeholder:text-muted hover:border-foreground/40 dark:hover:border-foreground/50 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-background';
+  'mt-3 flex w-full rounded-xl border-2 border-foreground/20 dark:border-foreground/35 bg-surface-2 px-4 py-3 text-base text-foreground shadow-sm placeholder:text-muted hover:border-foreground/40 dark:hover:border-foreground/50 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-background';
 
 export default async function SurveyFormPage({
   params,
@@ -59,11 +61,17 @@ export default async function SurveyFormPage({
     return (
       <>
         <AppHeader />
-        <main className="flex-1 px-6 py-10 max-w-3xl mx-auto w-full">
+        <main className="flex-1 px-6 py-16 max-w-3xl mx-auto w-full">
           <Card>
             <CardContent className="p-10 text-center">
+              <span
+                aria-hidden
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand/10 text-brand"
+              >
+                <Check size={32} strokeWidth={2.5} />
+              </span>
               <h1 className="text-3xl font-bold tracking-tight">{t('doneTitle')}</h1>
-              <p className="mt-4 text-lg text-muted">{t('doneBody')}</p>
+              <p className="mt-4 text-lg text-muted text-balance">{t('doneBody')}</p>
             </CardContent>
           </Card>
         </main>
@@ -75,7 +83,7 @@ export default async function SurveyFormPage({
     <>
       <AppHeader />
       <main className="flex-1 px-6 py-10 max-w-3xl mx-auto w-full">
-        <header className="mb-8">
+        <header className="mb-10">
           <p className="text-[0.75rem] font-bold uppercase tracking-[0.2em] text-brand mb-3">
             {t('eyebrow')}
           </p>
@@ -83,11 +91,16 @@ export default async function SurveyFormPage({
             {t(`${survey}Title`)}
           </h1>
           <p className="mt-2 text-base text-muted">{t(`${survey}When`)}</p>
-          <p className="mt-4 text-sm text-muted">{t('anonymous')}</p>
+          <p className="mt-5 border-l-2 border-border pl-4 text-sm text-muted leading-relaxed">
+            {t('anonymous')}
+          </p>
         </header>
 
         {error === '1' && (
-          <p className="mb-6 rounded-xl border-2 border-danger/40 bg-danger/10 px-4 py-3 text-base text-danger" role="alert">
+          <p
+            className="mb-6 rounded-xl border-2 border-danger/40 bg-danger/10 px-4 py-3 text-base text-danger"
+            role="alert"
+          >
             {t('errorBody')}
           </p>
         )}
@@ -97,15 +110,21 @@ export default async function SurveyFormPage({
           <input type="hidden" name="locale" value={locale} />
 
           {SURVEYS[survey].map((q, index) => (
-            <Card key={q.id}>
+            <Card key={q.id} className="transition-shadow hover:shadow-card motion-reduce:transition-none">
               <CardContent className="p-6">
-                <p className="text-base font-semibold leading-relaxed">
-                  {index + 1}. {t(`q.${q.id}`)}
-                </p>
+                <div className="flex gap-3">
+                  <span
+                    aria-hidden
+                    className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand/10 text-sm font-bold text-brand"
+                  >
+                    {index + 1}
+                  </span>
+                  <p className="text-lg font-semibold leading-snug">{t(`q.${q.id}`)}</p>
+                </div>
 
                 {q.kind === 'scale' && (
                   <>
-                    <p className="mt-1 text-sm text-muted">{t(q.hint)}</p>
+                    <p className="mt-2 pl-10 text-sm text-muted">{t(q.hint)}</p>
                     <PillGroup name={q.id} values={SCALE} />
                     {q.comment && (
                       <textarea
@@ -122,7 +141,7 @@ export default async function SurveyFormPage({
 
                 {q.kind === 'days' && (
                   <>
-                    <p className="mt-1 text-sm text-muted">{t('daysHint')}</p>
+                    <p className="mt-2 pl-10 text-sm text-muted">{t('daysHint')}</p>
                     <PillGroup name={q.id} values={DAYS} />
                   </>
                 )}
@@ -147,14 +166,18 @@ export default async function SurveyFormPage({
                       maxLength={2000}
                       placeholder={t('openOptional')}
                       aria-label={t(`q.${q.id}`)}
-                      className="mt-2"
+                      className="mt-3"
                     />
                   ))}
               </CardContent>
             </Card>
           ))}
 
-          <Button type="submit" size="lg" className="w-full">
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full active:scale-[0.99] motion-reduce:active:scale-100"
+          >
             {t('submit')}
           </Button>
         </form>
