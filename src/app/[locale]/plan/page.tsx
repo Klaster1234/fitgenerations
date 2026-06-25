@@ -57,7 +57,7 @@ export default async function PlanPage({
   // 6-step form. Returning, fully-onboarded users skip both.
   const { data: onboardingState } = await supabase
     .from('profiles')
-    .select('onboarded_at, trains_with_partner, interests, is_goalkeeper')
+    .select('onboarded_at, trains_with_partner, interests, is_goalkeeper, group_code')
     .eq('id', userId)
     .maybeSingle();
   if (!onboardingState?.onboarded_at) {
@@ -67,6 +67,26 @@ export default async function PlanPage({
   const interests = (onboardingState?.interests as string[] | null) ?? [];
   const isFootball = interests.includes('football');
   const isGoalkeeper = isFootball && onboardingState?.is_goalkeeper === true;
+
+  // Club session: if the user is in a group with a coach-defined session
+  // (e.g. code SIKORNIK), surface it at the top of the plan - that is the
+  // whole point of entering the code. Independent of the AI plan.
+  type ClubSessionItem = {
+    position: number;
+    name: Record<string, string>;
+    duration_minutes: number;
+    video_url: string | null;
+  };
+  const groupCode = (onboardingState?.group_code as string | null) ?? null;
+  let clubSession: ClubSessionItem[] = [];
+  if (groupCode) {
+    const { data: cs } = await supabase
+      .from('group_session_items')
+      .select('position, name, duration_minutes, video_url')
+      .eq('group_code', groupCode)
+      .order('position');
+    clubSession = (cs ?? []) as ClubSessionItem[];
+  }
 
   const today = new Date().toISOString().slice(0, 10);
 
@@ -92,6 +112,7 @@ export default async function PlanPage({
   // Difficulty chip labels (Easy/Medium/Pro) live in the Football namespace -
   // generic difficulty words reused here so /plan cards match /football.
   const tf = await getTranslations('Football');
+  const tg = await getTranslations('Group');
 
   // Build set of exercise slugs done today.
   type DoneRow = { exercises: { slug: string } | { slug: string }[] | null };
@@ -165,6 +186,51 @@ export default async function PlanPage({
             <p className="text-xs text-muted mt-1">{t('streakLabel')}</p>
           </div>
         </header>
+
+        {clubSession.length > 0 && (
+          <section className="mb-6">
+            <Card className="border-2 border-brand/30">
+              <CardHeader>
+                <CardTitle className="text-xl">{tg('sessionTitle')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="-mt-2 mb-4 text-sm text-muted">{tg('sessionLede')}</p>
+                <ol className="space-y-3">
+                  {clubSession.map((item, idx) => {
+                    const name = item.name?.[locale] ?? item.name?.en ?? '';
+                    return (
+                      <li key={item.position} className="flex items-center gap-3">
+                        <span
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-light font-bold text-brand-darker"
+                          aria-hidden
+                        >
+                          {idx + 1}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold leading-snug">{name}</p>
+                          <p className="text-sm text-muted">
+                            {tg('sessionMinutes', { minutes: item.duration_minutes })}
+                          </p>
+                        </div>
+                        {item.video_url && (
+                          <a
+                            href={item.video_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex min-h-12 shrink-0 items-center gap-1 px-2 text-base font-semibold text-brand underline hover:text-brand-dark"
+                          >
+                            <span aria-hidden>▸</span>
+                            <span>{tg('sessionVideo')}</span>
+                          </a>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </CardContent>
+            </Card>
+          </section>
+        )}
 
         {!plan ? (
         <Card>
