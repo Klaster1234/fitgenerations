@@ -290,7 +290,12 @@
     "howTitle": "Jak działają kody grupy",
     "howStep1": "Trener lub organizator wybiera krótki kod (np. GLIWICE1) i go udostępnia.",
     "howStep2": "Każdy uczestnik wchodzi w ustawienia i wpisuje kod {code}.",
-    "howStep3": "Ta strona pokazuje statystyki całej grupy na żywo - bez ujawniania danych osobowych."
+    "howStep3": "Ta strona pokazuje statystyki całej grupy na żywo - bez ujawniania danych osobowych.",
+    "sessionTitle": "Trening klubu",
+    "sessionLede": "Sesja na dziś od trenera - ten sam plan dla całej grupy.",
+    "sessionMinutes": "{minutes} min",
+    "sessionTotal": "łącznie {minutes} min",
+    "sessionVideo": "Wideo"
   },
   "Challenge": {
     "intro": "Zainspiruj innych. Nagraj 15–30-sekundowe wideo, jak się ruszasz - joga, spacer, taniec, cokolwiek - i podziel się linkiem ze społecznością. Razem rozkręcamy ruch.",

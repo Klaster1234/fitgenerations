@@ -39,6 +39,26 @@ export default async function GroupPage({
     }
   }
 
+  // Coach-defined club session attached to this code (migration 0032). Shown
+  // above the live stats so a player who enters the code sees the real training
+  // session, not just numbers. Independent of the AI daily plan.
+  type SessionItem = {
+    position: number;
+    name: Record<string, string>;
+    duration_minutes: number;
+    video_url: string | null;
+  };
+  let sessionItems: SessionItem[] = [];
+  if (valid) {
+    const { data: sessionData } = await supabase
+      .from('group_session_items')
+      .select('position, name, duration_minutes, video_url')
+      .eq('group_code', code)
+      .order('position');
+    sessionItems = (sessionData ?? []) as SessionItem[];
+  }
+  const sessionTotal = sessionItems.reduce((sum, it) => sum + it.duration_minutes, 0);
+
   return (
     <>
       <AppHeader />
@@ -56,6 +76,56 @@ export default async function GroupPage({
             </p>
           )}
         </header>
+
+        {sessionItems.length > 0 && (
+          <section className="mb-10">
+            <div className="mb-4 flex items-end justify-between gap-3">
+              <div>
+                <h2 className="text-xl font-semibold">{t('sessionTitle')}</h2>
+                <p className="mt-1 text-sm text-muted">{t('sessionLede')}</p>
+              </div>
+              <p className="shrink-0 text-sm font-medium text-muted">
+                {t('sessionTotal', { minutes: sessionTotal })}
+              </p>
+            </div>
+            <ol className="space-y-3">
+              {sessionItems.map((item, idx) => {
+                const name = item.name?.[locale] ?? item.name?.en ?? '';
+                return (
+                  <li key={item.position}>
+                    <Card>
+                      <CardContent className="flex items-center gap-4 p-4">
+                        <span
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-light text-lg font-bold text-brand-darker"
+                          aria-hidden
+                        >
+                          {idx + 1}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold leading-snug">{name}</p>
+                          <p className="mt-0.5 text-sm text-muted">
+                            {t('sessionMinutes', { minutes: item.duration_minutes })}
+                          </p>
+                        </div>
+                        {item.video_url && (
+                          <a
+                            href={item.video_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex min-h-12 shrink-0 items-center gap-1 px-2 text-base font-semibold text-brand underline hover:text-brand-dark"
+                          >
+                            <span aria-hidden>▸</span>
+                            <span>{t('sessionVideo')}</span>
+                          </a>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        )}
 
         {valid && stats.member_count === 0 ? (
           <Card>

@@ -290,7 +290,12 @@
     "howTitle": "How group codes work",
     "howStep1": "A trainer or organiser picks a short code (e.g. POTENZA1) and shares it.",
     "howStep2": "Every participant opens their settings and enters the code {code}.",
-    "howStep3": "This page shows live stats for the whole group - without exposing anyone's personal data."
+    "howStep3": "This page shows live stats for the whole group - without exposing anyone's personal data.",
+    "sessionTitle": "Club session",
+    "sessionLede": "Today's session from your coach - the same plan for everyone in the group.",
+    "sessionMinutes": "{minutes} min",
+    "sessionTotal": "{minutes} min in total",
+    "sessionVideo": "Video"
   },
   "Challenge": {
     "intro": "Inspire others. Record a 15-30 second video of you moving - yoga, walk, dance, anything - and share the link with your community. Together we make movement go viral.",
