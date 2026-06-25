@@ -10,6 +10,9 @@ import { getStreak } from '@/lib/db/streak';
 import { ensureTodayPlan, type DailyPlan } from '@/lib/ai/plan-service';
 import { RegenerateButton } from './regenerate-button';
 import { DoneButton } from './done-button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { updateGroupCode } from '../settings/actions';
 
 // Coaching fields (why_matters / pro_tip / key_focus) ship as JSONB with the
 // same {en,pl,it,uk} shape as exercises.name. These helpers pull the
@@ -76,13 +79,14 @@ export default async function PlanPage({
     name: Record<string, string>;
     duration_minutes: number;
     video_url: string | null;
+    note: Record<string, string> | null;
   };
   const groupCode = (onboardingState?.group_code as string | null) ?? null;
   let clubSession: ClubSessionItem[] = [];
   if (groupCode) {
     const { data: cs } = await supabase
       .from('group_session_items')
-      .select('position, name, duration_minutes, video_url')
+      .select('position, name, duration_minutes, video_url, note')
       .eq('group_code', groupCode)
       .order('position');
     clubSession = (cs ?? []) as ClubSessionItem[];
@@ -113,6 +117,9 @@ export default async function PlanPage({
   // generic difficulty words reused here so /plan cards match /football.
   const tf = await getTranslations('Football');
   const tg = await getTranslations('Group');
+  const ts = await getTranslations('Settings');
+  const tc = await getTranslations('Common');
+  const to = await getTranslations('Onboarding');
 
   // Build set of exercise slugs done today.
   type DoneRow = { exercises: { slug: string } | { slug: string }[] | null };
@@ -199,30 +206,39 @@ export default async function PlanPage({
                   {clubSession.map((item, idx) => {
                     const name = item.name?.[locale] ?? item.name?.en ?? '';
                     return (
-                      <li key={item.position} className="flex items-center gap-3">
+                      <li key={item.position} className="flex items-start gap-3">
                         <span
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-light font-bold text-brand-darker"
+                          className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-light font-bold text-brand-darker"
                           aria-hidden
                         >
                           {idx + 1}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold leading-snug">{name}</p>
-                          <p className="text-sm text-muted">
-                            {tg('sessionMinutes', { minutes: item.duration_minutes })}
-                          </p>
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="font-semibold leading-snug">{name}</p>
+                              <p className="text-sm text-muted">
+                                {tg('sessionMinutes', { minutes: item.duration_minutes })}
+                              </p>
+                            </div>
+                            {item.video_url && (
+                              <a
+                                href={item.video_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex min-h-12 shrink-0 items-center gap-1 px-2 text-base font-semibold text-brand underline hover:text-brand-dark"
+                              >
+                                <span aria-hidden>▸</span>
+                                <span>{tg('sessionVideo')}</span>
+                              </a>
+                            )}
+                          </div>
+                          {(item.note?.[locale] ?? item.note?.en) && (
+                            <p className="mt-1.5 text-sm leading-relaxed text-foreground/80">
+                              {item.note?.[locale] ?? item.note?.en}
+                            </p>
+                          )}
                         </div>
-                        {item.video_url && (
-                          <a
-                            href={item.video_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex min-h-12 shrink-0 items-center gap-1 px-2 text-base font-semibold text-brand underline hover:text-brand-dark"
-                          >
-                            <span aria-hidden>▸</span>
-                            <span>{tg('sessionVideo')}</span>
-                          </a>
-                        )}
                       </li>
                     );
                   })}
@@ -349,6 +365,37 @@ export default async function PlanPage({
             </div>
           </div>
         )}
+
+        <Card className="mt-6 shadow-card border-border/60">
+          <CardContent className="p-6">
+            <h2 className="text-lg font-semibold">{ts('groupTitle')}</h2>
+            <p className="mt-1 text-sm text-muted">{ts('groupHint')}</p>
+            <form action={updateGroupCode} className="mt-3 flex flex-wrap items-center gap-3">
+              <Label htmlFor="plan-group-code" className="sr-only">
+                {ts('groupTitle')}
+              </Label>
+              <Input
+                id="plan-group-code"
+                name="group_code"
+                defaultValue={groupCode ?? ''}
+                placeholder={to('groupCodePlaceholder')}
+                maxLength={12}
+                pattern="[A-Za-z0-9]{4,12}"
+                autoComplete="off"
+                className="uppercase max-w-[12rem]"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-brand text-white rounded-md min-h-12 text-base font-medium"
+              >
+                {tc('save')}
+              </button>
+            </form>
+            {groupCode && (
+              <p className="mt-2 text-sm text-muted">{ts('groupCurrent', { code: groupCode })}</p>
+            )}
+          </CardContent>
+        </Card>
       </main>
     </>
   );

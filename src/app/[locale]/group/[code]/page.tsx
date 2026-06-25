@@ -47,12 +47,13 @@ export default async function GroupPage({
     name: Record<string, string>;
     duration_minutes: number;
     video_url: string | null;
+    note: Record<string, string> | null;
   };
   let sessionItems: SessionItem[] = [];
   if (valid) {
     const { data: sessionData } = await supabase
       .from('group_session_items')
-      .select('position, name, duration_minutes, video_url')
+      .select('position, name, duration_minutes, video_url, note')
       .eq('group_code', code)
       .order('position');
     sessionItems = (sessionData ?? []) as SessionItem[];
@@ -94,30 +95,39 @@ export default async function GroupPage({
                 return (
                   <li key={item.position}>
                     <Card>
-                      <CardContent className="flex items-center gap-4 p-4">
+                      <CardContent className="flex items-start gap-4 p-4">
                         <span
-                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-light text-lg font-bold text-brand-darker"
+                          className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-light text-lg font-bold text-brand-darker"
                           aria-hidden
                         >
                           {idx + 1}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold leading-snug">{name}</p>
-                          <p className="mt-0.5 text-sm text-muted">
-                            {t('sessionMinutes', { minutes: item.duration_minutes })}
-                          </p>
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="font-semibold leading-snug">{name}</p>
+                              <p className="mt-0.5 text-sm text-muted">
+                                {t('sessionMinutes', { minutes: item.duration_minutes })}
+                              </p>
+                            </div>
+                            {item.video_url && (
+                              <a
+                                href={item.video_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex min-h-12 shrink-0 items-center gap-1 px-2 text-base font-semibold text-brand underline hover:text-brand-dark"
+                              >
+                                <span aria-hidden>▸</span>
+                                <span>{t('sessionVideo')}</span>
+                              </a>
+                            )}
+                          </div>
+                          {(item.note?.[locale] ?? item.note?.en) && (
+                            <p className="mt-2 text-sm leading-relaxed text-foreground/80">
+                              {item.note?.[locale] ?? item.note?.en}
+                            </p>
+                          )}
                         </div>
-                        {item.video_url && (
-                          <a
-                            href={item.video_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex min-h-12 shrink-0 items-center gap-1 px-2 text-base font-semibold text-brand underline hover:text-brand-dark"
-                          >
-                            <span aria-hidden>▸</span>
-                            <span>{t('sessionVideo')}</span>
-                          </a>
-                        )}
                       </CardContent>
                     </Card>
                   </li>
