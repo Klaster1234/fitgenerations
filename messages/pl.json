@@ -261,7 +261,10 @@
     "groupTitle": "Kod grupy",
     "groupHint": "Masz kod od trenera albo z Move & Improve Day? Wpisz go tutaj, żeby dołączyć do panelu grupy. Zostaw puste pole i zapisz, żeby opuścić grupę.",
     "groupCurrent": "Twoja grupa: {code}.",
-    "groupView": "Zobacz panel grupy"
+    "groupView": "Zobacz panel grupy",
+    "preferencesTitle": "Twoje uwagi i preferencje",
+    "preferencesHint": "Napisz, na czym Ci zależy - kontuzja, którą mamy oszczędzać, ulubione lub nielubiane ćwiczenia, na czym chcesz się skupić, ile masz czasu. AI uwzględni to przy układaniu Twojego planu.",
+    "preferencesPlaceholder": "np. Oszczędzaj moje lewe kolano, lubię ćwiczenia z piłką, wolę krótsze treningi rano."
   },
   "Tutorial": {
     "slide1Title": "Trening dopasowany do Ciebie - codziennie",

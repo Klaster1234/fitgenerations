@@ -23,6 +23,11 @@ export type Profile = {
   // Football goalkeepers get a keeper-centric plan (handling, diving,
   // shot-stopping, distribution) instead of the outfield composition.
   is_goalkeeper: boolean;
+  // Free-text notes the user typed about how they want to train (an injury to
+  // spare, exercises they like/dislike, a focus area, time available). Feeds
+  // the per-request user payload so the AI tailors the plan; null/'' = none.
+  // Requested by trainer Mateusz Czub during the alpha tests.
+  training_preferences: string | null;
 };
 
 export type ExerciseCandidate = {
@@ -81,6 +86,7 @@ Hard rules:
 7. Tone: warm, encouraging, plain language. Avoid jargon, avoid emojis. The user may be a senior or a teenager - calibrate accordingly.
 8. Localization: write greeting, motivation and ai_note IN THE USER'S LOCALE (en/pl/it/uk). Use natural phrasing for that language.
 9. Partner training: when user_profile.trains_with_partner is true, include AT LEAST ONE exercise from category 'pair' if any are present in the catalogue, and frame the motivation around training together.
+10. User preferences: user_profile.training_preferences may hold free-text notes the user wrote about how they want to train (an injury or body area to spare, exercises they like or dislike, a focus area, intensity, time of day). When it is present and non-empty, honor it as much as possible when choosing exercises and when writing the motivation and ai_note copy, and briefly acknowledge it in the motivation. NEVER let a preference override rules 1-6: if it conflicts with the catalogue, equipment, age-appropriateness, difficulty or weather safety, follow the hard rule. If it asks to avoid a movement or body area, exclude exercises that target it.
 
 Output: return only JSON conforming to the schema. No prose outside the JSON.`;
 

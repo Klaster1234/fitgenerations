@@ -30,6 +30,9 @@ const profileRowSchema = z.object({
   role: z.enum(['participant', 'trainer']).nullable().optional(),
   interests: z.array(z.string()).nullable().optional(),
   is_goalkeeper: z.boolean().nullable().optional(),
+  // Free-text user notes (capped at 500 chars by the DB constraint; we trim
+  // defensively here too so an over-long legacy row can't bloat the prompt).
+  training_preferences: z.string().max(500).nullable().optional().catch(null),
 });
 
 const exerciseRowSchema = z.object({
@@ -97,7 +100,7 @@ export async function ensureTodayPlan(
   // anonymous user landing on /uk doesn't get an English plan.
   const { data: rawProfileRow } = await supabase
     .from('profiles')
-    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role, interests, is_goalkeeper')
+    .select('locale, age, fitness_level, equipment, goals, city, trains_with_partner, role, interests, is_goalkeeper, training_preferences')
     .eq('id', userId)
     .single();
 
@@ -120,6 +123,7 @@ export async function ensureTodayPlan(
     role: profileRow?.role ?? 'participant',
     interests: profileRow?.interests ?? [],
     is_goalkeeper: profileRow?.is_goalkeeper ?? false,
+    training_preferences: profileRow?.training_preferences ?? null,
   };
 
   // 2. Reuse today's plan unless we're forced to regenerate OR the cached

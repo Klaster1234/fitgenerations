@@ -75,3 +75,39 @@ export async function updateGroupCode(formData: FormData) {
   revalidatePath('/[locale]/settings', 'page');
   revalidatePath('/[locale]/group/[code]', 'page');
 }
+
+// Feature requested by trainer Mateusz Czub during the alpha tests: free-text
+// notes / preferences the user can type so the AI tailors the daily plan
+// (an injury to spare, exercises they like or dislike, a focus area, time).
+export async function updateTrainingPreferences(formData: FormData) {
+  const supabase = await createSupabaseServerClient();
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user) return;
+
+  // Trim, collapse to <=500 chars (matches the DB constraint), empty clears it.
+  // We store null rather than '' so the generator's "non-empty" check is simple.
+  const raw = String(formData.get('training_preferences') ?? '').trim().slice(0, 500);
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ training_preferences: raw === '' ? null : raw })
+    .eq('id', userData.user.id);
+
+  if (error) {
+    console.error('[settings/updateTrainingPreferences] failed', error);
+    return;
+  }
+
+  // Drop today's plan so it regenerates with the new preferences on the next
+  // /plan load, same as updateInterests - otherwise the user wouldn't see their
+  // note reflected until tomorrow. RLS daily_plans_self_all allows the delete.
+  const today = new Date().toISOString().slice(0, 10);
+  await supabase
+    .from('daily_plans')
+    .delete()
+    .eq('user_id', userData.user.id)
+    .eq('plan_date', today);
+
+  revalidatePath('/[locale]/settings', 'page');
+  revalidatePath('/[locale]/plan', 'page');
+}

@@ -8,7 +8,7 @@ import { Link } from '@/i18n/navigation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { OnboardingWizard, type OnboardingDefaults } from '../onboarding/wizard';
-import { updateGroupCode, updateInterests } from './actions';
+import { updateGroupCode, updateInterests, updateTrainingPreferences } from './actions';
 
 const INTEREST_KEYS = ['fitness', 'football', 'green'] as const;
 
@@ -29,7 +29,7 @@ export default async function SettingsPage({
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('age, fitness_level, interests, equipment, goals, city, trains_with_partner, group_code, is_goalkeeper')
+    .select('age, fitness_level, interests, equipment, goals, city, trains_with_partner, group_code, is_goalkeeper, training_preferences')
     .eq('id', userData.user!.id)
     .maybeSingle();
 
@@ -53,6 +53,7 @@ export default async function SettingsPage({
   const savedInterests = (profile?.interests as string[] | null) ?? [];
   const savedGoalkeeper = profile?.is_goalkeeper === true;
   const savedGroupCode = profile?.group_code ?? '';
+  const savedPreferences = profile?.training_preferences ?? '';
 
   return (
     <>
@@ -140,6 +141,37 @@ export default async function SettingsPage({
                     </Link>
                   </p>
                 )}
+                <button
+                  type="submit"
+                  className="px-6 py-3 bg-brand text-white rounded-md min-h-12 text-base font-medium"
+                >
+                  {tc('save')}
+                </button>
+              </form>
+            </section>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-card border-border/60 mb-6">
+          <CardContent className="p-7 sm:p-8">
+            <section className="space-y-3" aria-labelledby="preferences-heading">
+              <h2 id="preferences-heading" className="text-xl font-medium">
+                {t('preferencesTitle')}
+              </h2>
+              <p className="text-base text-muted">{t('preferencesHint')}</p>
+              <form action={updateTrainingPreferences} className="space-y-3">
+                <Label htmlFor="settings-preferences" className="sr-only">
+                  {t('preferencesTitle')}
+                </Label>
+                <textarea
+                  id="settings-preferences"
+                  name="training_preferences"
+                  defaultValue={savedPreferences}
+                  placeholder={t('preferencesPlaceholder')}
+                  maxLength={500}
+                  rows={4}
+                  className="flex w-full rounded-xl border-2 border-foreground/20 dark:border-foreground/35 bg-surface-2 px-4 py-3 text-base text-foreground shadow-sm placeholder:text-muted hover:border-foreground/40 dark:hover:border-foreground/50 transition-colors outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-background resize-y"
+                />
                 <button
                   type="submit"
                   className="px-6 py-3 bg-brand text-white rounded-md min-h-12 text-base font-medium"

@@ -261,7 +261,10 @@
     "groupTitle": "Group code",
     "groupHint": "Got a code from your trainer or a Move & Improve Day? Enter it here to join the group dashboard. Leave the field empty and save to leave the group.",
     "groupCurrent": "Your group: {code}.",
-    "groupView": "View group dashboard"
+    "groupView": "View group dashboard",
+    "preferencesTitle": "Your notes and preferences",
+    "preferencesHint": "Tell us what matters to you - an injury to go easy on, exercises you love or dislike, what you want to focus on, how much time you have. The AI takes this into account when building your plan.",
+    "preferencesPlaceholder": "e.g. Go easy on my left knee, I like ball drills, I prefer shorter morning sessions."
   },
   "Tutorial": {
     "slide1Title": "Personalized fitness, every day",

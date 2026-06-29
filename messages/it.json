@@ -261,7 +261,10 @@
     "groupTitle": "Codice gruppo",
     "groupHint": "Hai un codice dall'allenatore o da un Move & Improve Day? Inseriscilo qui per unirti al pannello del gruppo. Lascia il campo vuoto e salva per uscire dal gruppo.",
     "groupCurrent": "Il tuo gruppo: {code}.",
-    "groupView": "Vedi il pannello del gruppo"
+    "groupView": "Vedi il pannello del gruppo",
+    "preferencesTitle": "Le tue note e preferenze",
+    "preferencesHint": "Dicci cosa è importante per te - un infortunio da risparmiare, esercizi che ami o non ami, su cosa vuoi concentrarti, quanto tempo hai. L'AI ne tiene conto quando crea il tuo piano.",
+    "preferencesPlaceholder": "es. Vai piano con il ginocchio sinistro, mi piacciono gli esercizi con la palla, preferisco sessioni brevi al mattino."
   },
   "Tutorial": {
     "slide1Title": "Allenamento su misura, ogni giorno",
