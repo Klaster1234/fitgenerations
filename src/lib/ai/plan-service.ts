@@ -5,6 +5,7 @@ import { generatePlan, type Profile, type ExerciseCandidate } from './plan-gener
 import { buildBaselinePlan } from './baseline-plan';
 import { composeFootballPlan } from './football-composition';
 import { composeGoalkeeperPlan } from './goalkeeper-composition';
+import { refinePlanWithPreferences } from './preferred-composition';
 import { getWeather, type WeatherSnapshot } from '@/lib/weather';
 
 // exported for tests
@@ -221,9 +222,17 @@ export async function ensureTodayPlan(
     // Goalkeepers get a keeper-centric composition (handling -> diving ->
     // shot-stopping -> distribution); other football users get the outfield
     // composition (warmup -> drill -> drill/trick -> game).
-    prePickedItems = profile.is_goalkeeper
+    const baseline = profile.is_goalkeeper
       ? composeGoalkeeperPlan(catalogue, { budgetMinutes: 60, seed: Date.parse(today) })
       : composeFootballPlan(catalogue, { budgetMinutes: 60, seed: Date.parse(today) });
+    // When the user wrote training preferences, let the model swap baseline
+    // items for better-fitting exercises OF THE SAME CATEGORY (e.g. spare an
+    // injured knee, lean into a focus area). The structure and time budget are
+    // guaranteed by a deterministic fallback to the baseline. No preferences ->
+    // baseline is used as-is (no extra model call).
+    prePickedItems = profile.training_preferences?.trim()
+      ? await refinePlanWithPreferences({ baseline, catalogue, profile, budgetMinutes: 60 })
+      : baseline;
   }
 
   // 5b. Try AI; fall back to deterministic baseline on any failure (or no key)
