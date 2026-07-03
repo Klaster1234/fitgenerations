@@ -175,6 +175,24 @@ export default async function GroupPage({
             <li>{t('howStep3')}</li>
           </ol>
         </section>
+
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold">{t('downloadsTitle')}</h2>
+          <p className="mt-1 text-sm text-muted">{t('downloadsLede')}</p>
+          <Card className="mt-4">
+            <CardContent className="p-4">
+              <a
+                href="/docs/attendance-list.docx"
+                download
+                className="inline-flex min-h-12 items-center gap-2 text-base font-semibold text-brand underline hover:text-brand-dark"
+              >
+                <span aria-hidden>⬇</span>
+                <span>{t('downloadAttendance')}</span>
+              </a>
+              <p className="mt-1 text-sm text-muted">{t('downloadAttendanceHint')}</p>
+            </CardContent>
+          </Card>
+        </section>
       </main>
     </>
   );
