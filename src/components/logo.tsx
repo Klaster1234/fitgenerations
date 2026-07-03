@@ -26,7 +26,9 @@ export function Logo({ size = 'md', className }: { size?: Size; className?: stri
       >
         <Zap className={d.icon} strokeWidth={2.5} />
       </span>
-      <span className="text-brand-darker">FGST</span>
+      <span className="text-brand-darker whitespace-nowrap">
+        Smart Tr<span className="text-brand">AI</span>ner
+      </span>
     </span>
   );
 }

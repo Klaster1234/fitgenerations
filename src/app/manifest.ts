@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'FitGenerations Smart TrAIner',
-    short_name: 'FGST',
+    name: 'Smart TrAIner',
+    short_name: 'Smart TrAIner',
     description: 'AI training companion for every generation - Erasmus+ Sport 2026',
     start_url: '/',
     scope: '/',

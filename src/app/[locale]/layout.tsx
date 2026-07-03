@@ -44,7 +44,7 @@ export async function generateMetadata({
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fgst.vercel.app'),
     appleWebApp: {
       capable: true,
-      title: 'FGST',
+      title: 'Smart TrAIner',
       statusBarStyle: 'default',
     },
     formatDetection: { telephone: false, address: false, email: false },
