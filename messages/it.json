@@ -27,7 +27,7 @@
     "navEventsCta": "Vedi gli eventi",
     "manifestKicker": "Perché lo facciamo",
     "manifestQuote": "Il movimento è il dono più semplice che possiamo farci a vicenda. L'abbiamo costruito per ogni corpo, a ogni età - e nessuno pagherà un centesimo.",
-    "manifestAttribution": "FGST · Erasmus+ Sport 2026",
+    "manifestAttribution": "Smart TrAIner · Erasmus+ Sport 2026",
     "value1Kicker": "Lingua",
     "value1Title": "Ognuno, nella propria lingua.",
     "value1Body": "Italiano, polacco, inglese e ucraino - pensiamo anche ai rifugiati ucraini. Accessibilità WCAG 2.1 AA: caratteri grandi, pulsanti generosi per gli anziani, supporto completo per i lettori di schermo.",
@@ -59,7 +59,7 @@
     "feature2Body": "Per bambini, adulti, anziani e rifugiati - con interfaccia accessibile, quattro lingue e istruzioni chiare.",
     "feature3Title": "Muoviamoci insieme",
     "feature3Body": "Serie consecutive, distintivi e il feed #SmartMoveChallenge trasformano l'allenamento solitario in un movimento condiviso.",
-    "diffTitle": "Cosa rende FGST diverso",
+    "diffTitle": "Cosa rende Smart TrAIner diverso",
     "diff1Title": "Consapevole del meteo",
     "diff1Body": "Piove? Ricevi un piano al chiuso. Sole? Plogging o Nordic walking all'aperto.",
     "diff2Title": "Davvero multilingue",
@@ -367,8 +367,8 @@
   "Privacy": {
     "title": "Informativa sulla privacy",
     "templateNotice": "[MODELLO - testo da far rivedere a un legale prima della produzione]",
-    "intro": "Questa pagina spiega quali dati personali raccoglie FitGenerations Smart TrAIner (FGST), perché li raccoglie e come puoi controllarli. L'app è cofinanziata dall'Unione Europea nell'ambito di Erasmus+ Sport e rispetta il Regolamento Generale sulla Protezione dei Dati (GDPR).",
-    "controller": "Titolare del trattamento. Il titolare dei tuoi dati personali è il consorzio del progetto FGST. Per qualsiasi questione sulla protezione dei dati scrivi all'indirizzo indicato nella sezione Contatti qui sotto.",
+    "intro": "Questa pagina spiega quali dati personali raccoglie Smart TrAIner, perché li raccoglie e come puoi controllarli. L'app è cofinanziata dall'Unione Europea nell'ambito di Erasmus+ Sport e rispetta il Regolamento Generale sulla Protezione dei Dati (GDPR).",
+    "controller": "Titolare del trattamento. Il titolare dei tuoi dati personali è il consorzio del progetto Smart TrAIner. Per qualsiasi questione sulla protezione dei dati scrivi all'indirizzo indicato nella sezione Contatti qui sotto.",
     "dataCollected": "Dati raccolti. Email dell'account e hash della password (gestiti da Supabase Auth). Risposte all'onboarding: età, livello di forma, attrezzatura, obiettivi, città. Registro attività: quali esercizi completi e quando. Facoltativo: link a un video che invii al feed pubblico #SmartMoveChallenge.",
     "purpose": "Finalità del trattamento. Generare il tuo piano quotidiano personalizzato, tenere traccia della serie e dei distintivi, mostrare statistiche di gruppo all'allenatore del Move & Improve Day e valutare la portata del progetto come richiesto dal finanziatore Erasmus+.",
     "legalBasis": "Base giuridica. Per i dati dell'onboarding ci basiamo sul consenso (art. 6, par. 1, lett. a GDPR), per la gestione dell'account sull'esecuzione del contratto (art. 6, par. 1, lett. b GDPR), per le statistiche aggregate anonimizzate destinate al finanziatore sul legittimo interesse (art. 6, par. 1, lett. f GDPR).",
@@ -381,8 +381,8 @@
   "Terms": {
     "title": "Termini di servizio",
     "templateNotice": "[MODELLO - revisione legale richiesta prima della produzione]",
-    "intro": "Questi termini regolano l'uso di FitGenerations Smart TrAIner (FGST). L'app è fornita gratuitamente nell'ambito del progetto Erasmus+ Sport 101245857. Creando un account accetti questi termini.",
-    "eligibility": "Requisiti. FGST è aperto a chiunque abbia tra i 6 e i 120 anni. Gli utenti con meno di 16 anni devono avere il consenso di un genitore o tutore che accetta i termini e l'informativa sulla privacy per loro conto.",
+    "intro": "Questi termini regolano l'uso di Smart TrAIner. L'app è fornita gratuitamente nell'ambito del progetto Erasmus+ Sport 101245857. Creando un account accetti questi termini.",
+    "eligibility": "Requisiti. Smart TrAIner è aperto a chiunque abbia tra i 6 e i 120 anni. Gli utenti con meno di 16 anni devono avere il consenso di un genitore o tutore che accetta i termini e l'informativa sulla privacy per loro conto.",
     "accountResponsibility": "Il tuo account. Sei responsabile della riservatezza della tua password e dell'attività svolta con il tuo account. Avvisaci subito se sospetti un accesso non autorizzato.",
     "acceptableUse": "Uso accettabile. Non caricare contenuti illegali, dannosi o offensivi. Non tentare di disturbare il servizio, raccogliere dati in modo automatizzato o aggirare l'autenticazione. Gli account allenatore vanno usati solo per gestire gruppi reali di Move & Improve Day.",
     "disclaimer": "Avvertenza sanitaria. I piani di esercizi sono suggerimenti generati dall'AI e non costituiscono consulenza medica. Consulta un medico prima di iniziare un nuovo programma di allenamento, soprattutto in presenza di patologie. Interrompi l'esercizio in caso di dolore.",
@@ -393,7 +393,7 @@
   },
   "Account": {
     "deleteTitle": "Elimina l'account",
-    "deleteIntro": "Puoi eliminare il tuo account FGST in qualsiasi momento. Questa pagina spiega cosa succede quando lo fai.",
+    "deleteIntro": "Puoi eliminare il tuo account Smart TrAIner in qualsiasi momento. Questa pagina spiega cosa succede quando lo fai.",
     "deleteWarning": "ATTENZIONE: L'operazione è irreversibile. Profilo, piani giornalieri, cronologia attività, distintivi ottenuti e video inviati saranno cancellati definitivamente entro 30 giorni. Le statistiche aggregate e anonime già condivise con il finanziatore Erasmus+ non possono essere revocate.",
     "deleteConfirmLabel": "Per confermare, digita DELETE (in lettere maiuscole)",
     "deleteConfirmWord": "DELETE",
@@ -401,12 +401,12 @@
     "deleteError": "Non è stato possibile eliminare l'account. Riprova o contatta il team del progetto.",
     "deleteSuccess": "L'account è stato eliminato.",
     "exportTitle": "Esporta i tuoi dati",
-    "exportIntro": "Scarica un file JSON con tutti i dati che FGST conserva su di te: profilo, piani, registro attività, distintivi e video. Il download parte subito dopo il click.",
+    "exportIntro": "Scarica un file JSON con tutti i dati che Smart TrAIner conserva su di te: profilo, piani, registro attività, distintivi e video. Il download parte subito dopo il click.",
     "exportButton": "Genera l'esportazione",
     "exportError": "Non è stato possibile preparare l'esportazione. Riprova."
   },
   "Consent": {
-    "message": "FGST usa cookie essenziali per mantenere la sessione. Non usiamo tracker di analitica o pubblicitari. I dettagli sono nell'informativa sulla privacy.",
+    "message": "Smart TrAIner usa cookie essenziali per mantenere la sessione. Non usiamo tracker di analitica o pubblicitari. I dettagli sono nell'informativa sulla privacy.",
     "accept": "Accetta tutto",
     "reject": "Solo essenziali",
     "privacyLink": "Informativa sulla privacy"

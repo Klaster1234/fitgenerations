@@ -27,7 +27,7 @@
     "navEventsCta": "See the events",
     "manifestKicker": "Why we built this",
     "manifestQuote": "Movement is the simplest gift we can give each other. We built it for every body, every age - and nobody pays a thing.",
-    "manifestAttribution": "FGST · Erasmus+ Sport 2026",
+    "manifestAttribution": "Smart TrAIner · Erasmus+ Sport 2026",
     "value1Kicker": "Language",
     "value1Title": "Everyone, in their own words.",
     "value1Body": "English, Polish, Italian and Ukrainian - built with refugees from Ukraine in mind from day one. WCAG 2.1 AA accessibility: large type, generous touch targets, full screen-reader support.",
@@ -59,7 +59,7 @@
     "feature2Body": "Built for kids, adults, seniors and refugees - with accessible UI, four languages, and clear instructions.",
     "feature3Title": "Move together",
     "feature3Body": "Streaks, badges, and the #SmartMoveChallenge feed turn solo workouts into a shared movement.",
-    "diffTitle": "What makes FGST different",
+    "diffTitle": "What makes Smart TrAIner different",
     "diff1Title": "Weather-aware",
     "diff1Body": "Pouring rain? Get an indoor plan. Sunny? Plogging or Nordic walking outdoors.",
     "diff2Title": "Truly multilingual",
@@ -367,8 +367,8 @@
   "Privacy": {
     "title": "Privacy policy",
     "templateNotice": "[TEMPLATE - replace with lawyer-reviewed text before production]",
-    "intro": "This page explains what personal data FitGenerations Smart TrAIner (FGST) collects, why we collect it, and how you can control it. The app is co-funded by the European Union under Erasmus+ Sport and follows the General Data Protection Regulation (GDPR).",
-    "controller": "Data controller. The controller of your personal data is the FGST project consortium. For data-protection questions, contact the project team at the address listed in the Contact section below.",
+    "intro": "This page explains what personal data Smart TrAIner collects, why we collect it, and how you can control it. The app is co-funded by the European Union under Erasmus+ Sport and follows the General Data Protection Regulation (GDPR).",
+    "controller": "Data controller. The controller of your personal data is the Smart TrAIner project consortium. For data-protection questions, contact the project team at the address listed in the Contact section below.",
     "dataCollected": "Data we collect. Account email and password hash (handled by Supabase Auth). Onboarding answers: age, fitness level, equipment, goals, city. Activity logs: which exercises you complete and when. Optional: a video link you submit to the public #SmartMoveChallenge feed.",
     "purpose": "Why we use your data. To generate a personalised daily plan, to keep track of your streak and badges, to show group-level statistics to the trainer running your Move & Improve Day, and to evaluate the project's reach as required by our Erasmus+ funder.",
     "legalBasis": "Legal basis. We rely on your consent (Article 6(1)(a) GDPR) to process onboarding data and your performance of the user agreement (Article 6(1)(b) GDPR) to provide the account itself. Aggregate, anonymised statistics for the funder rely on legitimate interest (Article 6(1)(f) GDPR).",
@@ -381,8 +381,8 @@
   "Terms": {
     "title": "Terms of service",
     "templateNotice": "[TEMPLATE - lawyer review needed before production]",
-    "intro": "These terms govern your use of FitGenerations Smart TrAIner (FGST). The app is provided free of charge as part of the Erasmus+ Sport project 101245857. By creating an account you agree to these terms.",
-    "eligibility": "Eligibility. FGST is open to anyone aged 6 to 120. Users under 16 must have a parent or guardian who agrees to these terms and the privacy policy on their behalf.",
+    "intro": "These terms govern your use of Smart TrAIner. The app is provided free of charge as part of the Erasmus+ Sport project 101245857. By creating an account you agree to these terms.",
+    "eligibility": "Eligibility. Smart TrAIner is open to anyone aged 6 to 120. Users under 16 must have a parent or guardian who agrees to these terms and the privacy policy on their behalf.",
     "accountResponsibility": "Your account. You are responsible for keeping your password safe and for activity that happens under your account. Please tell us immediately if you suspect unauthorised access.",
     "acceptableUse": "Acceptable use. Do not upload illegal, harmful or offensive content. Do not attempt to disrupt the service, scrape data, or circumvent authentication. Trainer accounts must only be used to manage genuine Move & Improve Day groups.",
     "disclaimer": "Health disclaimer. The exercise plans are AI-generated suggestions, not medical advice. Talk to a doctor before starting a new training programme, especially if you have a health condition. Stop if anything hurts.",
@@ -393,7 +393,7 @@
   },
   "Account": {
     "deleteTitle": "Delete your account",
-    "deleteIntro": "You can delete your FGST account at any time. This page explains what happens when you do.",
+    "deleteIntro": "You can delete your Smart TrAIner account at any time. This page explains what happens when you do.",
     "deleteWarning": "CRITICAL: This action is irreversible. Your profile, daily plans, activity history, earned badges and any submitted challenge videos will be permanently removed within 30 days. Anonymous, aggregated statistics already shared with the Erasmus+ funder cannot be revoked.",
     "deleteConfirmLabel": "Type DELETE (in capital letters) to confirm",
     "deleteConfirmWord": "DELETE",
@@ -401,12 +401,12 @@
     "deleteError": "We couldn't delete the account. Please try again or contact the project team.",
     "deleteSuccess": "Your account has been deleted.",
     "exportTitle": "Export your data",
-    "exportIntro": "Download a JSON file with everything FGST stores about you: profile, plans, activity logs, badges and challenge videos. The download starts as soon as you click the button below.",
+    "exportIntro": "Download a JSON file with everything Smart TrAIner stores about you: profile, plans, activity logs, badges and challenge videos. The download starts as soon as you click the button below.",
     "exportButton": "Generate export",
     "exportError": "We couldn't prepare the export. Please try again."
   },
   "Consent": {
-    "message": "FGST uses essential cookies to keep you signed in. We don't run analytics or advertising trackers. You can read the details in our privacy policy.",
+    "message": "Smart TrAIner uses essential cookies to keep you signed in. We don't run analytics or advertising trackers. You can read the details in our privacy policy.",
     "accept": "Accept all",
     "reject": "Essential only",
     "privacyLink": "Privacy policy"

@@ -27,7 +27,7 @@
     "navEventsCta": "Zobacz wydarzenia",
     "manifestKicker": "Po co to robimy",
     "manifestQuote": "Ruch to najprostszy dar, jaki możemy dać sobie nawzajem. Zbudowaliśmy go dla każdego ciała, w każdym wieku - i nikt nie zapłaci za niego ani złotówki.",
-    "manifestAttribution": "FGST · Erasmus+ Sport 2026",
+    "manifestAttribution": "Smart TrAIner · Erasmus+ Sport 2026",
     "value1Kicker": "Język",
     "value1Title": "Każdy w swoim języku.",
     "value1Body": "Polski, włoski, angielski i ukraiński - myślimy też o uchodźcach z Ukrainy. Aplikacja jest zgodna z WCAG 2.1 AA: duże czcionki, wygodne przyciski dla seniorów, współpraca z czytnikami ekranu.",
@@ -59,7 +59,7 @@
     "feature2Body": "Dla dzieci, dorosłych, seniorów i uchodźców - z dostępnym interfejsem, czterema językami i jasnymi instrukcjami.",
     "feature3Title": "Ruszamy się razem",
     "feature3Body": "Streaki, odznaki i feed #SmartMoveChallenge zamieniają samotny trening we wspólny ruch.",
-    "diffTitle": "Czym FGST różni się od reszty",
+    "diffTitle": "Czym Smart TrAIner różni się od reszty",
     "diff1Title": "Świadomy pogody",
     "diff1Body": "Leje? Dostajesz plan w pomieszczeniu. Słońce? Plogging lub Nordic walking na zewnątrz.",
     "diff2Title": "Naprawdę wielojęzyczny",
@@ -367,8 +367,8 @@
   "Privacy": {
     "title": "Polityka prywatności",
     "templateNotice": "[SZABLON - przed wdrożeniem produkcyjnym treść musi zweryfikować prawnik]",
-    "intro": "Ta strona wyjaśnia, jakie dane osobowe zbiera FitGenerations Smart TrAIner (FGST), w jakim celu i w jaki sposób Pan/Pani może je kontrolować. Aplikacja jest współfinansowana przez Unię Europejską w ramach Erasmus+ Sport i działa zgodnie z RODO.",
-    "controller": "Administrator danych. Administratorem danych osobowych jest konsorcjum projektu FGST. W sprawach związanych z ochroną danych proszę pisać na adres podany w sekcji Kontakt poniżej.",
+    "intro": "Ta strona wyjaśnia, jakie dane osobowe zbiera Smart TrAIner, w jakim celu i w jaki sposób Pan/Pani może je kontrolować. Aplikacja jest współfinansowana przez Unię Europejską w ramach Erasmus+ Sport i działa zgodnie z RODO.",
+    "controller": "Administrator danych. Administratorem danych osobowych jest konsorcjum projektu Smart TrAIner. W sprawach związanych z ochroną danych proszę pisać na adres podany w sekcji Kontakt poniżej.",
     "dataCollected": "Zakres przetwarzanych danych. Adres e-mail i skrót hasła (obsługiwane przez Supabase Auth). Odpowiedzi z onboardingu: wiek, poziom kondycji, sprzęt, cele, miasto. Dziennik aktywności: jakie ćwiczenia i kiedy zostały wykonane. Opcjonalnie: link do filmu w publicznej tablicy #SmartMoveChallenge.",
     "purpose": "Cele przetwarzania. Generowanie spersonalizowanego planu dziennego, śledzenie serii treningów i odznak, prezentowanie statystyk grupowych trenerowi prowadzącemu Move & Improve Day oraz ocena rezultatów projektu wymagana przez sponsora (Erasmus+).",
     "legalBasis": "Podstawa prawna. Przetwarzanie danych z onboardingu opiera się na zgodzie (art. 6 ust. 1 lit. a RODO), prowadzenie konta na wykonaniu umowy (art. 6 ust. 1 lit. b RODO), a zanonimizowane statystyki zbiorcze przekazywane sponsorowi na uzasadnionym interesie (art. 6 ust. 1 lit. f RODO).",
@@ -381,8 +381,8 @@
   "Terms": {
     "title": "Regulamin",
     "templateNotice": "[SZABLON - przed wdrożeniem produkcyjnym wymagana weryfikacja prawnika]",
-    "intro": "Regulamin określa zasady korzystania z FitGenerations Smart TrAIner (FGST). Aplikacja jest udostępniana bezpłatnie w ramach projektu Erasmus+ Sport 101245857. Zakładając konto, akceptuje Pan/Pani niniejszy regulamin.",
-    "eligibility": "Warunki dostępu. Z FGST mogą korzystać osoby w wieku od 6 do 120 lat. Osoby poniżej 16 roku życia muszą mieć zgodę rodzica lub opiekuna prawnego, który akceptuje regulamin i politykę prywatności w ich imieniu.",
+    "intro": "Regulamin określa zasady korzystania z Smart TrAIner. Aplikacja jest udostępniana bezpłatnie w ramach projektu Erasmus+ Sport 101245857. Zakładając konto, akceptuje Pan/Pani niniejszy regulamin.",
+    "eligibility": "Warunki dostępu. Z Smart TrAIner mogą korzystać osoby w wieku od 6 do 120 lat. Osoby poniżej 16 roku życia muszą mieć zgodę rodzica lub opiekuna prawnego, który akceptuje regulamin i politykę prywatności w ich imieniu.",
     "accountResponsibility": "Konto. Użytkownik odpowiada za zachowanie hasła w poufności oraz za działania podjęte z jego konta. Proszę natychmiast nas poinformować, jeśli istnieje podejrzenie nieautoryzowanego dostępu.",
     "acceptableUse": "Dopuszczalne korzystanie. Zabronione jest publikowanie treści niezgodnych z prawem, szkodliwych lub obraźliwych. Nie wolno zakłócać działania serwisu, masowo pobierać danych ani omijać uwierzytelniania. Konta trenerów służą wyłącznie do prowadzenia rzeczywistych grup Move & Improve Day.",
     "disclaimer": "Zastrzeżenie zdrowotne. Plany ćwiczeń są propozycjami generowanymi przez AI, a nie poradą medyczną. Przed rozpoczęciem nowego programu treningowego, zwłaszcza w przypadku chorób przewlekłych, proszę skonsultować się z lekarzem. W razie bólu należy przerwać ćwiczenie.",
@@ -393,7 +393,7 @@
   },
   "Account": {
     "deleteTitle": "Usuń konto",
-    "deleteIntro": "Konto FGST można usunąć w dowolnej chwili. Tutaj wyjaśniamy, co się wtedy stanie.",
+    "deleteIntro": "Konto Smart TrAIner można usunąć w dowolnej chwili. Tutaj wyjaśniamy, co się wtedy stanie.",
     "deleteWarning": "UWAGA: Operacja jest nieodwracalna. Profil, plany dzienne, historia aktywności, zdobyte odznaki oraz przesłane filmy zostaną trwale usunięte w ciągu 30 dni. Zanonimizowanych statystyk zbiorczych przekazanych już sponsorowi Erasmus+ nie da się cofnąć.",
     "deleteConfirmLabel": "Aby potwierdzić, wpisz słowo DELETE (wielkimi literami)",
     "deleteConfirmWord": "DELETE",
@@ -401,12 +401,12 @@
     "deleteError": "Nie udało się usunąć konta. Spróbuj ponownie lub skontaktuj się z zespołem projektu.",
     "deleteSuccess": "Konto zostało usunięte.",
     "exportTitle": "Eksport danych",
-    "exportIntro": "Pobierz plik JSON ze wszystkimi danymi, jakie FGST o Tobie przechowuje: profil, plany, dziennik aktywności, odznaki i filmy. Pobieranie rozpocznie się od razu po kliknięciu.",
+    "exportIntro": "Pobierz plik JSON ze wszystkimi danymi, jakie Smart TrAIner o Tobie przechowuje: profil, plany, dziennik aktywności, odznaki i filmy. Pobieranie rozpocznie się od razu po kliknięciu.",
     "exportButton": "Wygeneruj eksport",
     "exportError": "Nie udało się przygotować eksportu. Spróbuj ponownie."
   },
   "Consent": {
-    "message": "FGST używa niezbędnych plików cookie, aby utrzymać Cię w sesji. Nie stosujemy trackerów analitycznych ani reklamowych. Szczegóły w polityce prywatności.",
+    "message": "Smart TrAIner używa niezbędnych plików cookie, aby utrzymać Cię w sesji. Nie stosujemy trackerów analitycznych ani reklamowych. Szczegóły w polityce prywatności.",
     "accept": "Akceptuję wszystko",
     "reject": "Tylko niezbędne",
     "privacyLink": "Polityka prywatności"

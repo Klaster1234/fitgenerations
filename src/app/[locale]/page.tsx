@@ -25,7 +25,7 @@ export default async function LandingPage({
           <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-brand text-emerald-950 shadow-soft">
             <Zap className="w-4 h-4" strokeWidth={2.5} aria-hidden />
           </span>
-          <span className="text-brand-darker dark:text-brand">FGST</span>
+          <span className="text-brand-darker dark:text-brand whitespace-nowrap">Smart Tr<span className="text-brand dark:text-white">AI</span>ner</span>
         </Link>
         <div className="flex items-center gap-1 sm:gap-2">
           <Link
