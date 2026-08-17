@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config';
 import { NextResponse, type NextRequest } from 'next/server';
 
 /**
@@ -24,13 +25,13 @@ export async function updateSupabaseSession(
   response: NextResponse,
 ): Promise<NextResponse> {
   // Skip if Supabase env vars are missing (lets us run before keys are wired up).
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     return response;
   }
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
