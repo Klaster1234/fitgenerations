@@ -1,6 +1,6 @@
 import 'server-only';
-import Groq from 'groq-sdk';
 import { z } from 'zod';
+import { AI_MODEL, createAiClient, isAiConfigured, providerExtras } from './client';
 import type { WeatherSnapshot } from '@/lib/weather';
 
 // --- Types ----------------------------------------------------------------
@@ -60,14 +60,13 @@ export type GeneratedPlan = z.infer<typeof planSchema>;
 
 // --- Model configuration --------------------------------------------------
 
-// Default: openai/gpt-oss-120b on Groq's free tier. Picked over Llama 3.3
-// 70B because Llama 3.3 on Groq does NOT support `response_format: json_schema`
-// (verified 2026-05-21 - returns 400). gpt-oss-120b supports strict JSON
-// schema, has built-in chain-of-thought reasoning (better plan structure)
-// and 65k context (plenty for our payload). Alternatives that also support
-// json_schema: meta-llama/llama-4-scout-17b-16e-instruct (smaller, faster),
-// meta-llama/llama-4-maverick-17b-128e-instruct (larger context).
-const MODEL_ID = process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b';
+// Provider and model now live in lib/ai/client.ts. The plan payload carries
+// personal data (age, city, injury notes), so the endpoint has to stay in the
+// EU - see the note there before pointing AI_BASE_URL anywhere else.
+//
+// Whatever model is used must support `response_format: json_schema` with
+// strict mode; the parser below relies on it. Verified 2026-05-21 that Llama
+// 3.3 70B does NOT (returns 400), so it is not a drop-in alternative.
 
 // System prompt is identical to the previous Anthropic version - kept
 // deterministic so server-side prompt caching on Groq (where supported)
@@ -131,11 +130,11 @@ export async function generatePlan(args: {
   date: string; // YYYY-MM-DD
   catalogue: ExerciseCandidate[];
 }): Promise<GeneratedPlan> {
-  if (!process.env.GROQ_API_KEY) {
-    throw new Error('GROQ_API_KEY not configured');
+  if (!isAiConfigured()) {
+    throw new Error('AI_API_KEY not configured');
   }
 
-  const client = new Groq();
+  const client = createAiClient();
 
   const userPayload = {
     user_profile: args.profile,
@@ -145,18 +144,18 @@ export async function generatePlan(args: {
   };
 
   const response = await client.chat.completions.create({
-    model: MODEL_ID,
+    model: AI_MODEL,
     max_tokens: 2000,
     // Slight creativity so plans don't read like templates, but low enough
-    // to keep clinical/senior-care tone stable. Groq supports the standard
-    // OpenAI-compatible temperature param.
+    // to keep clinical/senior-care tone stable. Standard OpenAI-compatible
+    // param, supported by every provider we target.
     temperature: 0.6,
     // gpt-oss models burn a lot of reasoning tokens at the default ('medium')
     // — for our task (pick 4-5 items from a 20-item catalogue with localized
     // copy) 'low' produced identical quality at 2-11x lower latency in the
-    // 2026-05-21 4-locale benchmark (UK: 17s → 1.5s). Bump back to 'medium'
-    // only if pilot feedback flags shallow reasoning in the ai_note copy.
-    reasoning_effort: 'low',
+    // 2026-05-21 4-locale benchmark (UK: 17s → 1.5s). Only sent to providers
+    // that accept it; others 400 on the unknown field.
+    ...providerExtras(),
     response_format: {
       type: 'json_schema',
       json_schema: {

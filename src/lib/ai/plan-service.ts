@@ -1,6 +1,7 @@
 import 'server-only';
 import { z } from 'zod';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { AI_MODEL, isAiConfigured } from './client';
 import { generatePlan, type Profile, type ExerciseCandidate } from './plan-generator';
 import { buildBaselinePlan } from './baseline-plan';
 import { composeFootballPlan } from './football-composition';
@@ -238,7 +239,7 @@ export async function ensureTodayPlan(
   // 5b. Try AI; fall back to deterministic baseline on any failure (or no key)
   let aiPlan;
   let source: 'ai' | 'baseline' = 'baseline';
-  if (process.env.GROQ_API_KEY) {
+  if (isAiConfigured()) {
     try {
       aiPlan = await generatePlan({
         profile,
@@ -297,8 +298,7 @@ export async function ensureTodayPlan(
     weather: weather as unknown as Record<string, unknown> | null,
     items: aiPlan.items,
     ai_summary: `${aiPlan.greeting}\n\n${aiPlan.motivation}`,
-    ai_model:
-      source === 'ai' ? process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b' : 'baseline-template',
+    ai_model: source === 'ai' ? AI_MODEL : 'baseline-template',
     locale: profile.locale,
   };
 

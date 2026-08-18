@@ -1,11 +1,7 @@
 import 'server-only';
-import Groq from 'groq-sdk';
 import { z } from 'zod';
+import { AI_MODEL, createAiClient, isAiConfigured, providerExtras } from './client';
 import type { ExerciseCandidate, Profile } from './plan-generator';
-
-// Same model as the plan generator so we share Groq's prompt cache warmth and
-// don't introduce a second model dependency.
-const MODEL_ID = process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b';
 
 // System prompt is constant (cache-friendly). The per-request slots + the
 // user's written preference go in the user message.
@@ -112,7 +108,7 @@ export async function refinePlanWithPreferences(args: {
 }): Promise<ExerciseCandidate[]> {
   const { baseline, catalogue, profile, budgetMinutes } = args;
   const prefs = profile.training_preferences?.trim();
-  if (!prefs || baseline.length === 0 || !process.env.GROQ_API_KEY) return baseline;
+  if (!prefs || baseline.length === 0 || !isAiConfigured()) return baseline;
 
   const usedCategories = new Set(baseline.map((b) => b.category));
   const optionsByCategory = new Map<string, ExerciseCandidate[]>();
@@ -143,13 +139,13 @@ export async function refinePlanWithPreferences(args: {
   };
 
   try {
-    const client = new Groq();
+    const client = createAiClient();
     const response = await client.chat.completions.create({
-      model: MODEL_ID,
+      model: AI_MODEL,
       max_tokens: 500,
       // Low temperature: this is a faithful selection task, not a creative one.
       temperature: 0.2,
-      reasoning_effort: 'low',
+      ...providerExtras(),
       response_format: {
         type: 'json_schema',
         json_schema: {
