@@ -12,6 +12,10 @@ type FgstEvent = {
   countryFlag: string;
   city: string;
   participantsTarget: string;
+  // Events namespace key holding the confirmed date. Set it once the date is
+  // locked in - the card then shows that date instead of the season + "to be
+  // confirmed" line.
+  confirmedDateKey?: string;
 };
 
 // Note: specific dates are not committed publicly until confirmed.
@@ -23,6 +27,7 @@ const EVENTS: FgstEvent[] = [
     countryFlag: '🇵🇱',
     city: 'Gliwice',
     participantsTarget: '80+',
+    confirmedDateKey: 'midPlDate',
   },
   {
     id: 'mid-it',
@@ -121,9 +126,15 @@ export default async function EventsPage({
                     <dt className="sr-only">{t('dateLabel')}</dt>
                     <dd className="text-base">
                       <span className="font-bold">
-                        {t(ev.kind === 'mid' ? 'midPeriod' : 'olympicsPeriod')}
+                        {ev.confirmedDateKey
+                          ? t(ev.confirmedDateKey)
+                          : t(ev.kind === 'mid' ? 'midPeriod' : 'olympicsPeriod')}
                       </span>
-                      <span className="block text-sm text-foreground/70 mt-0.5">{t('dateTba')}</span>
+                      {!ev.confirmedDateKey && (
+                        <span className="block text-sm text-foreground/70 mt-0.5">
+                          {t('dateTba')}
+                        </span>
+                      )}
                     </dd>
                   </div>
                 </div>
