@@ -22,10 +22,20 @@ import Groq from 'groq-sdk';
  * candidate providers serve too; nothing Groq-specific is assumed outside of
  * `providerExtras`.
  */
-const DEFAULT_BASE_URL = 'https://api.groq.com/openai/v1';
+const DEFAULT_BASE_URL = 'https://api.groq.com';
 const DEFAULT_MODEL = 'openai/gpt-oss-120b';
 
-export const AI_BASE_URL = process.env.AI_BASE_URL ?? DEFAULT_BASE_URL;
+/**
+ * groq-sdk appends `/openai/v1` to the base URL itself, so a base that already
+ * carries that suffix produces `/openai/v1/openai/v1/chat/completions` and the
+ * provider answers 404 - which the planner then swallows into a baseline plan.
+ * Strip it so either spelling of the env var works.
+ */
+function normaliseBaseUrl(url: string): string {
+  return url.replace(/\/openai\/v1\/?$/, '');
+}
+
+export const AI_BASE_URL = normaliseBaseUrl(process.env.AI_BASE_URL ?? DEFAULT_BASE_URL);
 export const AI_MODEL = process.env.AI_MODEL ?? DEFAULT_MODEL;
 
 function apiKey(): string | undefined {
